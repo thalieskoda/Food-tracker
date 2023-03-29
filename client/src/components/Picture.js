@@ -7,33 +7,29 @@ const Picture = () => {
   return (
     <>
       <Wrapper>
-      
-          <Img src={road} alt="My Image" />
-        
-          <Img src={image} alt="My Image" />
-          <Img src={thailand} alt="My Image" />
-        
+        <Img src={road} alt="My Image" />
+        <Img src={image} alt="My Image" />
+        <Img src={thailand} alt="My Image" />
       </Wrapper>
     </>
   );
 };
 
-
 const Img = styled.img`
-height:100%;
-width:290px;
-object-fit: none;
-filter: grayscale(100%);
-transition: filter 0.3s ease;
-&:hover {
-  filter: grayscale(0);
-}
+  height: 100%;
+  width: 290px;
+  object-fit: none;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+  &:hover {
+    filter: grayscale(0);
+  }
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  height:90vh;
+  height: 90vh;
 `;
 export default Picture;

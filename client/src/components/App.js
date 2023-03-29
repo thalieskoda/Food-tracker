@@ -8,6 +8,7 @@ import GlobalStyles from "./GlobalStyles";
 import { useState } from "react";
 import { useEffect } from "react";
 import SingleDestination from "./SingleDestination";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 
 const App = () => {
@@ -37,9 +38,9 @@ navigator.geolocation.getCurrentPosition((position) => {
     <Header/>
     <Routes>
       <Route path="/" element={<UserAuthenticator/>}/>
-      <Route path="/homefeed" element={<Homefeed setCoordinates={setCoordinates}/>}/>
-      <Route path="/profile" element={<Profile/>}/>
-      <Route path="/profile/:destinationId" element={<SingleDestination/>}/>
+      <Route path="/homefeed" element={<ProtectedRoutes/>} component={Homefeed}/>
+      <Route path="/profile"  element={<ProtectedRoutes/>} component={Profile}/>
+      <Route path="/profile/:destinationId"  element={<ProtectedRoutes/>} component={SingleDestination}/>
     </Routes>
     </BrowserRouter>
     </>
