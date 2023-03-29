@@ -15,6 +15,7 @@ const handleProfileOptions = () => {
 
 const handleClick = () => {
 navigate("/profile")
+setShowDropdown(!showDropdown)
 
 }
   return (

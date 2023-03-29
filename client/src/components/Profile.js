@@ -8,8 +8,10 @@ const Profile = () => {
   return (
     <>
     {user ? (
-      <h1>profile only</h1>
-
+      <>
+      <h1>hey {user.given_name}, </h1>
+      <p> Where's your next adventure ?</p>
+</>
     ) : (null)}
     </>
   );

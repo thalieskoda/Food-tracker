@@ -3,7 +3,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import UserIcon from "./UserIcon";
 import HamburgerMenu from "./HamburgerMenu";
 import { NavLink } from "react-router-dom";
-
+import Navigation from "./Navigation";
+import logo from "../images/travelup.png"
+import { FiMail } from "react-icons/fi";
 const Header = () => {
   const { user } = useAuth0();
 
@@ -12,27 +14,38 @@ const Header = () => {
       <Container1>
         <HamburgerMenu/>
         {!user? ( <Link to="/">
-        <Title>TRVL-UP</Title>
+        <Logo src={logo} alt="logo"/>
+        <Title>-up</Title>
         </Link>) : ( 
         <Link to="/homefeed">
-        <Title>TRVL-UP</Title>
+        <Logo src={logo} alt="logo"/>
+        <h1>-up</h1>
         </Link>
         )}
       </Container1>
       {!user ? (null) : (
+        <>
       <Container2>
         <UserIcon/>
       </Container2>
+        </>
       )}
     </Wrapper>
   );
 };
 
-const Link = styled(NavLink)`
+const Title = styled.p`
+font-family: 'Croissant One', cursive;
 `
 
-const Title = styled.h1`
+const Link = styled(NavLink)`
+display:flex;
+align-items:center;
+`
+
+const Logo = styled.img`
 padding:10px;
+width:100px;
 `
 
 const Container1 = styled.div`

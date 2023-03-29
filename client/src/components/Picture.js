@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import road from "../images/1.jpeg";
-import image from "../images/2.jpeg";
-import thailand from "../images/3.jpeg";
+import road from "./images/1.jpeg"
+import image from "./images/2.jpeg"
+import thailand from "./images/3.jpeg"
 
 const Picture = () => {
   return (
