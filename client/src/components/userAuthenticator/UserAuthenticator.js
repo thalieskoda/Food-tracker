@@ -1,16 +1,23 @@
-import UserLogin from "./UserLogin";
-import UserSignIn from "./NewUser";
-import GlobalStyles from "../GlobalStyles";
 import styled from "styled-components";
 import {TbLineDotted} from "react-icons/tb"
 import LoginButton from "./LoginButton";
 import Profile from "../Profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import Homefeed from "../Homefeed";
+import { FiLoader } from "react-icons/fi";
+
 
 const UserAuthenticator = () => {
-    const navigate = useNavigate();
     const {user} = useAuth0();
+    const navigate = useNavigate();
+    
+useEffect(()=> {
+
+},[])
+
+
   return (
     <>
     {!user ? (
@@ -35,7 +42,11 @@ const UserAuthenticator = () => {
 </>
     ) : (
         <>
-        {navigate("/profile")}
+        {!Homefeed ? ( 
+           <LoadingIcon>
+           <FiLoader />
+         </LoadingIcon>
+        ):(<Homefeed/>)}
         </>
     )
 }
@@ -64,4 +75,17 @@ const Buttons = styled.div`
 display:flex;
 
 `
+const LoadingIcon = styled(FiLoader)`
+  position: relative;
+  left: 50%;
+  top: 10px;
+  animation: spin 1s infinite linear;
+  height: 80vh;
+
+  @keyframes spin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
 export default UserAuthenticator;

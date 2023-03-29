@@ -1,4 +1,7 @@
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import styled from 'styled-components';
+import { FiLoader } from "react-icons/fi";
+import { useMemo } from 'react';
 
 const Map = () => {
 
@@ -9,19 +12,39 @@ const Map = () => {
 
      const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyD1GPcoYC5xQBoLR9CXCUvNsPX1feeoeMo"
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
   });
 
+  const center = useMemo(()=> ({lat:-44, lng: -80}), [])
   
 return(
        (isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={{ lat: 44, lng: -88 }}
+        center={center}
         zoom={10}
       />
-    ) : <></>)
+    ) : <> 
+     <LoadingIcon>
+          <FiLoader />
+        </LoadingIcon>
+    
+    </>)
 )
 
-}
+};
+
+const LoadingIcon = styled(FiLoader)`
+  position: relative;
+  left: 50%;
+  top: 10px;
+  animation: spin 1s infinite linear;
+  height: 80vh;
+
+  @keyframes spin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
 export default Map

@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homefeed from "./Homefeed";
 import Profile from "./Profile";
-import NewUser from "./userAuthenticator/NewUser";
 import UserAuthenticator from "./userAuthenticator/UserAuthenticator";
 import Header from "./header/Header";
 import GlobalStyles from "./GlobalStyles";
+
 
 const App = () => {
 
@@ -19,9 +19,8 @@ const App = () => {
     <Routes>
       <Route path="/" element={<UserAuthenticator/>}/>
       <Route path="/homefeed" element={<Homefeed/>}/>
-      <Route path="/new" element={<NewUser/>}/>
       <Route path="/profile" element={<Profile/>}/>
-
+      <Route path="/profile/:destinationId" element={<Profile/>}/>
     </Routes>
     </BrowserRouter>
     </>
