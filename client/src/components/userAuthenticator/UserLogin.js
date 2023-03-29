@@ -1,7 +1,7 @@
 const UserLogin = () => {
     return (
     <>
-        <h1>User Login</h1>
+        <button>join now</button>
     </>
     )
     

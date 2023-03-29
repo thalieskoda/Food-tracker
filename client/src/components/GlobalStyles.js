@@ -88,6 +88,7 @@ const GlobalStyles = createGlobalStyle`
     transition: all 0.3s ease;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     border: 1px black solid;
+    width:150px;
 
     &:hover {
         background-color:transparent;

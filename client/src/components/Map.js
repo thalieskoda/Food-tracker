@@ -1,4 +1,4 @@
-import { GoogleMap, useJsApiLoader, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader} from '@react-google-maps/api';
 import styled from 'styled-components';
 import { FiLoader } from "react-icons/fi";
 import { useMemo } from 'react';
@@ -20,14 +20,11 @@ const Map = () => {
   
 return(
        (isLoaded ? (
-        <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY} librairies={["places"]}>
-
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
         zoom={10}
         />
-        </LoadScript>
     ) : <> 
      <LoadingIcon>
           <FiLoader />

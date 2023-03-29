@@ -2,13 +2,13 @@ import { useState } from "react"
 import styled from "styled-components"
 import SearchBar from "./SearchBar"
 
-const TravelSearch = () => {
+const TravelSearch = ({setCoordinates}) => {
 
     const [type, setType] = useState("restaurants")
     const [rating, setRating] = useState("")
 return (
     <>
-    <SearchBar/>
+    <SearchBar setCoordinates={setCoordinates}/>
     <Select value={type} onChange={(e)=> setType(e.target.value)}>
 <ItemMenu value="restaurants">Restaurants</ItemMenu>
 <ItemMenu value="attractions">Attractions</ItemMenu>

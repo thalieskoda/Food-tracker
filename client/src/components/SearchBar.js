@@ -11,11 +11,13 @@ const SearchBar = ({ setCoordinates }) => {
   };
 
   const onPlaceChanged = () => {
+    if (autoComplete !== null) {
     const lat = autoComplete.getPlace().geometry.location.lat();
     const lng = autoComplete.getPlace().geometry.location.lng();
 
     setCoordinates({ lat, lng });
   };
+};
 
   return (
     <Wrapper>

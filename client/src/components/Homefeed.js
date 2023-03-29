@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import TravelSearch from "./TravelSearch";
-import GoogleMap from "./GoogleMap"
-const Homefeed = () => {
+import GoogleMap from "./Map"
+const Homefeed = ({setCoordinates}) => {
   return (
     <>
       <Wrapper>
         <Searching>
-          <TravelSearch/>
+          <TravelSearch setCoordinates={setCoordinates}/>
         </Searching>
         <Maps>
           <GoogleMap/>
