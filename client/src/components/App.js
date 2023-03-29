@@ -5,7 +5,7 @@ import Profile from "./Profile";
 import NewUser from "./userAuthenticator/NewUser";
 import UserAuthenticator from "./userAuthenticator/UserAuthenticator";
 import Header from "./header/Header";
-
+import GlobalStyles from "./GlobalStyles";
 
 const App = () => {
 
@@ -14,6 +14,7 @@ const App = () => {
 
     <>
     <BrowserRouter>
+    <GlobalStyles/>
     <Header/>
     <Routes>
       <Route path="/" element={<UserAuthenticator/>}/>

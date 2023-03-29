@@ -11,9 +11,13 @@ const Header = () => {
     <Wrapper>
       <Container1>
         <HamburgerMenu/>
+        {!user? ( <Link to="/">
+        <Title>TRVL-UP</Title>
+        </Link>) : ( 
         <Link to="/homefeed">
         <Title>TRVL-UP</Title>
         </Link>
+        )}
       </Container1>
       {!user ? (null) : (
       <Container2>

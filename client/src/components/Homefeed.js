@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import TravelSearch from "./TravelSearch";
-
+import GoogleMap from "./GoogleMap"
 const Homefeed = () => {
   return (
     <>
@@ -9,18 +9,18 @@ const Homefeed = () => {
           <TravelSearch/>
         </Searching>
         <Maps>
-          <h1>RENDERING MAPS</h1>
+          <GoogleMap/>
         </Maps>
       </Wrapper>
     </>
   );
 };
 const Maps = styled.div`
-  background-color: red;
+
   width: 60%;
 `;
 const Searching = styled.div`
-  background-color: blue;
+
   width: 40%;
 `;
 const Wrapper = styled.div`

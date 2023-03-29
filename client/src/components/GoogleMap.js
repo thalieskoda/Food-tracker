@@ -3,14 +3,16 @@ import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 const Map = () => {
 
     const containerStyle = {
-        width: '80%',
-        height: '100vh'
+        width: '100%',
+        height: '90vh'
       };
 
      const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: "AIzaSyD1GPcoYC5xQBoLR9CXCUvNsPX1feeoeMo"
   });
+
+  
 return(
        (isLoaded ? (
       <GoogleMap

@@ -15,7 +15,7 @@ const UserAuthenticator = () => {
     <>
     {!user ? (
         <>
-      <h1> TRVL-UP</h1>
+      <h1>Hello there ! </h1>
       <p>
         Welcome to our personalized travel planner, where we help you find the
         hidden gems and create unforgettable memories. With us, you can create
