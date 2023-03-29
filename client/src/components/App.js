@@ -10,41 +10,35 @@ import { useEffect } from "react";
 import SingleDestination from "./SingleDestination";
 import ProtectedRoutes from "./ProtectedRoutes";
 
-
 const App = () => {
-
   //Coordinates of the specific place
-  const [coordinates, setCoordinates] = useState({})
+  const [coordinates, setCoordinates] = useState({});
 
   //Bounds of the googleMap
-  const [bounds, setBounds] = useState({})
+  const [bounds, setBounds] = useState({});
 
-  useEffect(()=> {
-navigator.geolocation.getCurrentPosition((position) => {
-
-  if (position && position.coords) {
-    const {latitude, longitude} = position.coords;
-    setCoordinates({lat:latitude, lng:longitude})
-  }
-});
-  },[]);
-
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      if (position && position.coords) {
+        const { latitude, longitude } = position.coords;
+        setCoordinates({ lat: latitude, lng: longitude });
+      }
+    });
+  }, []);
 
   return (
-
     <>
-    <BrowserRouter>
-    <GlobalStyles/>
-    <Header/>
-    <Routes>
-      <Route path="/" element={<UserAuthenticator/>}/>
-      <Route path="/homefeed" element={<ProtectedRoutes/>} component={Homefeed}/>
-      <Route path="/profile"  element={<ProtectedRoutes/>} component={Profile}/>
-      <Route path="/profile/:destinationId"  element={<ProtectedRoutes/>} component={SingleDestination}/>
-    </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <GlobalStyles />
+        <Header />
+        <Routes>
+        <Route path="/" element={<UserAuthenticator />} />
+        <Route path="/homefeed" element={<ProtectedRoutes component={Homefeed} />} />
+        <Route path="/profile" element={<ProtectedRoutes component={Profile} />} />
+        <Route path="/profile/:destinationId" element={<ProtectedRoutes component={SingleDestination} />} />
+        </Routes>
+      </BrowserRouter>
     </>
-  
   );
 };
 
