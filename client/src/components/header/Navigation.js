@@ -31,12 +31,7 @@ const Navigation = () => {
 const Li = styled(Link)`
   list-style-type: none;
   padding-right: 20px;
-  
 
-  &:hover{
-font-size:17px;
-
-  }
 `;
 
 const Ul = styled.ul`
