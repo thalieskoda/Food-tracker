@@ -58,7 +58,8 @@ const Map = () => {
         mapTypeControl: false,
         fullscreenControl: false,
         streetViewControl: false,
-        bounds: defaultBounds
+        bounds: defaultBounds,
+        
       }}
 
     >

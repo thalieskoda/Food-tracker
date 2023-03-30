@@ -1,14 +1,12 @@
 import { createContext, useState, useEffect } from "react";
 
-
 const CurrentUserContext = createContext(null);
 
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [status, setStatus] = useState("idle");
 
-    //having a useEffect so that whenever the user is logged in, I can fetched his data from MongoDB
-  
+//having a useEffect so that whenever the user is logged in, I can fetched his data from MongoDB
   useEffect(() => {
     fetch("/profile")
       .then((res) => res.json())
@@ -16,10 +14,9 @@ export const CurrentUserProvider = ({ children }) => {
         if (data.status === 400 || data.status === 500) {
           throw new Error("Error");
         }
-        // console.log(data);
-        setCurrentUser(data.profile);
+        setCurrentUser(data.data);
         setStatus("loaded");
-        console.log(data);
+        console.log(data.data);
       })
       .catch((error) => {
         setStatus("error");
