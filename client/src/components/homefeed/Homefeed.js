@@ -1,15 +1,16 @@
 import styled from "styled-components";
 import TravelSearch from "../TravelSearch";
-import GoogleMap from "../Map"
-const Homefeed = ({setCoordinates}) => {
+import Map from "../Map";
+const Homefeed = ({ setCoordinates, coordinates, bounds, setBounds}) => {
+  console.log(setCoordinates);
   return (
     <>
       <Wrapper>
         <Searching>
-          <TravelSearch setCoordinates={setCoordinates}/>
+          <TravelSearch coordinates={coordinates} setCoordinates={setCoordinates} bounds={bounds} setBounds={setBounds}/>
         </Searching>
         <Maps>
-          <GoogleMap/>
+          <Map coordinates={coordinates} setCoordinates={setCoordinates} bounds={bounds} setBounds={setBounds}/>
         </Maps>
       </Wrapper>
     </>
