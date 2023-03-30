@@ -12,7 +12,6 @@ import { useEffect } from "react";
 const Map = () => {
 
   const {setCoordinates, coordinates, center, setCenter} = useContext(CurrentPositionContext);
-  console.log(center);
   const [bounds, setBounds] = useState({})
 
 
@@ -32,7 +31,6 @@ const Map = () => {
   // Everytime that the coordinates changes, we'll set the center to the new coordinates and adding the Marker.
   useEffect (()=> {
     setCenter(coordinates)
-    console.log(coordinates);
   },[coordinates])
 
   //Defining the bounds.

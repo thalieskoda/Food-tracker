@@ -12,7 +12,6 @@ export const CurrentPositionProvider = ({ children }) => {
  //Center of Eiffel tower for the beginning
  const [center, setCenter] = useState({lat: 48.8584, lng: 2.2945})
 
-console.log(coordinates);
  //Getting the user's geolocation according to his currentPosition if he accepted it.
  useEffect(() => {
    navigator.geolocation.getCurrentPosition(

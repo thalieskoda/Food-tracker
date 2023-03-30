@@ -1,0 +1,42 @@
+
+  {
+    "firstName": "thalie",
+    "lastName": "Skoda",
+    "email" : "thalieskoda@hotmail.com",
+    "_id" : "thalieskoda@hotmail.com",
+    "destinations": [
+      {
+        "country": "italy",
+        "city": { "cityName": "venise" },
+        "restaurants": [
+          {
+            "restaurantName": "miam",
+            "restaurantAddress": "133 rue amsjf",
+            "restaurantRating": "4 stars",
+            "restaurantCity": "rome"
+          },
+          {
+            "restaurantName": "miam",
+            "restaurantAddress": "133 rue amsjf",
+            "restaurantRating": "4 stars",
+            "restaurantCity": "rome"
+          }
+        ]
+      },
+      {
+        "country": "Canada",
+        "city": {
+          "cityName": "montreal"
+        },
+        "restaurants": [
+          {
+            "restaurantName": "miam",
+            "restaurantAddress": "133 rue amsjf",
+            "restaurantRating": "4 stars",
+            "restaurantCity": "brossard"
+          }
+        ]
+      }
+    ]
+  }
+
