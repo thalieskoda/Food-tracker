@@ -31,5 +31,6 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   height: 90vh;
+  border: 24px solid black;
 `;
 export default Picture;

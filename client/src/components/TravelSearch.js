@@ -9,7 +9,7 @@ const TravelSearch = ({setCoordinates}) => {
 return (
     <>
     <SearchBar setCoordinates={setCoordinates}/>
-    <Select value={type} onChange={(e)=> setType(e.target.value)}>
+    {/* <Select value={type} onChange={(e)=> setType(e.target.value)}>
 <ItemMenu value="restaurants">Restaurants</ItemMenu>
 <ItemMenu value="attractions">Attractions</ItemMenu>
 <ItemMenu value="hotels">Hotels</ItemMenu>
@@ -20,7 +20,7 @@ return (
 <ItemMenu value={4}>above 4.0</ItemMenu>
 <ItemMenu value={5}>above 4.5</ItemMenu>
 
-    </Select>
+    </Select> */}
     
     </>
 )

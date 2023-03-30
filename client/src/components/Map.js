@@ -16,6 +16,7 @@ const Map = () => {
    
   });
 
+  //Adjust the location eveytime we render the maps --> everytime it changes because of the dependency array.
   const center = useMemo(()=> ({lat:-44, lng: -80}), [])
   
 return(
@@ -23,7 +24,11 @@ return(
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={10}
+        zoom={14}
+        margin={[50, 50, 50, 50]}
+        onChange={""}
+        options={""}
+        onChildClick={""}
         />
     ) : <> 
      <LoadingIcon>

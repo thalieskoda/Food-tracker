@@ -11,9 +11,6 @@ import Picture from "../Picture";
 
 const UserAuthenticator = () => {
   const { user } = useAuth0();
-  const navigate = useNavigate();
-
-  useEffect(() => {}, []);
 
   return (
     <Wrapper>

@@ -11,12 +11,15 @@ import SingleDestination from "./SingleDestination";
 import ProtectedRoutes from "./ProtectedRoutes";
 
 const App = () => {
+const [places, setPlaces] = useState([])
+
   //Coordinates of the specific place
   const [coordinates, setCoordinates] = useState({});
 
   //Bounds of the googleMap
   const [bounds, setBounds] = useState({});
 
+  //Setting the coordinates according to the geolocation of the user, if he accepted to share his localisation
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       if (position && position.coords) {
