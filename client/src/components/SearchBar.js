@@ -1,11 +1,14 @@
 import { FiSearch } from "react-icons/fi";
 import styled from "styled-components";
 import { Autocomplete } from "@react-google-maps/api";
-import React, { useState } from "react";
-import LoginButton from "./userAuthenticator/LoginButton";
+import React, { useState, useContext } from "react";
+import CurrentPositionContext from "./CurrentPositionContext";
 
-const SearchBar = ({ setCoordinates }) => {
+const SearchBar = () => {
 
+  const {setCoordinates, setCenter} = useContext(CurrentPositionContext);
+
+ 
   const [autoComplete, setAutoComplete] = useState(null);
   
   //Start as null, but when the input changes, the Autocomplete renders.
@@ -20,15 +23,13 @@ const SearchBar = ({ setCoordinates }) => {
   //It retrieves the location of the selected place 
   const onPlaceChanged = () => {
     if (autoComplete !== null) {
-      console.log({autoComplete});
     const lat = autoComplete.getPlace().geometry.location.lat();
     const lng = autoComplete.getPlace().geometry.location.lng();
 console.log(lat, lng);
-    setCoordinates({ lat, lng }); //is not a function
+    setCenter({ lat, lng }); //is not a function issue because it's undefined.
   };
 };
 
-console.log({setCoordinates}); //undefined
 
   return (
     <Wrapper>

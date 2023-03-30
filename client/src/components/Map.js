@@ -5,10 +5,18 @@ import {
 } from "@react-google-maps/api";
 import styled from "styled-components";
 import { FiLoader } from "react-icons/fi";
-import { useMemo } from "react";
-import { useState } from "react";
+import { useMemo, useState, useContext } from "react";
+import CurrentPositionContext from "./CurrentPositionContext";
+import { useEffect } from "react";
 
-const Map = ({ setCoordinates, setBounds }) => {
+const Map = () => {
+
+  const {setCoordinates, coordinates, center, setCenter} = useContext(CurrentPositionContext);
+  console.log(center);
+  const [bounds, setBounds] = useState({})
+
+
+
   //setting styles to the map
   const containerStyle = {
     width: "100%",
@@ -21,10 +29,12 @@ const Map = ({ setCoordinates, setBounds }) => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
   });
 
-  //Adjust the location eveytime we render the maps --> everytime it changes because of the dependency array.
-  //Eiffel tower
-  const center = useMemo(() => ({ lat: 48.8584, lng: 2.2945 }), []);
-console.log({center});
+  // Everytime that the coordinates changes, we'll set the center to the new coordinates and adding the Marker.
+  useEffect (()=> {
+    setCenter(coordinates)
+    console.log(coordinates);
+  },[coordinates])
+
   //Defining the bounds.
   const defaultBounds = {
     north: center.lat + 0.1,
@@ -32,7 +42,6 @@ console.log({center});
     east: center.lng + 0.1,
     west: center.lng - 0.1,
   };
-  console.log({defaultBounds});
 
   //If the googlemap is loaded, render -->
   return isLoaded ? (
