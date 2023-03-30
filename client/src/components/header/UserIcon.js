@@ -8,6 +8,7 @@ const UserIcon = () => {
   const navigate = useNavigate()
   const {logout} = useAuth0()
   const [showDropdown, setShowDropdown] = useState(false);
+  
 const handleProfileOptions = () => {
     setShowDropdown(!showDropdown);
 

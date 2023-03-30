@@ -18,7 +18,7 @@ const MenuBurger = styled.div`
   display: flex;
   justify-content: space-around;
   flex-flow: column nowrap;
-  z-index: 9999;
+  z-index: 10;
   cursor: pointer;
 `;
 
