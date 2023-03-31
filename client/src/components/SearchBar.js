@@ -13,8 +13,6 @@ const SearchBar = ({ map, setPlaces }) => {
     setAutoComplete(autoComplete);
   };
 
-  // Create an event handler for the place_changed event, and call addListener() on the Autocomplete object to add the handler.
-  // Call Autocomplete.getPlace() on the Autocomplete object, to retrieve a PlaceResult object, which you can then use to get more information about the selected place.
   // is called when the user selects a place from the autocomplete suggestions
   // It retrieves the location of the selected place
   const onPlaceChanged = () => {
@@ -52,7 +50,7 @@ const SearchBar = ({ map, setPlaces }) => {
           map,
           title: place.name
         });
-        // Add a click listener for each marker, and set up the info window.
+        // Add a click listener for each marker and set up the info window from Google documentation
         marker.addListener("click", () => {
           const infoWindow = new window.google.maps.InfoWindow({
             content:marker.title

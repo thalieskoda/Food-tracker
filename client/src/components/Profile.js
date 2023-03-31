@@ -5,19 +5,19 @@ import styled from "styled-components";
 import { FiLoader } from "react-icons/fi";
 
 const Profile = () => {
-  //const { user } = useAuth0();
-  //Get the user's information with the following line: {JSON.stringify(user,null,2)}
-  //the key "sub" has a user Id
+  const { user } = useAuth0();
+  // Get the user's information with the following line: {JSON.stringify(user,null,2)}
+  // the key "sub" has a user Id
 
   const {currentUser, setCurrentUser} = useContext(CurrentUserContext)
- 
-  return (
+ console.log(currentUser);
 
+  return (
     <>
     { currentUser ? (
       <>
       <h1>hey {currentUser.firstName}, </h1>
-      <p> Where's your next adventure {currentUser.email}?</p>
+      <p>Where's your next adventure ?</p>
 </>
     ) : (
       <LoadingIcon>

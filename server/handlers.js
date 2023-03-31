@@ -2,7 +2,7 @@
 const { MongoClient } = require("mongodb");
 require("dotenv").config();
 
-const uuidv4 = require("uuidv4");
+
 const { MONGO_URI } = process.env;
 
 const options = {
@@ -17,7 +17,7 @@ const userInfo = async (req, res) => {
     await client.connect();
     const db = client.db("trvl-up");
 
-    const user = await db.collection("users").find().toArray();
+    const user = await db.collection("users").findOne();
    if (user) { res.status(200).json({
       status: 200,
       data: user
