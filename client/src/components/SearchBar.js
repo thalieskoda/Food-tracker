@@ -1,26 +1,22 @@
 import { FiSearch } from "react-icons/fi";
 import styled from "styled-components";
 import { Autocomplete } from "@react-google-maps/api";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import CurrentPositionContext from "./CurrentPositionContext";
 
-const SearchBar = ({map, setPlaces}) => {
-
-  const {setCoordinates, setCenter} = useContext(CurrentPositionContext);
-
- 
+const SearchBar = ({ map, setPlaces }) => {
+  const { setCenter } = useContext(CurrentPositionContext);
   const [autoComplete, setAutoComplete] = useState(null);
-  
-  //Start as null, but when the input changes, the Autocomplete renders.
+
+  // Start as null, but when the input changes, the Autocomplete renders.
   const onLoad = (autoComplete) => {
     setAutoComplete(autoComplete);
   };
-  //Create an event handler for the place_changed event, and call addListener() on the Autocomplete object to add the handler.
-  //Call Autocomplete.getPlace() on the Autocomplete object, to retrieve a PlaceResult object, which you can then use to get more information about the selected place.
-  
 
-  //is called when the user selects a place from the autocomplete suggestions
-  //It retrieves the location of the selected place 
+  // Create an event handler for the place_changed event, and call addListener() on the Autocomplete object to add the handler.
+  // Call Autocomplete.getPlace() on the Autocomplete object, to retrieve a PlaceResult object, which you can then use to get more information about the selected place.
+  // is called when the user selects a place from the autocomplete suggestions
+  // It retrieves the location of the selected place
   const onPlaceChanged = () => {
     if (autoComplete !== null) {
       const lat = autoComplete.getPlace().geometry.location.lat();
@@ -33,13 +29,41 @@ const SearchBar = ({map, setPlaces}) => {
         type: ["restaurant"],
       };
       service.nearbySearch(request, (results, status) => {
-        if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-          setPlaces(results);
-        }
-      });
+  if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+    // Modify the results array to add the name of each restaurant to the corresponding place object in setPlaces
+    const modifiedResults = results.map((result) => {
+      return {
+        ...result,
+        name: result.name,
+      };
+    });
+    setPlaces(modifiedResults);
+  }
+});
     }
   };
 
+  // Add a click listener for each marker and set up the info window from Google documentation
+  useEffect(() => {
+    setPlaces((place) => {
+      return place.map((place) => {
+        const marker = new window.google.maps.Marker({
+          position: place.geometry.location,
+          map,
+          title: place.name
+        });
+        // Add a click listener for each marker, and set up the info window.
+        marker.addListener("click", () => {
+          const infoWindow = new window.google.maps.InfoWindow({
+            content:marker.title
+          });
+          infoWindow.open(map, marker);
+        });
+        // Add the marker to the place object
+        return { ...place, marker };
+      });
+    });
+  }, [map, setPlaces]);
 
   return (
     <Wrapper>
@@ -55,6 +79,7 @@ const SearchBar = ({map, setPlaces}) => {
     </Wrapper>
   );
 };
+
 
 const P = styled.p`
   padding: 10px;
@@ -74,9 +99,9 @@ const Wrapper = styled.div`
   left:170px;
   display: flex;
   align-items: center;
-  padding: 30px;
+
   z-index: 9999;
-  background-color: rgba(255, 255, 255, 0.85);
+  /* background-color: rgba(255, 255, 255, 0.85); */
   width: 550px;
   align-items: center;
   border-radius:20px;

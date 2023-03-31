@@ -66,6 +66,7 @@ const Map = () => {
     }
   }, [isLoaded, map, places, coordinates]); //Everything that one of those changes, this useEffect gets called.
 
+  
   return isLoaded ? (
     <>
     <SearchBar map={map} setPlaces={setPlaces}/>
@@ -127,7 +128,7 @@ display:none;
 `
 const MapContainer = styled.div`
 position:relative;
-top:-110px;
+top:-50px;
 `
 const LoadingIcon = styled(FiLoader)`
   position: relative;

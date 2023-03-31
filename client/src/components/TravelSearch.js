@@ -2,7 +2,7 @@
 import styled from "styled-components"
 import SearchBar from "./SearchBar"
 
-const TravelSearch = ({ name, address, rating, onClose }) => {
+const TravelSearch = ({ selectedRestaurant, onClose }) => {
     // console.log(setCoordinates);
 
     //Will be adding places that the user's adding to his "trip"
@@ -10,10 +10,8 @@ const TravelSearch = ({ name, address, rating, onClose }) => {
 return (
     <>
     <div>
-    <h2>Restaurant's name: {name}</h2>
-    <p>Address: {address}</p>
-    <p>Rating: {rating}</p>
-    <button onClick={onClose}>Add it</button>
+    <h2></h2>
+  
   </div>
     </>
 )
