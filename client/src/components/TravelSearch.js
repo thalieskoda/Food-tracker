@@ -9,7 +9,6 @@ const TravelSearch = ({ name, address, rating, onClose }) => {
 
 return (
     <>
-    <SearchBar />
     <div>
     <h2>Restaurant's name: {name}</h2>
     <p>Address: {address}</p>

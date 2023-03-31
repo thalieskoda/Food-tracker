@@ -4,7 +4,7 @@ import { Autocomplete } from "@react-google-maps/api";
 import React, { useState, useContext } from "react";
 import CurrentPositionContext from "./CurrentPositionContext";
 
-const SearchBar = () => {
+const SearchBar = ({map, setPlaces}) => {
 
   const {setCoordinates, setCenter} = useContext(CurrentPositionContext);
 
@@ -23,12 +23,22 @@ const SearchBar = () => {
   //It retrieves the location of the selected place 
   const onPlaceChanged = () => {
     if (autoComplete !== null) {
-    const lat = autoComplete.getPlace().geometry.location.lat();
-    const lng = autoComplete.getPlace().geometry.location.lng();
-console.log(lat, lng);
-    setCenter({ lat, lng }); //is not a function issue because it's undefined.
+      const lat = autoComplete.getPlace().geometry.location.lat();
+      const lng = autoComplete.getPlace().geometry.location.lng();
+      setCenter({ lat, lng });
+      const service = new window.google.maps.places.PlacesService(map);
+      const request = {
+        location: { lat, lng },
+        radius: "5000",
+        type: ["restaurant"],
+      };
+      service.nearbySearch(request, (results, status) => {
+        if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+          setPlaces(results);
+        }
+      });
+    }
   };
-};
 
 
   return (
@@ -48,6 +58,8 @@ console.log(lat, lng);
 
 const P = styled.p`
   padding: 10px;
+  font-weight:bold;
+  border-bottom:1px black solid;
 `;
 
 const Input = styled.input`
@@ -57,9 +69,17 @@ const Input = styled.input`
 `;
 
 const Wrapper = styled.div`
+  position: relative;
+  top: 20px;
+  left:170px;
   display: flex;
   align-items: center;
   padding: 30px;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.85);
+  width: 550px;
+  align-items: center;
+  border-radius:20px;
 `;
 
 export default SearchBar;
