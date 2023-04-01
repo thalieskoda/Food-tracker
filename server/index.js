@@ -3,7 +3,7 @@
 // import the needed node_modules.
 const express = require("express");
 const morgan = require("morgan");
-const { userInfo } = require("./handlers")
+const { userInfo, country, addRestaurant } = require("./handlers")
 
 const port = 8888;
 
@@ -23,6 +23,12 @@ express()
   })
 
   .get("/profile", userInfo)
+
+  .get("/profile/:country", country)
+
+  .post("/profile", addRestaurant)
+
+  // .delete("/profile", deleteRestaurant)
   /*********************************************************/
   // this is our catch all endpoint.
   .get("*", (req, res) => {
