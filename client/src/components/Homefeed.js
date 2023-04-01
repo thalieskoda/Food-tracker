@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import TravelSearch from "./TravelSearch";
-import GoogleMap from "./Map"
-const Homefeed = ({setCoordinates}) => {
+import Map from "./Map";
+const Homefeed = () => {
   return (
     <>
       <Wrapper>
         <Searching>
-          <TravelSearch setCoordinates={setCoordinates}/>
+          <TravelSearch />
         </Searching>
         <Maps>
-          <GoogleMap/>
+          <Map/>
         </Maps>
       </Wrapper>
     </>
@@ -25,6 +25,7 @@ const Searching = styled.div`
 `;
 const Wrapper = styled.div`
   display: flex;
+  flex-direction:row;
   height: 90vh;
 `;
 export default Homefeed;

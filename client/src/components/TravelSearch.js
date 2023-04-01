@@ -1,21 +1,22 @@
 
 import styled from "styled-components"
-import SearchBar from "./SearchBar"
 
-const TravelSearch = ({ selectedRestaurant, onClose }) => {
-    // console.log(setCoordinates);
+const TravelSearch = ({ name }) => {
+  return (
+    <Wrapper>
+     
+        <>
+        <div>
+        <h2>{name}</h2>
+      </div>
+        </>
+      
+    </Wrapper>
+  );
+};
 
-    //Will be adding places that the user's adding to his "trip"
-
-return (
-    <>
-    <div>
-    <h2></h2>
-  
-  </div>
-    </>
-)
-
-}
-
+const Wrapper = styled.div`
+display:flex;
+flex-direction:column;
+`
 export default TravelSearch

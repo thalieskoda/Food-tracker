@@ -17,36 +17,37 @@ import SearchBar from "./SearchBar";
 };
 //Rendering GoogleMaps
 const Map = () => {
-  const {setCoordinates, coordinates, center, setCenter} = useContext(CurrentPositionContext);
+  const { setCoordinates, coordinates, center, setCenter } = useContext(
+    CurrentPositionContext
+  );
 
   const [bounds, setBounds] = useState({});
   const [places, setPlaces] = useState([]);
   const [map, setMap] = useState(null);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
-
-  //verify if the map is loaded.
+  // verify if the map is loaded.
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-   // libraries: ['places'] //only looking for "places" --> restaurant
+    // libraries: ['places'] //only looking for "places" --> restaurant
   });
 
-   // Everytime that the coordinates changes, we'll set the center to the new coordinates and adding the Marker.
-   useEffect (()=> {
-    setCenter(coordinates)
-  },[coordinates])
+  // Every time that the coordinates changes, we'll set the center to the new coordinates and adding the Marker.
+  useEffect(() => {
+    setCenter(coordinates);
+  }, [coordinates]);
 
   // Fetches nearby restaurants using PlacesService when map is ready
   const onLoad = (map) => {
-    setMap(map)
+    setMap(map);
     const service = new window.google.maps.places.PlacesService(map);
     const request = {
       location: center,
       radius: "5000",
       type: ["restaurant"],
     };
-    //Searching nearby for the resques that contains ***"restaurant"*** according to the location "center"
+    // Searching nearby for the resques that contains ***"restaurant"*** according to the location "center"
     service.nearbySearch(request, (results, status) => {
       if (status === window.google.maps.places.PlacesServiceStatus.OK) {
         setPlaces(results);
@@ -54,64 +55,60 @@ const Map = () => {
     });
   };
 
-  //If there's a map and it's loaded, and there's at least one place in the area ; 
+  // If there's a map and it's loaded, and there's at least one place in the area ;
   useEffect(() => {
-    if (isLoaded && map && places.length > 0) { 
-      //Setting the bounds for the search
+    if (isLoaded && map && places.length > 0) {
+      // Setting the bounds for the search
       const newBounds = new window.google.maps.LatLngBounds();
       places.forEach((place) => {
         newBounds.extend(place.geometry.location);
       });
       map.fitBounds(newBounds);
     }
-  }, [isLoaded, map, places, coordinates]); //Everything that one of those changes, this useEffect gets called.
+  }, [isLoaded, map, places, coordinates]); // Everything that one of those changes, this useEffect gets called.
 
-  
+  console.log(selectedRestaurant);
   return isLoaded ? (
     <>
-    <SearchBar map={map} setPlaces={setPlaces}/>
-    <MapContainer>
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={14}
-        margin={[50, 50, 50, 50]}
-        onChange={(e) => {
-          setCoordinates({ lat: e.center.lat, lng: e.center.lng });
-          setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
-        }}
-        onLoad={onLoad}
-        options={{
-          mapTypeControl: false,
-          fullscreenControl: false,
-          streetViewControl: false,
-        }}
-      >
-        {places.map((place, index) => (
-          <Marker
-            key={index}
-            position={{
-              lat: place.geometry.location.lat(),
-              lng: place.geometry.location.lng(),
-            }}
-            onClick={() => setSelectedRestaurant(place)}
-          />
-          
-        ))}
-      </GoogleMap>
+      <SearchBar map={map} setPlaces={setPlaces}/>
+      <MapContainer>
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={center}
+          zoom={14}
+          margin={[50, 50, 50, 50]}
+          onChange={(e) => {
+            setCoordinates({ lat: e.center.lat, lng: e.center.lng });
+            setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
+          }}
+          onLoad={onLoad}
+          options={{
+            mapTypeControl: false,
+            fullscreenControl: false,
+            streetViewControl: false,
+          }}
+        >
+          {places.map((place, index) => (
+            <Marker
+              key={index}
+              position={{
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng(),
+              }}
+              onClick={() => setSelectedRestaurant(place)}
+            />
+          ))}
+        </GoogleMap>
       </MapContainer>
-        {selectedRestaurant && (
-          <>
-      <Container>
-      <TravelSearch 
-          name={selectedRestaurant.name}
-          address={selectedRestaurant.formatted_address}
-          rating={selectedRestaurant.rating}
-          onClose={() => setSelectedRestaurant(null)}
-        />
-      </Container>
-      </>
-        )}
+      {selectedRestaurant && (
+        <Container>
+          <TravelSearch
+            name={selectedRestaurant.name}
+            onClose={() => setSelectedRestaurant(null)}
+          />
+        </Container>
+        
+      )}
     </>
   ) : (
     <>
@@ -124,7 +121,8 @@ const Map = () => {
 
 
 const Container = styled.div`
-display:none;
+display:flex;
+flex-direction:row;
 `
 const MapContainer = styled.div`
 position:relative;
