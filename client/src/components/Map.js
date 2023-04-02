@@ -107,7 +107,10 @@ const Map = () => {
         rating={selectedRestaurant.rating}
         ratingNumber={selectedRestaurant.user_ratings_total}
         price={selectedRestaurant.price_level}
+        photos={selectedRestaurant.photos}
+        id={selectedRestaurant.place_id}
         onClose={() => setSelectedRestaurant(null)}
+        
         />
         )}
         
@@ -124,14 +127,14 @@ const Map = () => {
 
 const MapContainer = styled.div`
 position:relative;
-top:-50px;
+top:-40px;
 `
 const LoadingIcon = styled(FiLoader)`
   position: relative;
   left: 50%;
   top: 10px;
   animation: spin 1s infinite linear;
-  height: 80vh;
+  height: 70vh;
 
   @keyframes spin {
     100% {

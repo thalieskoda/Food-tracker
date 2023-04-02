@@ -39,7 +39,7 @@ const Header = () => {
 };
 
 const Title = styled.p`
-  font-family: Crossant+one;
+  /* font-family: Crossant+one; */
 `;
 
 const Link = styled(NavLink)`
@@ -71,5 +71,6 @@ const Wrapper = styled.div`
   background: radial-gradient(circle, #d6ffe6, #d6ecff) no-repeat;
   align-items: center;
   height: 10vh;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 `;
 export default Header;

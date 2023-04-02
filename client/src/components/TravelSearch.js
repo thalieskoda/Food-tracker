@@ -8,6 +8,8 @@ const TravelSearch = ({
   rating,
   ratingNumber,
   price,
+  photos,
+  id
 }) => {
   console.log(name);
 
@@ -67,6 +69,11 @@ const [isAdded, setIsAdded] = useState(false)
             <Li>Price level : {price}/5</Li>
 
             <Li>{address}</Li>
+            {photos.map((photo, id)=> {
+              return(
+              <img alt={`${name}'s pictures`} src={photo} key={id}/>
+            )
+            })}
           </Info>
           <DeleteLink onClick={(ev) => handleDelete(ev)}>
                   Remove from favorites
@@ -88,6 +95,7 @@ const AddButton = styled.button`
 const Info = styled.ul`
   display: flex;
   flex-direction: column;
+ padding:10px;
 `;
 
 const Li = styled.li`
