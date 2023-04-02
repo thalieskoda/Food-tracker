@@ -7,6 +7,8 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import Header from "./header/Header";
 import Homefeed from "./Homefeed";
 import Profile from "./Profile";
+import AboutUs from "./AboutUs";
+import ContactUs from "./ContactUs";
 
 const App = () => {
 
@@ -19,6 +21,8 @@ const App = () => {
         <Routes>
         <Route path="/" element={<UserAuthenticator />} />
         <Route path="/homefeed" element={<ProtectedRoutes component={Homefeed} />} />
+        <Route path="/about" element={<ProtectedRoutes component={AboutUs} />} />
+        <Route path="/contact" element={<ProtectedRoutes component={ContactUs} />} />
         <Route path="/profile" element={<ProtectedRoutes component={Profile} />} />
         <Route path="/profile/:destinationId" element={<ProtectedRoutes component={SingleDestination} />} />
         </Routes>
