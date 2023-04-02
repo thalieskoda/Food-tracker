@@ -1,49 +1,99 @@
+import { useState } from "react";
+import styled from "styled-components";
 
-import styled from "styled-components"
+const TravelSearch = ({
+  name,
+  onClose,
+  address,
+  rating,
+  ratingNumber,
+  price,
+}) => {
+  console.log(name);
 
-const TravelSearch = ({ name, onClose, address, rating, ratingNumber }) => {
+  const handleDelete = (ev) => {
+    ev.preventDefault();
+setIsAdded(false)
+    // fetch(`/delete-restaurant/${restaurant.name}`, {
+    //   method: "DELETE",
+    //   body: JSON.stringify({ quantity: quantity }),
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    // }).then(() => {
+
+    // });
+  };
+
+//   fetch("/update-favorites", {
+//     method: "PATCH",
+//     body: JSON.stringify({
+//       ...cartItem,
+//       quantity: click,
+//     }),
+//     headers: {
+//       Accept: "application/json",
+//       "Content-Type": "application/json",
+//     },
+//   })
+//     .then((res) => res.json())
+//     .then((parsedData) => {
+//       setQuantity(quantity + click);
+//       itemFetch();
+//     });
+// };
+
+const [isAdded, setIsAdded] = useState(false)
+  const handleClickProfile = () => {
+    setIsAdded(true)
+
+  };
   return (
     <>
-    {name ? (
-      <Wrapper>
-      <CloseButton onClick={onClose}>Close</CloseButton>
-      <Info>
-        <H2>Name{name}</H2>
-        <H2>{rating}stars - {ratingNumber}</H2>
-        <H2>Price</H2>
+      {name ? (
+        <Wrapper>
+          <Buttons>
+            <CloseButton onClick={onClose}>Close</CloseButton>
+            <AddButton onClick={handleClickProfile} isAdded={isAdded}>
+              {isAdded ? "Already in my favorites" : "Add to my favorites"}
+            </AddButton>
+          </Buttons>
+          <Info>
+            <Li>Name : {name}</Li>
+            <Li>
+              {rating} stars - numbers of ratings: {ratingNumber}
+            </Li>
+            <Li>Price level : {price}/5</Li>
 
-        <H2>{address}</H2>
-        <H2>Phone number</H2>
-        <H2>Website</H2>
-
-      </Info>
-    </Wrapper> 
-    ) : (
-<>
-<h1>Enter a city that you would like to visit</h1>
-<h1>Select your favorite restaurants</h1>
-<h1>Add them to your profile</h1>
-<h1>Check the address of the restaurant you'd like to go directly from your profile when the time comes</h1>
-
-
-</>
-
-    )}
-    
+            <Li>{address}</Li>
+          </Info>
+          <DeleteLink onClick={(ev) => handleDelete(ev)}>
+                  Remove from favorites
+                </DeleteLink>
+        </Wrapper>
+      ) : null}
     </>
   );
 };
 
-const Info = styled.div`
-display:flex;
-flex-direction:column;
-`
+const Buttons = styled.div``;
+const AddButton = styled.button`
+  width: 280px;
+  margin: 10px;
+  opacity: ${(props)=> props.isAdded ? "0.5" : "1"};
+  pointer-events: ${(props)=> props. isAdded? "none" : "auto"};
+`;
 
-const H2 = styled.h2`
-/* border-bottom:1px black solid; */
-`
+const Info = styled.ul`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Li = styled.li`
+  /* border-bottom:1px black solid; */
+`;
 const Wrapper = styled.div`
-
   position: relative;
   left: 20px;
   top: 80px;
@@ -54,4 +104,11 @@ const Wrapper = styled.div`
 const CloseButton = styled.button`
   margin-bottom: 20px;
 `;
-export default TravelSearch
+
+const DeleteLink = styled.a`
+  text-decoration: underline;
+  font-size: 12px;
+  cursor: pointer;
+
+`;
+export default TravelSearch;

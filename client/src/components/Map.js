@@ -102,13 +102,15 @@ const Map = () => {
       </MapContainer>
       {selectedRestaurant && (
         <TravelSearch
-          name={selectedRestaurant.name}
-          address={selectedRestaurant.vicinity}
-          rating={selectedRestaurant.rating}
-          ratingNumber={selectedRestaurant.user_ratings_total}
-          onClose={() => setSelectedRestaurant(null)}
+        name={selectedRestaurant.name}
+        address={selectedRestaurant.vicinity}
+        rating={selectedRestaurant.rating}
+        ratingNumber={selectedRestaurant.user_ratings_total}
+        price={selectedRestaurant.price_level}
+        onClose={() => setSelectedRestaurant(null)}
         />
-      )}
+        )}
+        
     </>
   ) : (
     <>
@@ -120,10 +122,6 @@ const Map = () => {
 };
 
 
-const Container = styled.div`
-display:flex;
-flex-direction:row;
-`
 const MapContainer = styled.div`
 position:relative;
 top:-50px;
