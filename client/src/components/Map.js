@@ -70,7 +70,7 @@ const Map = () => {
   console.log(selectedRestaurant);
   return isLoaded ? (
     <>
-      <SearchBar map={map} setPlaces={setPlaces}/>
+      <SearchBar map={map} setPlaces={setPlaces} />
       <MapContainer>
         <GoogleMap
           mapContainerStyle={containerStyle}
@@ -101,13 +101,13 @@ const Map = () => {
         </GoogleMap>
       </MapContainer>
       {selectedRestaurant && (
-        <Container>
-          <TravelSearch
-            name={selectedRestaurant.name}
-            onClose={() => setSelectedRestaurant(null)}
-          />
-        </Container>
-        
+        <TravelSearch
+          name={selectedRestaurant.name}
+          address={selectedRestaurant.vicinity}
+          rating={selectedRestaurant.rating}
+          ratingNumber={selectedRestaurant.user_ratings_total}
+          onClose={() => setSelectedRestaurant(null)}
+        />
       )}
     </>
   ) : (
