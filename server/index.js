@@ -3,7 +3,7 @@
 // import the needed node_modules.
 const express = require("express");
 const morgan = require("morgan");
-const { userInfo, country, addRestaurant, deleteRestaurant, updateFavorite } = require("./handlers")
+const { userInfo, country, addRestaurant, deleteRestaurant, updateFavorite, favorites } = require("./handlers")
 
 const port = 8888;
 
@@ -25,6 +25,9 @@ express()
   .get("/profile", userInfo)
 
   .get("/profile/:country", country)
+
+
+.get ("/favorite-restaurants", favorites)
 
   .post("/add-restaurant", addRestaurant)
 

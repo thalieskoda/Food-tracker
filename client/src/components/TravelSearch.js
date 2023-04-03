@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import styled from "styled-components";
 import CurrentUserContext from "./CurrentUserContext";
+import { useEffect } from "react";
 
 const TravelSearch = ({
   name,
@@ -16,11 +17,31 @@ const TravelSearch = ({
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   const [isAdded, setIsAdded] = useState(false);
-const [favoriteRestaurant, setFavoriteRestaurant] = useState({})
+const [favoriteRestaurant, setFavoriteRestaurant] = useState(null)
+const [isAvailable, setIsAvailable]=useState(true)
+
+useEffect(() => {
+  fetch("/favorite-restaurants")
+    .then((res) => res.json())
+    .then((data) => {
+      setFavoriteRestaurant(data.data.favorites);
+        console.log(data.data.favorites);
+      
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}, [currentUser.email, name, id]); //Everytime it's a new restaurant or a new user, we fetch different favorite restaurants
+
+// if(favoriteRestaurant){
+// favoriteRestaurant.find((restaurant) => restaurant.place_id === id);
+// }
+
 
   const handleDelete = (ev) => {
     ev.preventDefault();
     setIsAdded(false);
+    console.log(favoriteRestaurant);
     // fetch(`/delete-restaurant/${restaurant.name}`, {
     //   method: "DELETE",
     //   body: JSON.stringify({ quantity: quantity }),
@@ -34,41 +55,53 @@ const [favoriteRestaurant, setFavoriteRestaurant] = useState({})
   };
 
   const handleClick = (ev) => {
-    
     ev.preventDefault();
+  
     setIsAdded(true);
-
     fetch("/add-restaurant", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-      }, //sending the new restaurant from the frontend, to the server
-      body: JSON.stringify({name: name, address: address, rating: rating, place_id: id, email: currentUser.email}), //convert into a JSON string --> sent as the body of the HTTP request.
+      },
+      body: JSON.stringify({
+        name: name,
+        address: address,
+        rating: rating,
+        place_id: id,
+        email: currentUser.email,
+        isAvailable: false,
+      }),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setFavoriteRestaurant(data)
+        setFavoriteRestaurant([...favoriteRestaurant, data]);
+        setIsAvailable(false)
       })
       .catch((error) => {
         console.log(error);
       });
   };
+  
 
   return (
     <>
       {name ? (
         <Wrapper>
+          { favoriteRestaurant && (
           <Buttons>
             <CloseButton onClick={onClose}>Close</CloseButton>
             <AddButton
               onClick={handleClick}
               isAdded={isAdded}
+              isAvailable={isAvailable}
+              disabled={favoriteRestaurant.some((restaurant) => restaurant.place_id === id) || !isAvailable}
             >
-              {isAdded ? "Already in my favorites" : "Add to my favorites"}
+              { !(favoriteRestaurant.some((restaurant) => restaurant.place_id === id))  && isAvailable ?  "Add to my favorites": "Already in my favorites"}
             </AddButton>
           </Buttons>
+)}
           <Info>
             <Li>Name : {name}</Li>
             <Li>
@@ -97,8 +130,8 @@ const Buttons = styled.div``;
 const AddButton = styled.button`
   width: 280px;
   margin: 10px;
-  opacity: ${(props) => (props.isAdded ? "0.5" : "1")};
-  pointer-events: ${(props) => (props.isAdded ? "none" : "auto")};
+  opacity: ${(props) => (props.disabled ? "0.5" : "1")};
+  pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
 `;
 
 const Info = styled.ul`
