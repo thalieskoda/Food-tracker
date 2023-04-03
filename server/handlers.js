@@ -46,10 +46,8 @@ const country = async (req, res) => {
         status: 200,
         data: destination,
       });
-    } else{
-      res
-          .status(400)
-          .json({ status: 400, message: "Nothing was found here" });
+    } else {
+      res.status(400).json({ status: 400, message: "Nothing was found here" });
     }
   } catch (error) {
     res.status(500).json({ status: 500, message: error });
@@ -60,44 +58,75 @@ const country = async (req, res) => {
 //***** ADD RESTAURANT TO FAVORITE ******/
 const addRestaurant = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
+
   try {
     await client.connect();
+
+    // accessing the body
+    const name = req.body.name;
+    const address = req.body.address;
+    const rating = req.body.rating;
+    const email = req.body.email;
+    const place_id = req.body.place_id;
+
     const db = client.db("trvl-up");
 
-    // this verifies that the user exist
-    const userEmail = req.body
-    const findUser = await db.collection("users").findOne({ _id: userEmail });
-    if (!findUser) {
-      return res.status(400).json({ status: 400, data: "This user doesn't exist" });
+    // Verify that the user exists
+    const user = await db.collection("users").findOne({ _id: email });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ status: 400, data: "This user doesn't exist" });
     }
 
-    // this updates the restaurant if its already exist in the user's profile
-    if (findUser) {
-      const query = { _id: userEmail };
-      const update = {
-        $set: {restaurant: restaurant.name },
-      };
+    const newFavorite = {
+      name: name,
+      address: address,
+      rating: rating,
+      place_id: place_id,
+    };
 
-    // this adds new restaurant to the favorites and updates it
-    const newRestaurant= await db.collection("users").insertOne(req.body);
+    // Check if the restaurant already exists in the "favorites" array of the user
+    const existingFavorite = user.favorites.find(
+      (favorite) => favorite.place_id === place_id
+    );
+
+    if (existingFavorite) {
+      return res
+        .status(400)
+        .json({ status: 400, data: "This restaurant is already a favorite" });
+    }
+
+    // Add the new favorite to the user's favorites array
+    user.favorites.push(newFavorite);
+
+    // Update the user's profile with the new favorites array
+    const updatedUser = await db
+      .collection("users")
+      .updateOne({ email: email }, { $set: { favorites: user.favorites } });
 
     res.status(200).json({
       status: 200,
+      data: updatedUser,
       message: "New restaurant added to favorites",
     });
-  }} catch (error) {
+  } catch (error) {
     res.status(500).json({ status: 500, message: error });
+  } finally {
+    client.close();
   }
-  client.close();
 };
 
 //***** DELETE RESTAURANT FROM FAVORITE ******/
-const deleteRestaurant = (req,res) => {
-
-}
+const deleteRestaurant = (req, res) => {};
 
 //***** UPDATE RESTAURANT'S FAVORITE ******/
-const updateFavorite = (req,res) => {
-
-}
-module.exports = { userInfo, country, addRestaurant, deleteRestaurant, updateFavorite };
+const updateFavorite = (req, res) => {};
+module.exports = {
+  userInfo,
+  country,
+  addRestaurant,
+  deleteRestaurant,
+  updateFavorite,
+};

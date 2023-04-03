@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
+import CurrentUserContext from "./CurrentUserContext";
 
 const TravelSearch = ({
   name,
@@ -9,13 +10,17 @@ const TravelSearch = ({
   ratingNumber,
   price,
   photos,
-  id
+  id,
 }) => {
-  console.log(name);
+
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+
+  const [isAdded, setIsAdded] = useState(false);
+const [favoriteRestaurant, setFavoriteRestaurant] = useState({})
 
   const handleDelete = (ev) => {
     ev.preventDefault();
-setIsAdded(false)
+    setIsAdded(false);
     // fetch(`/delete-restaurant/${restaurant.name}`, {
     //   method: "DELETE",
     //   body: JSON.stringify({ quantity: quantity }),
@@ -28,36 +33,39 @@ setIsAdded(false)
     // });
   };
 
-//   fetch("/update-favorites", {
-//     method: "PATCH",
-//     body: JSON.stringify({
-//       ...cartItem,
-//       quantity: click,
-//     }),
-//     headers: {
-//       Accept: "application/json",
-//       "Content-Type": "application/json",
-//     },
-//   })
-//     .then((res) => res.json())
-//     .then((parsedData) => {
-//       setQuantity(quantity + click);
-//       itemFetch();
-//     });
-// };
+  const handleClick = (ev) => {
+    
+    ev.preventDefault();
+    setIsAdded(true);
 
-const [isAdded, setIsAdded] = useState(false)
-  const handleClickProfile = () => {
-    setIsAdded(true)
-
+    fetch("/add-restaurant", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      }, //sending the new restaurant from the frontend, to the server
+      body: JSON.stringify({name: name, address: address, rating: rating, place_id: id, email: currentUser.email}), //convert into a JSON string --> sent as the body of the HTTP request.
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setFavoriteRestaurant(data)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
   return (
     <>
       {name ? (
         <Wrapper>
           <Buttons>
             <CloseButton onClick={onClose}>Close</CloseButton>
-            <AddButton onClick={handleClickProfile} isAdded={isAdded}>
+            <AddButton
+              onClick={handleClick}
+              isAdded={isAdded}
+            >
               {isAdded ? "Already in my favorites" : "Add to my favorites"}
             </AddButton>
           </Buttons>
@@ -69,15 +77,16 @@ const [isAdded, setIsAdded] = useState(false)
             <Li>Price level : {price}/5</Li>
 
             <Li>{address}</Li>
-            {photos.map((photo, id)=> {
-              return(
-              <img alt={`${name}'s pictures`} src={photo} key={id}/>
-            )
+            {photos.map((photo, id) => {
+              return <img alt={`${name}'s pictures`} src={photo} key={id} />;
             })}
           </Info>
+          {isAdded ? (
           <DeleteLink onClick={(ev) => handleDelete(ev)}>
-                  Remove from favorites
-                </DeleteLink>
+            Remove from favorites
+          </DeleteLink>
+
+          ): (null)}
         </Wrapper>
       ) : null}
     </>
@@ -88,14 +97,14 @@ const Buttons = styled.div``;
 const AddButton = styled.button`
   width: 280px;
   margin: 10px;
-  opacity: ${(props)=> props.isAdded ? "0.5" : "1"};
-  pointer-events: ${(props)=> props. isAdded? "none" : "auto"};
+  opacity: ${(props) => (props.isAdded ? "0.5" : "1")};
+  pointer-events: ${(props) => (props.isAdded ? "none" : "auto")};
 `;
 
 const Info = styled.ul`
   display: flex;
   flex-direction: column;
- padding:10px;
+  padding: 10px;
 `;
 
 const Li = styled.li`
@@ -117,6 +126,5 @@ const DeleteLink = styled.a`
   text-decoration: underline;
   font-size: 12px;
   cursor: pointer;
-
 `;
 export default TravelSearch;

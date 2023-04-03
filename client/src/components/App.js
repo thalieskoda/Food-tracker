@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserAuthenticator from "./userAuthenticator/UserAuthenticator";
 import GlobalStyles from "./GlobalStyles";
-import SingleDestination from "./SingleDestination";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Header from "./header/Header";
 import Homefeed from "./Homefeed";
@@ -24,7 +23,6 @@ const App = () => {
         <Route path="/about" element={<ProtectedRoutes component={AboutUs} />} />
         <Route path="/contact" element={<ProtectedRoutes component={ContactUs} />} />
         <Route path="/profile" element={<ProtectedRoutes component={Profile} />} />
-        <Route path="/profile/:destinationId" element={<ProtectedRoutes component={SingleDestination} />} />
         </Routes>
       </BrowserRouter>
     </>
