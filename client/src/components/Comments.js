@@ -6,11 +6,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 
 const Comments = ({setReload, reload}) => {
-
     const { currentUser} = useContext(CurrentUserContext);
+    const {user} = useAuth0()
+    console.log(user);
+
     const [characterCount, setcharacterCount] = useState(280);
     const [value, setValue] = useState("");
-  const {user} = useAuth0()
+
     const maxLength = 280;
     const restCharacters = maxLength - value.length;
   
@@ -53,7 +55,7 @@ const Comments = ({setReload, reload}) => {
   
     return (
       <>
-        {!currentUser ? (
+        {!currentUser || !user ? (
           <LoadingIcon>
             <FiLoader />
           </LoadingIcon>
@@ -106,9 +108,9 @@ const Comments = ({setReload, reload}) => {
   
   
   const Img = styled.img`
-    border-radius: 100%;
-    width: 50px;
-    height: 50px;
+width:100px;
+height:100px;
+
   `;
   const Container = styled.div`
     display: flex;
@@ -156,7 +158,6 @@ const Comments = ({setReload, reload}) => {
    
     height: 50px;
     border: none;
-    border-radius: 35px;
     background-color: black;
     font-size: 18px;
     font-weight: bold;
