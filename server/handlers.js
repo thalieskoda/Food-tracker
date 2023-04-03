@@ -9,7 +9,7 @@ const options = {
   useUnifiedTopology: true,
 };
 
-// Get user's information profile
+//**** GET THE USER'S INFORMATION */
 const userInfo = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   try {
@@ -55,7 +55,7 @@ const userInfo = async (req, res) => {
 //   client.close();
 // };
 
-//find all the favorite restaurants
+//***GET ALL THE USER'S FAVORITES */
 const favorites = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
 

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import CurrentUserContext from "./CurrentUserContext";
 import styled from "styled-components";
@@ -10,14 +10,38 @@ const Profile = () => {
   // the key "sub" has a user Id
 console.log(user);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+const [favoriteRestaurant, setFavoriteRestaurant] = useState(null)
+
   console.log(currentUser);
 
+  useEffect(() => {
+    fetch("/favorite-restaurants")
+      .then((res) => res.json())
+      .then((data) => {
+        setFavoriteRestaurant(data.data.favorites);
+          console.log(data.data.favorites);
+        
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [currentUser.email]);
+console.log(favoriteRestaurant);
   return (
     <>
-      {currentUser ? (
+      {currentUser && favoriteRestaurant ? (
         <>
           <h1>hey {currentUser.firstName}, </h1>
-          <p>Here's your adventures' information : </p>
+          <p>Here's your favorite restaurants : </p>
+          {favoriteRestaurant.map((restaurant)=> {
+            return(
+          <ul key={restaurant.place_id}>
+            <li>{restaurant.name}</li>
+            <li>{restaurant.address}</li>
+            <li>{restaurant.rating}</li>
+          </ul>
+            )
+          })}
         </>
       ) : (
         <LoadingIcon>

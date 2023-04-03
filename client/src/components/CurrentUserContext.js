@@ -1,3 +1,4 @@
+
 import { createContext, useState, useEffect } from "react";
 
 const CurrentUserContext = createContext(null);
@@ -5,6 +6,7 @@ const CurrentUserContext = createContext(null);
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [status, setStatus] = useState("idle");
+const [favoriteRestaurant, setFavoriteRestaurant] = useState(null)
 
 //having a useEffect so that whenever the user is logged in, I can fetched his data from MongoDB
   useEffect(() => {

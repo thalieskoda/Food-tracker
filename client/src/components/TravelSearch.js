@@ -33,17 +33,13 @@ useEffect(() => {
     });
 }, [currentUser.email, name, id]); //Everytime it's a new restaurant or a new user, we fetch different favorite restaurants
 
-// if(favoriteRestaurant){
-// favoriteRestaurant.find((restaurant) => restaurant.place_id === id);
-// }
-
-
   const handleDelete = (ev) => {
     ev.preventDefault();
     setIsAdded(false);
+    setIsAvailable(true)
     console.log(favoriteRestaurant);
     fetch("/update-favorites", {
-      method: "DELETE",
+      method: "PATCH",
       body: JSON.stringify({ place_id: id, isAvailble:isAvailable, email:currentUser.email }),
       headers: {
         Accept: "application/json",
