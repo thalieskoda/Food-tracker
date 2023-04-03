@@ -184,16 +184,25 @@ const updateFavorite = async (req, res) => {
     );
 
     if (updateResult.modifiedCount === 1) {
-      return res.json({ status: 200, data: "Favorite restaurant updated successfully", "successfull update ": updateResult.modifiedCount});
+      // Remove the restaurant from the favorites array
+      const removeResult = await db.collection("users").updateOne(
+        { _id: email },
+        { $pull: { favorites: { place_id: place_id } } }
+      );
+      if (removeResult.modifiedCount === 1) {
+        return res.json({ status: 200, data: "Favorite restaurant updated successfully", "successful update": updateResult.modifiedCount });
+      } else {
+        return res.status(500).json({ status: 500, data: "Failed to update favorite restaurant" });
+      }
     } else {
       return res.status(500).json({ status: 500, data: "Failed to update favorite restaurant" });
     }
   } catch (err) {
     console.error(err);
     res.status(500).json({ status: 500, message: "Failed to update favorite restaurant" });
-  } 
+  } finally {
     client.close();
-  
+  }
 };
 
 module.exports = {
