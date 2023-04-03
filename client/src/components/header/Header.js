@@ -3,12 +3,25 @@ import { useAuth0 } from "@auth0/auth0-react";
 import UserIcon from "./UserIcon";
 import { NavLink } from "react-router-dom";
 import Navigation from "./Navigation";
-import logo from "../images/travelup.png"
-import { useState } from "react";
+import logo from "../images/travelup.png";
+import { useEffect, useState } from "react";
 const Header = () => {
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetch("/add-users", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+    }
+  }, [isAuthenticated]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -16,22 +29,24 @@ const Header = () => {
   return (
     <Wrapper>
       <Container1>
-        <Navigation toggleMenu={toggleMenu} isOpen={isMenuOpen}/>
-        {!user? ( <Link to="/">
-        <Logo src={logo} alt="logo" isMenuOpen={isMenuOpen}/>
-        <Title>-up</Title>
-        </Link>) : ( 
-        <Link to="/homefeed">
-        <Logo src={logo} alt="logo" isMenuOpen={isMenuOpen}/>
-        <h1>-up</h1>
-        </Link>
+        <Navigation toggleMenu={toggleMenu} isOpen={isMenuOpen} />
+        {!user ? (
+          <Link to="/">
+            <Logo src={logo} alt="logo" isMenuOpen={isMenuOpen} />
+            <Title>-up</Title>
+          </Link>
+        ) : (
+          <Link to="/homefeed">
+            <Logo src={logo} alt="logo" isMenuOpen={isMenuOpen} />
+            <h1>-up</h1>
+          </Link>
         )}
       </Container1>
-      {!user ? (null) : (
+      {!user ? null : (
         <>
-      <Container2>
-        <UserIcon/>
-      </Container2>
+          <Container2>
+            <UserIcon />
+          </Container2>
         </>
       )}
     </Wrapper>

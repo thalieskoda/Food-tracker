@@ -6,46 +6,61 @@ import { FiLoader } from "react-icons/fi";
 import Comments from "./Comments";
 
 const Profile = () => {
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   // Get the user's information with the following line: {JSON.stringify(user,null,2)}
   // the key "sub" has a user Id
-console.log(user);
+  console.log(user);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-const [favoriteRestaurant, setFavoriteRestaurant] = useState(null)
-const [reload, setReload] = useState(false);
+  const [favoriteRestaurant, setFavoriteRestaurant] = useState([]);
+  const [reload, setReload] = useState(false);
 
   console.log(currentUser);
 
+  // useEffect(() => {
+  //   fetch("/favorite-restaurants")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setFavoriteRestaurant(data.data.favorites);
+  //         console.log(data.data.favorites);
+
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, [currentUser.email, reload ]);
+
   useEffect(() => {
-    fetch("/favorite-restaurants")
-      .then((res) => res.json())
-      .then((data) => {
-        setFavoriteRestaurant(data.data.favorites);
-          console.log(data.data.favorites);
-        
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [currentUser.email, reload ]);
-console.log(favoriteRestaurant);
+    if (isAuthenticated) {
+      fetch(`/get-user/${user.email}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("here", data);
+          setFavoriteRestaurant(data.data.favorites);
+        });
+    }
+  }, [isAuthenticated]);
+  console.log("favoriteRestaurant", favoriteRestaurant);
   return (
     <>
       {currentUser && favoriteRestaurant ? (
         <>
           <h1>hey {currentUser.firstName}, </h1>
           <p>Here's your favorite restaurants : </p>
-          {favoriteRestaurant.map((restaurant)=> {
-            return(
+          {favoriteRestaurant.map((restaurant) => {
+            return (
               <Wrapper key={restaurant.place_id}>
-          <Ul>
-            <li>{restaurant.name}</li>
-            <li>{restaurant.address}</li>
-            <li>{restaurant.rating}</li>
-          </Ul>
-          <Comments setReload={setReload} reload={reload}/>
-</Wrapper>
-            )
+                <Ul>
+                  <li>{restaurant.name}</li>
+                  <li>{restaurant.address}</li>
+                  <li>{restaurant.rating}</li>
+                </Ul>
+                <Comments
+                  setReload={setReload}
+                  place_id={restaurant.place_id}
+                  reload={reload}
+                />
+              </Wrapper>
+            );
           })}
         </>
       ) : (
@@ -58,10 +73,9 @@ console.log(favoriteRestaurant);
 };
 
 const Wrapper = styled.div`
-display:flex;
-border: 2px red solid;
+  display: flex;
+  border: 2px red solid;
 `;
-
 
 const LoadingIcon = styled(FiLoader)`
   position: relative;
@@ -77,10 +91,10 @@ const LoadingIcon = styled(FiLoader)`
   }
 `;
 const Li = styled.li`
-padding:10px;
-`
+  padding: 10px;
+`;
 const Ul = styled.ul`
-padding:10px;
-list-style-type: none;
-`
+  padding: 10px;
+  list-style-type: none;
+`;
 export default Profile;
