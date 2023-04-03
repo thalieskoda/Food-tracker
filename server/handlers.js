@@ -29,31 +29,31 @@ const userInfo = async (req, res) => {
   client.close();
 };
 
-// Get a single destination to render in your profile
-const country = async (req, res) => {
-  const client = new MongoClient(MONGO_URI, options);
-  try {
-    await client.connect();
-    const db = client.db("trvl-up");
-    const country = req.params;
+// // Get a single destination to render in your profile
+// const country = async (req, res) => {
+//   const client = new MongoClient(MONGO_URI, options);
+//   try {
+//     await client.connect();
+//     const db = client.db("trvl-up");
+//     const country = req.params;
 
-    const destination = await db
-      .collection("users")
-      .findOne({ country: country });
+//     const destination = await db
+//       .collection("users")
+//       .findOne({ country: country });
 
-    if (destination) {
-      res.status(200).json({
-        status: 200,
-        data: destination,
-      });
-    } else {
-      res.status(400).json({ status: 400, message: "Nothing was found here" });
-    }
-  } catch (error) {
-    res.status(500).json({ status: 500, message: error });
-  }
-  client.close();
-};
+//     if (destination) {
+//       res.status(200).json({
+//         status: 200,
+//         data: destination,
+//       });
+//     } else {
+//       res.status(400).json({ status: 400, message: "Nothing was found here" });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ status: 500, message: error });
+//   }
+//   client.close();
+// };
 
 //find all the favorite restaurants
 const favorites = async (req, res) => {
@@ -62,7 +62,6 @@ const favorites = async (req, res) => {
   try {
 
     // accessing the body
-
     const place_id = req.body.place_id;
 
     await client.connect();
@@ -85,8 +84,6 @@ const favorites = async (req, res) => {
   }
   client.close();
 }
-
-
 
 //***** ADD RESTAURANT TO FAVORITE ******/
 const addRestaurant = async (req, res) => {
@@ -153,16 +150,55 @@ const addRestaurant = async (req, res) => {
   }
 };
 
-//***** DELETE RESTAURANT FROM FAVORITE ******/
-const deleteRestaurant = (req, res) => {};
-
 //***** UPDATE RESTAURANT'S FAVORITE ******/
-const updateFavorite = (req, res) => {};
+const updateFavorite = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+
+  try {
+    const { email, place_id, isAvailable } = req.body;
+
+    await client.connect();
+    const db = client.db("trvl-up");
+
+    const user = await db.collection("users").findOne({ _id: email });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ status: 400, data: "This user doesn't exist" });
+    }
+
+    const existingFavorite = user.favorites.find(
+      (favorite) => favorite.place_id === place_id
+    );
+
+    if (!existingFavorite) {
+      return res
+        .status(400)
+        .json({ status: 400, data: "This restaurant is not in your favorites" });
+    }
+
+    const updateResult = await db.collection("users").updateOne(
+      { _id: email, "favorites.place_id": place_id },
+      { $set: { "favorites.$.isAvailable": true } }
+    );
+
+    if (updateResult.modifiedCount === 1) {
+      return res.json({ status: 200, data: "Favorite restaurant updated successfully", "successfull update ": updateResult.modifiedCount});
+    } else {
+      return res.status(500).json({ status: 500, data: "Failed to update favorite restaurant" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ status: 500, message: "Failed to update favorite restaurant" });
+  } 
+    client.close();
+  
+};
+
 module.exports = {
   userInfo,
-  country,
   addRestaurant,
-  deleteRestaurant,
   updateFavorite,
   favorites
 };

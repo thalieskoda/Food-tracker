@@ -42,16 +42,16 @@ useEffect(() => {
     ev.preventDefault();
     setIsAdded(false);
     console.log(favoriteRestaurant);
-    // fetch(`/delete-restaurant/${restaurant.name}`, {
-    //   method: "DELETE",
-    //   body: JSON.stringify({ quantity: quantity }),
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    // }).then(() => {
+    fetch("/update-favorites", {
+      method: "DELETE",
+      body: JSON.stringify({ place_id: id, isAvailble:isAvailable, email:currentUser.email }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }).then(() => {
 
-    // });
+    });
   };
 
   const handleClick = (ev) => {
