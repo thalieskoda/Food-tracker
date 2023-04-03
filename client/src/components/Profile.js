@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import CurrentUserContext from "./CurrentUserContext";
 import styled from "styled-components";
 import { FiLoader } from "react-icons/fi";
+import Comments from "./Comments";
 
 const Profile = () => {
   const { user } = useAuth0();
@@ -11,6 +12,7 @@ const Profile = () => {
 console.log(user);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 const [favoriteRestaurant, setFavoriteRestaurant] = useState(null)
+const [reload, setReload] = useState(false);
 
   console.log(currentUser);
 
@@ -25,7 +27,7 @@ const [favoriteRestaurant, setFavoriteRestaurant] = useState(null)
       .catch((error) => {
         console.log(error);
       });
-  }, [currentUser.email]);
+  }, [currentUser.email, reload ]);
 console.log(favoriteRestaurant);
   return (
     <>
@@ -35,11 +37,14 @@ console.log(favoriteRestaurant);
           <p>Here's your favorite restaurants : </p>
           {favoriteRestaurant.map((restaurant)=> {
             return(
-          <ul key={restaurant.place_id}>
+              <Wrapper key={restaurant.place_id}>
+          <Ul>
             <li>{restaurant.name}</li>
             <li>{restaurant.address}</li>
             <li>{restaurant.rating}</li>
-          </ul>
+          </Ul>
+          <Comments setReload={setReload} reload={reload}/>
+</Wrapper>
             )
           })}
         </>
@@ -52,9 +57,11 @@ console.log(favoriteRestaurant);
   );
 };
 
-const Button = styled.button`
-width:500px;
-`
+const Wrapper = styled.div`
+display:flex;
+border: 2px red solid;
+`;
+
 
 const LoadingIcon = styled(FiLoader)`
   position: relative;

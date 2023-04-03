@@ -205,9 +205,60 @@ const updateFavorite = async (req, res) => {
   }
 };
 
+
+
+const newComment = async(req, res) => {
+
+  const client = new MongoClient(MONGO_URI, options);
+
+  try {
+    await client.connect();
+
+    // accessing the body
+    const comment = req.body.status;
+    const email = req.body.email;
+    const place_id = req.body.place_id;
+
+    const db = client.db("trvl-up");
+
+    // Verify that the user exists
+    const user = await db.collection("users").findOne({ _id: email });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ status: 400, data: "This user doesn't exist" });
+    }
+
+    ////Need to find the exacte place_id of the restaurant for the comment.
+    const newCommentFromUser = {
+      comment : comment
+    };
+
+    // Add the new favorite to the user's favorites array
+    user.favorites.push(newCommentFromUser);
+
+    // Update the user's profile with the new favorites array
+    const updatedUser = await db
+      .collection("users")
+      .updateOne({ email: email }, { $set: { favorites: user.favorites } });
+
+    res.status(200).json({
+      status: 200,
+      data: updatedUser,
+      message: "New comment was added to favorites",
+    });
+  } catch (error) {
+    res.status(500).json({ status: 500, message: error });
+  } finally {
+    client.close();
+  }
+}
+
 module.exports = {
   userInfo,
   addRestaurant,
   updateFavorite,
-  favorites
+  favorites,
+  newComment
 };
