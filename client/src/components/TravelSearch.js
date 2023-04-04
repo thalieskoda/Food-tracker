@@ -1,9 +1,8 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import CurrentUserContext from "./CurrentUserContext";
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import moment from "moment"
 const TravelSearch = ({
   name,
   onClose,
@@ -13,14 +12,15 @@ const TravelSearch = ({
   price,
   photos,
   id,
+  icon
 }) => {
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   const { user } = useAuth0();
   const [isAdded, setIsAdded] = useState(false);
   const [favoriteRestaurant, setFavoriteRestaurant] = useState(null);
   const [isAvailable, setIsAvailable] = useState(true);
 
+  const currentDate = moment().format('MMMM Do YYYY, h:mm:ss a');
   useEffect(() => {
     fetch("/favorite-restaurants")
       .then((res) => res.json())
@@ -43,7 +43,7 @@ const TravelSearch = ({
       body: JSON.stringify({
         place_id: id,
         isAvailble: isAvailable,
-        email: currentUser.email,
+        email: user.email,
       }),
       headers: {
         Accept: "application/json",
@@ -66,9 +66,13 @@ const TravelSearch = ({
         name: name,
         address: address,
         rating: rating,
+        price_level: price,
+        photos : photos,
         place_id: id,
+        icon:icon,
         email: user.email,
         isAvailable: false,
+        date_added: currentDate
       }),
     })
       .then((res) => res.json())
@@ -118,6 +122,7 @@ const TravelSearch = ({
             {photos.map((photo, id) => {
               return <img alt={`${name}'s pictures`} src={photo} key={id} />;
             })}
+          
           </Info>
           {isAdded ? (
             <DeleteLink onClick={(ev) => handleDelete(ev)}>

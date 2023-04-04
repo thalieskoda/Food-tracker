@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./components/App";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { CurrentPositionProvider } from "./components/CurrentPositionContext";
-import { CurrentUserProvider } from "./components/CurrentUserContext";
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 console.log(domain, clientId);
@@ -20,9 +19,7 @@ root.render(
       redirect_uri={"/homefeed"}
       authorizationParams={{ redirect_uri: window.location.origin }}
     >
-      <CurrentUserProvider>
-        <App />
-      </CurrentUserProvider>
+      <App />
     </Auth0Provider>
   </CurrentPositionProvider>
 );

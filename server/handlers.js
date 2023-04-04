@@ -28,6 +28,7 @@ const userInfo = async (req, res) => {
   }
   client.close();
 };
+
 const handleUsers = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   try {
@@ -52,6 +53,7 @@ const handleUsers = async (req, res) => {
   }
   client.close();
 };
+
 const getSingleUser = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   try {
@@ -67,6 +69,7 @@ const getSingleUser = async (req, res) => {
   }
   client.close();
 };
+
 const handleComments = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   try {
@@ -99,32 +102,6 @@ const handleComments = async (req, res) => {
   }
   client.close();
 };
-
-// // Get a single destination to render in your profile
-// const country = async (req, res) => {
-//   const client = new MongoClient(MONGO_URI, options);
-//   try {
-//     await client.connect();
-//     const db = client.db("trvl-up");
-//     const country = req.params;
-
-//     const destination = await db
-//       .collection("users")
-//       .findOne({ country: country });
-
-//     if (destination) {
-//       res.status(200).json({
-//         status: 200,
-//         data: destination,
-//       });
-//     } else {
-//       res.status(400).json({ status: 400, message: "Nothing was found here" });
-//     }
-//   } catch (error) {
-//     res.status(500).json({ status: 500, message: error });
-//   }
-//   client.close();
-// };
 
 //***GET ALL THE USER'S FAVORITES */
 const favorites = async (req, res) => {
@@ -163,7 +140,18 @@ const addRestaurant = async (req, res) => {
     await client.connect();
 
     // accessing the body
-    const { name, address, rating, email, place_id, isAvailable } = req.body;
+    const {
+      name,
+      address,
+      rating,
+      email,
+      place_id,
+      photos,
+      price_level,
+      isAvailable,
+      date_added,
+      icon
+    } = req.body;
 
     const db = client.db("trvl-up");
 
@@ -180,8 +168,12 @@ const addRestaurant = async (req, res) => {
       name,
       address,
       rating,
+      price_level,
+      photos,
       place_id,
+      icon,
       isAvailable,
+      date_added,
     };
 
     // Check if the restaurant already exists in the "favorites" array of the user

@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import CurrentUserContext from "./CurrentUserContext";
 import styled from "styled-components";
 import { FiLoader } from "react-icons/fi";
 import Comments from "./Comments";
@@ -9,12 +8,10 @@ const Profile = () => {
   const { user, isAuthenticated } = useAuth0();
   // Get the user's information with the following line: {JSON.stringify(user,null,2)}
   // the key "sub" has a user Id
-  console.log(user);
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  console.log({ user });
+
   const [favoriteRestaurant, setFavoriteRestaurant] = useState([]);
   const [reload, setReload] = useState(false);
-
-  console.log(currentUser);
 
   // useEffect(() => {
   //   fetch("/favorite-restaurants")
@@ -40,19 +37,27 @@ const Profile = () => {
     }
   }, [isAuthenticated]);
   console.log("favoriteRestaurant", favoriteRestaurant);
+
   return (
     <>
-      {currentUser && favoriteRestaurant ? (
+      {user && favoriteRestaurant ? (
         <>
-          <h1>hey {currentUser.firstName}, </h1>
-          <p>Here's your favorite restaurants : </p>
+          <h1>Hey {user.given_name},</h1>
+          <p>Here are your favorite restaurants:</p>
           {favoriteRestaurant.map((restaurant) => {
+           
             return (
               <Wrapper key={restaurant.place_id}>
                 <Ul>
-                  <li>{restaurant.name}</li>
-                  <li>{restaurant.address}</li>
-                  <li>{restaurant.rating}</li>
+                  <li>Name: {restaurant.name}</li>
+                  <li>Address: {restaurant.address}</li>
+                  <li>Rating: {restaurant.rating}/5</li>
+                  <li>Price level: {restaurant.price_level}/5</li>
+                  <li>
+                    <img src={restaurant.icon} alt={`${restaurant.name}'s icon`} />
+                    {console.log(restaurant.icon)}
+                  </li>
+                  <li>Added to your favorites on {restaurant.date_added}</li>
                 </Ul>
                 <Comments
                   setReload={setReload}

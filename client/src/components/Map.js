@@ -25,7 +25,7 @@ const Map = () => {
   const [places, setPlaces] = useState([]);
   const [map, setMap] = useState(null);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-
+console.log(selectedRestaurant);
   // verify if the map is loaded.
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -54,7 +54,7 @@ const Map = () => {
       }
     });
   };
-
+console.log(places);
   // If there's a map and it's loaded, and there's at least one place in the area ;
   useEffect(() => {
     if (isLoaded && map && places.length > 0) {
@@ -109,6 +109,7 @@ const Map = () => {
         price={selectedRestaurant.price_level}
         photos={selectedRestaurant.photos}
         id={selectedRestaurant.place_id}
+        icon={selectedRestaurant.icon}
         onClose={() => setSelectedRestaurant(null)}
         
         />

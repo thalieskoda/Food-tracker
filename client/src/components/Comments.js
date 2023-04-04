@@ -1,13 +1,10 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { FiLoader } from "react-icons/fi";
-import CurrentUserContext from "./CurrentUserContext";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Comments = ({ setReload, reload, place_id }) => {
-  const { currentUser } = useContext(CurrentUserContext);
   const { user } = useAuth0();
-  console.log(user);
 
   const [characterCount, setcharacterCount] = useState(280);
   const [value, setValue] = useState("");
@@ -52,7 +49,7 @@ const Comments = ({ setReload, reload, place_id }) => {
 
   return (
     <>
-      {!currentUser || !user ? (
+      {!user || !user ? (
         <LoadingIcon>
           <FiLoader />
         </LoadingIcon>
@@ -103,8 +100,9 @@ const LoadingIcon = styled(FiLoader)`
 `;
 
 const Img = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
+  border-radius:100%;
 `;
 const Container = styled.div`
   display: flex;
