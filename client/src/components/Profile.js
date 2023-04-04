@@ -6,25 +6,9 @@ import Comments from "./Comments";
 
 const Profile = () => {
   const { user, isAuthenticated } = useAuth0();
-  // Get the user's information with the following line: {JSON.stringify(user,null,2)}
-  // the key "sub" has a user Id
-  console.log({ user });
 
   const [favoriteRestaurant, setFavoriteRestaurant] = useState([]);
   const [reload, setReload] = useState(false);
-
-  // useEffect(() => {
-  //   fetch("/favorite-restaurants")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setFavoriteRestaurant(data.data.favorites);
-  //         console.log(data.data.favorites);
-
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, [currentUser.email, reload ]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -53,10 +37,18 @@ const Profile = () => {
                   <li>Address: {restaurant.address}</li>
                   <li>Rating: {restaurant.rating}/5</li>
                   <li>Price level: {restaurant.price_level}/5</li>
-                  <li>
-                    <img src={restaurant.icon} alt={`${restaurant.name}'s icon`} />
-                    {console.log(restaurant.icon)}
-                  </li>
+                 {/* <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=Aap_uEA7vb0DDYVJWEaX3O-AtYp77AaswQKSGtDaimt3gt7QCNpdjp1BkdM6acJ96xTec3tsV_ZJNL_JP-lqsVxydG3nh739RE_hepOOL05tfJh2_ranjMadb3VoBYFvF0ma6S24qZ6QJUuV6sSRrhCskSBP5C1myCzsebztMfGvm7ij3gZT&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`} alt="allo"/> */}
+                 {restaurant.photos.map((photo) => {
+                    const photoUrl = `${photo.html_attribution}?maxwidth=400&photo_reference=${photo.photo_reference}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+                    return (
+                      <div key={photo.photo_reference}>
+                        <img
+                          alt={`${restaurant.name}'s pictures`}
+                          src={photoUrl}
+                        />
+                      </div>
+                    );
+                  })}
                   <li>Added to your favorites on {restaurant.date_added}</li>
                 </Ul>
                 <Comments

@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import { FiLoader } from "react-icons/fi";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useParams } from "react-router";
 
 const Comments = ({ setReload, reload, place_id }) => {
   const { user } = useAuth0();
 
   const [characterCount, setcharacterCount] = useState(280);
   const [value, setValue] = useState("");
+  const [comment, setComment] = useState("");
 
   const maxLength = 280;
   const restCharacters = maxLength - value.length;
@@ -47,13 +49,24 @@ const Comments = ({ setReload, reload, place_id }) => {
       });
   };
 
+  useEffect(() => {
+    if (user) {
+      fetch(`/get-comments`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data.data[0]);
+          setComment(data.data[0]);
+        });
+    }
+  }, [user]);
+
   return (
     <>
-      {!user || !user ? (
+      {!user || comment === null ? (
         <LoadingIcon>
           <FiLoader />
         </LoadingIcon>
-      ) : (
+      ) : !comment ? (
         <Wrapper>
           <Form onSubmit={handleSumbit}>
             <Img src={user.picture} alt={`${user}'s picture`} />
@@ -64,7 +77,6 @@ const Comments = ({ setReload, reload, place_id }) => {
               maxLength="400"
               inputColor={inputColor}
             />
-
             <Container>
               <Count inputColor={inputColor}>
                 {restCharacters < 0
@@ -72,11 +84,24 @@ const Comments = ({ setReload, reload, place_id }) => {
                   : restCharacters}{" "}
               </Count>
               <Button type="submit" disabled={!value || restCharacters < -0}>
-                submit
+                add a review
               </Button>
             </Container>
           </Form>
         </Wrapper>
+      ) : (
+        <>
+
+       {comment.comments && comment.comments
+  .filter((comment) => comment.place_id === place_id)
+  .map((comment) => (
+    <div key={comment._id}>
+      <div>
+        <p>My review : {comment.comments}</p>
+      </div>
+    </div>
+))}
+        </>
       )}
     </>
   );
@@ -102,7 +127,7 @@ const LoadingIcon = styled(FiLoader)`
 const Img = styled.img`
   width: 50px;
   height: 50px;
-  border-radius:100%;
+  border-radius: 100%;
 `;
 const Container = styled.div`
   display: flex;

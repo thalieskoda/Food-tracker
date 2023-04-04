@@ -4,14 +4,13 @@
 const express = require("express");
 const morgan = require("morgan");
 const {
-  userInfo,
   addRestaurant,
   updateFavorite,
   favorites,
-  newComment,
   handleUsers,
   getSingleUser,
-  handleComments
+  handleComments,
+  getComments
 } = require("./handlers");
 
 const port = 8888;
@@ -24,28 +23,18 @@ express()
   .use(express.json())
 
   /*********************************************************/
-  .get("/test", (req, res) => {
-    res.status(200).json({
-      status: 200,
-      message: "working",
-    });
-  })
-
-  .get("/profile", userInfo)
-
-  // .get("/profile/:country", country)
 
   .get("/favorite-restaurants", favorites)
-  .post("/add-users", handleUsers)
   .get("/get-user/:email", getSingleUser)
+  .get("/get-comments", getComments)
+  
+  .post("/add-users", handleUsers)
   .post("/add-comments/:place_id", handleComments)
-
   .post("/add-restaurant", addRestaurant)
-  .post("/new-comment", newComment)
 
   .patch("/update-favorites", updateFavorite)
 
-  // .delete("/profile", deleteRestaurant)
+
   /*********************************************************/
   // this is our catch all endpoint.
   .get("*", (req, res) => {
