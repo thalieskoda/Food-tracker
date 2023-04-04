@@ -61,7 +61,7 @@ const Comments = ({ setReload, reload, place_id }) => {
           setComment(data.data[0]);
         });
     }
-  }, [user]);
+  }, [user, reload]);
 
   const handleDelete = (ev) => {
     ev.preventDefault();
@@ -69,7 +69,7 @@ const Comments = ({ setReload, reload, place_id }) => {
       method: "PATCH",
       body: JSON.stringify({
         email: user.email,
-        _id: comment._id
+        _id: comment.comments[0]._id
       }),
       headers: {
         Accept: "application/json",
@@ -87,7 +87,7 @@ const Comments = ({ setReload, reload, place_id }) => {
         <LoadingIcon>
           <FiLoader />
         </LoadingIcon>
-      ) : !comment || !comment.comments.some(comment => comment.place_id === place_id) ? (
+      ) : !comment || !comment.comments || !comment.comments.some(comment => comment.place_id === place_id) ? (
         <Wrapper>
           <Form onSubmit={handleSumbit}>
             <Img src={user.picture} alt={`${user}'s picture`} />
@@ -114,11 +114,11 @@ const Comments = ({ setReload, reload, place_id }) => {
         <>
           {comment.comments &&
             comment.comments
-              .filter((c) => c.place_id === place_id)
-              .map((c) => (
-                <div key={c._id}>
+              .filter((comment) => comment.place_id === place_id)
+              .map((comment) => (
+                <div key={comment._id}>
                   <div>
-                    <p>My review: {c.comments}</p>
+                    <p>My review: {comment.comments}</p>
                     <p>added on {currentDate}</p>
                     <DeleteLink onClick={(ev) => handleDelete(ev)}>
                       Delete my review
