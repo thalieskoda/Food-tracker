@@ -1,5 +1,6 @@
 "use strict";
 const { MongoClient } = require("mongodb");
+const { uuid } = require("uuidv4");
 require("dotenv").config();
 
 const { MONGO_URI } = process.env;
@@ -78,6 +79,50 @@ const getComments = async (req, res) => {
   }
 };
 
+//**** UPDATE A COMMENT  -  REMOVE IT FROM THE ARRAY */
+const updateComments = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+
+  try {
+    const { place_id, _id } = req.body;
+
+    await client.connect();
+    const db = client.db("trvl-up");
+
+    // Use findOne to check if the user and comment exist
+    const user = await db.collection("users").findOne({ _id: _id, place_id: place_id });
+
+    if (!user) {
+      return res.status(404).json({
+        status: 404,
+        data: "No matching comments found",
+      });
+    }
+
+    // Use updateOne to remove the comment from the comments array
+    const updateResult = await db.collection("users").deleteOne(
+      { _id: _id },
+      { $pull: { comments: { place_id: place_id } } }
+    );
+
+    // Check if the update was successful and return the appropriate response
+    if (updateResult.modifiedCount === 1) {
+      return res.json({
+        status: 200,
+        data: "Comment removed successfully",
+      });
+    } 
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: 500,
+      message: "Failed to remove comment",
+    });
+  } 
+    client.close();
+  
+};
+
 //**** ADD A NEW COMMENT TO A SPECIFIC RESTAURANT */
 const handleComments = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
@@ -86,11 +131,13 @@ const handleComments = async (req, res) => {
     await client.connect();
     const db = client.db("trvl-up");
 
-    const { email, comments } = req.body;
+    const { email, comments, createdAt } = req.body;
     const userCommentsObject = {
       place_id,
       email,
       comments,
+      createdAt,
+      _id: uuid(),
     };
 
     const existingUser = await db.collection("users").findOne({ email });
@@ -294,9 +341,9 @@ const updateFavorite = async (req, res) => {
     res
       .status(500)
       .json({ status: 500, message: "Failed to update favorite restaurant" });
-  } finally {
+  } 
     client.close();
-  }
+  
 };
 
 module.exports = {
@@ -307,4 +354,5 @@ module.exports = {
   getSingleUser,
   handleComments,
   getComments,
+  updateComments
 };

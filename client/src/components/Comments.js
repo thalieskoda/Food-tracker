@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import { FiLoader } from "react-icons/fi";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useParams } from "react-router";
+import moment from "moment"
 
 const Comments = ({ setReload, reload, place_id }) => {
   const { user } = useAuth0();
+
+  const currentDate = moment().format('MMMM Do YYYY, h:mm:ss a');
 
   const [characterCount, setcharacterCount] = useState(280);
   const [value, setValue] = useState("");
@@ -31,7 +33,7 @@ const Comments = ({ setReload, reload, place_id }) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: user.email, comments: value }),
+      body: JSON.stringify({ email: user.email, comments: value, createdAt: currentDate }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -42,6 +44,7 @@ const Comments = ({ setReload, reload, place_id }) => {
         } else {
           setReload(!reload);
           setValue("");
+          setComment(value)
         }
       })
       .catch((error) => {
@@ -60,13 +63,31 @@ const Comments = ({ setReload, reload, place_id }) => {
     }
   }, [user]);
 
+  const handleDelete = (ev) => {
+    ev.preventDefault();
+    fetch("/update-comments", {
+      method: "PATCH",
+      body: JSON.stringify({
+        place_id: place_id,
+        email: user.email,
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }).then(() => {
+    setComment("")
+
+    });
+  };
+
   return (
     <>
       {!user || comment === null ? (
         <LoadingIcon>
           <FiLoader />
         </LoadingIcon>
-      ) : !comment ? (
+      ) : !comment || !comment.comments.some(comment => comment.place_id === place_id) ? (
         <Wrapper>
           <Form onSubmit={handleSumbit}>
             <Img src={user.picture} alt={`${user}'s picture`} />
@@ -91,22 +112,31 @@ const Comments = ({ setReload, reload, place_id }) => {
         </Wrapper>
       ) : (
         <>
-
-       {comment.comments && comment.comments
-  .filter((comment) => comment.place_id === place_id)
-  .map((comment) => (
-    <div key={comment._id}>
-      <div>
-        <p>My review : {comment.comments}</p>
-      </div>
-    </div>
-))}
+          {comment.comments &&
+            comment.comments
+              .filter((c) => c.place_id === place_id)
+              .map((c) => (
+                <div key={c._id}>
+                  <div>
+                    <p>My review: {c.comments}</p>
+                    <p>added on {currentDate}</p>
+                    <DeleteLink onClick={(ev) => handleDelete(ev)}>
+                      Delete my review
+                    </DeleteLink>
+                  </div>
+                </div>
+              ))}
         </>
       )}
     </>
   );
 };
 
+const DeleteLink = styled.a`
+  text-decoration: underline;
+  font-size: 12px;
+  cursor: pointer;
+`;
 const Loading = keyframes`
   from{
   transform:rotate(0deg);

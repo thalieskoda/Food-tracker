@@ -10,7 +10,8 @@ const {
   handleUsers,
   getSingleUser,
   handleComments,
-  getComments
+  getComments,
+  updateComments,
 } = require("./handlers");
 
 const port = 8888;
@@ -27,13 +28,13 @@ express()
   .get("/favorite-restaurants", favorites)
   .get("/get-user/:email", getSingleUser)
   .get("/get-comments", getComments)
-  
+
   .post("/add-users", handleUsers)
   .post("/add-comments/:place_id", handleComments)
   .post("/add-restaurant", addRestaurant)
 
   .patch("/update-favorites", updateFavorite)
-
+  .patch("/update-comments", updateComments)
 
   /*********************************************************/
   // this is our catch all endpoint.

@@ -1,8 +1,4 @@
-import {
-  GoogleMap,
- Marker,
-  useJsApiLoader
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import styled from "styled-components";
 import { FiLoader } from "react-icons/fi";
 import { useState, useContext, useEffect } from "react";
@@ -10,8 +6,8 @@ import CurrentPositionContext from "./CurrentPositionContext";
 import TravelSearch from "./TravelSearch";
 import SearchBar from "./SearchBar";
 
- //setting styles to the map
- const containerStyle = {
+//setting styles to the map
+const containerStyle = {
   width: "100%",
   height: "90vh",
 };
@@ -25,7 +21,7 @@ const Map = () => {
   const [places, setPlaces] = useState([]);
   const [map, setMap] = useState(null);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-console.log(selectedRestaurant);
+  console.log(selectedRestaurant);
   // verify if the map is loaded.
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -46,6 +42,7 @@ console.log(selectedRestaurant);
       location: center,
       radius: "5000",
       type: ["restaurant"],
+      fields: ["photos", "name"],
     };
     // Searching nearby for the resques that contains ***"restaurant"*** according to the location "center"
     service.nearbySearch(request, (results, status) => {
@@ -54,7 +51,7 @@ console.log(selectedRestaurant);
       }
     });
   };
-console.log(places);
+  console.log(places);
   // If there's a map and it's loaded, and there's at least one place in the area ;
   useEffect(() => {
     if (isLoaded && map && places.length > 0) {
@@ -102,19 +99,17 @@ console.log(places);
       </MapContainer>
       {selectedRestaurant && (
         <TravelSearch
-        name={selectedRestaurant.name}
-        address={selectedRestaurant.vicinity}
-        rating={selectedRestaurant.rating}
-        ratingNumber={selectedRestaurant.user_ratings_total}
-        price={selectedRestaurant.price_level}
-        photos={selectedRestaurant.photos}
-        id={selectedRestaurant.place_id}
-        icon={selectedRestaurant.icon}
-        onClose={() => setSelectedRestaurant(null)}
-        
+          name={selectedRestaurant.name}
+          address={selectedRestaurant.vicinity}
+          rating={selectedRestaurant.rating}
+          ratingNumber={selectedRestaurant.user_ratings_total}
+          price={selectedRestaurant.price_level}
+          photos={selectedRestaurant.photos}
+          id={selectedRestaurant.place_id}
+          icon={selectedRestaurant.icon}
+          onClose={() => setSelectedRestaurant(null)}
         />
-        )}
-        
+      )}
     </>
   ) : (
     <>
@@ -125,11 +120,10 @@ console.log(places);
   );
 };
 
-
 const MapContainer = styled.div`
-position:relative;
-top:-40px;
-`
+  position: relative;
+  top: -40px;
+`;
 const LoadingIcon = styled(FiLoader)`
   position: relative;
   left: 50%;

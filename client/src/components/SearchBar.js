@@ -30,6 +30,7 @@ const SearchBar = ({ map, setPlaces }) => {
   if (status === window.google.maps.places.PlacesServiceStatus.OK) {
     // Modify the results array to add the name of each restaurant to the corresponding place object in setPlaces
     const modifiedResults = results.map((result) => {
+      console.log(result);
       return {
         ...result,
         name: result.name,
