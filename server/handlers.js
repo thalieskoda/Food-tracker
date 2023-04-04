@@ -84,25 +84,35 @@ const updateComments = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
 
   try {
-    const { place_id, _id } = req.body;
+    const { _id, email } = req.body;
 
     await client.connect();
     const db = client.db("trvl-up");
 
     // Use findOne to check if the user and comment exist
-    const user = await db.collection("users").findOne({ _id: _id, place_id: place_id });
-
+    const user = await db.collection("users").findOne({ email: email });
+// console.log(user);
     if (!user) {
       return res.status(404).json({
         status: 404,
-        data: "No matching comments found",
+        data: "No matching user found",
       });
     }
 
+    const existingComment = user.comments.find(
+      (comment) => comment._id === _id
+    );
+console.log(existingComment);
+    if (!existingComment) {
+      return res.status(400).json({
+        status: 400,
+        data: "There's no comments for this restaurant",
+      });
+    }
     // Use updateOne to remove the comment from the comments array
-    const updateResult = await db.collection("users").deleteOne(
-      { _id: _id },
-      { $pull: { comments: { place_id: place_id } } }
+    const updateResult = await db.collection("users").updateOne(
+      { email: email },
+      { $pull: { comments: { _id: _id } } }
     );
 
     // Check if the update was successful and return the appropriate response
@@ -120,7 +130,6 @@ const updateComments = async (req, res) => {
     });
   } 
     client.close();
-  
 };
 
 //**** ADD A NEW COMMENT TO A SPECIFIC RESTAURANT */

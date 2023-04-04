@@ -68,8 +68,8 @@ const Comments = ({ setReload, reload, place_id }) => {
     fetch("/update-comments", {
       method: "PATCH",
       body: JSON.stringify({
-        place_id: place_id,
         email: user.email,
+        _id: comment._id
       }),
       headers: {
         Accept: "application/json",
