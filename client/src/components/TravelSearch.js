@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import moment from "moment"
+
+
 const TravelSearch = ({
   name,
   onClose,
@@ -17,8 +18,8 @@ const TravelSearch = ({
 
   const { user } = useAuth0();
   const [isAdded, setIsAdded] = useState(false);
-  const [favoriteRestaurant, setFavoriteRestaurant] = useState(null);
   const [isAvailable, setIsAvailable] = useState(true);
+  const [favoriteRestaurant, setFavoriteRestaurant] = useState(null);
 
   const currentDate = moment().format('MMMM Do YYYY, h:mm:ss a');
   useEffect(() => {
@@ -137,7 +138,7 @@ const TravelSearch = ({
 
 const Buttons = styled.div``;
 const AddButton = styled.button`
-  width: 280px;
+  width: 240px;
   margin: 10px;
   opacity: ${(props) => (props.disabled ? "0.5" : "1")};
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
@@ -169,4 +170,6 @@ const DeleteLink = styled.a`
   font-size: 12px;
   cursor: pointer;
 `;
+
+
 export default TravelSearch;

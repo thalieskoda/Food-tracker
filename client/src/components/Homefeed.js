@@ -5,6 +5,7 @@ const Homefeed = () => {
   return (
     <>
       <Wrapper>
+        {}
         <Searching>
         <>
           <P>1. Enter a city that you would like to visit</P>
@@ -29,7 +30,7 @@ font-weight:bold;
 `
 const Maps = styled.div`
 
-  width: 100%;
+  width: 90%;
 `;
 const Searching = styled.div`
 padding: 30px;

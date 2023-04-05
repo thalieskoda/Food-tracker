@@ -97,6 +97,7 @@ const Map = () => {
           ))}
         </GoogleMap>
       </MapContainer>
+      <SearchContainer>
       {selectedRestaurant && (
         <TravelSearch
           name={selectedRestaurant.name}
@@ -110,6 +111,7 @@ const Map = () => {
           onClose={() => setSelectedRestaurant(null)}
         />
       )}
+      </SearchContainer>
     </>
   ) : (
     <>
@@ -120,6 +122,9 @@ const Map = () => {
   );
 };
 
+const SearchContainer = styled.div`
+position:relative;
+`
 const MapContainer = styled.div`
   position: relative;
   top: -40px;
