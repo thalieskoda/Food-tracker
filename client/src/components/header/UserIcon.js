@@ -22,8 +22,11 @@ setShowDropdown(!showDropdown)
   return (
     <Wrapper>
       <Options onClick={handleProfileOptions}>
-        <FiUser />
-      {showDropdown ? <FiChevronUp /> : <FiChevronDown />}
+ 
+
+        <FiUser color="white"/>
+   
+      {showDropdown ? <FiChevronUp color="white"/> : <FiChevronDown color="white"/>}
       </Options>
       {showDropdown && (
         <Dropdown>
@@ -34,6 +37,7 @@ setShowDropdown(!showDropdown)
     </Wrapper>
   );
 };
+
 
 const Wrapper =styled.div`
 position:relative;
