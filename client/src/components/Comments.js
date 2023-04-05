@@ -14,7 +14,7 @@ const Comments = ({ setReload, reload, place_id }) => {
   const [characterCount, setcharacterCount] = useState(280);
   const [value, setValue] = useState("");
   const [comment, setComment] = useState("");
-  const [rating, setRating] = useState(0); // initialize rating state to 0
+  const [rating, setRating] = useState(0);
 
   const maxLength = 280;
   const restCharacters = maxLength - value.length;
@@ -97,13 +97,68 @@ const Comments = ({ setReload, reload, place_id }) => {
 
   return (
     <>
-      {!user || comment === null ? (
+      {!user || comment.length < 0 ? (
         <LoadingIcon>
           <FiLoader />
         </LoadingIcon>
-      ) : !comment ||
-        !comment.comments ||
-        !comment.comments.some((comment) => comment.place_id === place_id) ? (
+      ) : comment.comments &&
+        comment.comments.some((comment) => comment.place_id === place_id) ? (
+        <>
+          {comment.comments
+            .filter((comment) => comment.place_id === place_id)
+            .map((comment) => (
+              <div key={comment._id}>
+                <div>
+                  <Rating rating={comment.rating} />
+                  <p>My review: {comment.comments}</p>
+                  <p>added on {comment.createdAt}</p>
+                  <DeleteLink onClick={(ev) => handleDelete(ev)}>
+                    Delete my review
+                  </DeleteLink>
+                </div>
+              </div>
+            ))}
+          {!comment.comments.some(
+            (comment) => comment.place_id === place_id
+          ) && (
+            <Wrapper>
+              <Form onSubmit={handleSumbit}>
+                <Div>
+                  <Img src={user.picture} alt={`${user}'s picture`} />
+                  <Stars>
+                    <ReactStars
+                      count={5}
+                      onChange={handleRatingChange}
+                      size={24}
+                      activeColor="#ffd700"
+                    />
+                  </Stars>
+                </Div>
+                <Input
+                  value={value}
+                  placeholder="What's your review?"
+                  onChange={handleChange}
+                  maxLength="400"
+                  inputColor={inputColor}
+                />
+                <Container>
+                  <Count inputColor={inputColor}>
+                    {restCharacters < 0
+                      ? "-" + Math.abs(restCharacters)
+                      : restCharacters}{" "}
+                  </Count>
+                  <Button
+                    type="submit"
+                    disabled={!value || restCharacters < -0}
+                  >
+                    add a review
+                  </Button>
+                </Container>
+              </Form>
+            </Wrapper>
+          )}
+        </>
+      ) : (
         <Wrapper>
           <Form onSubmit={handleSumbit}>
             <Div>
@@ -136,24 +191,6 @@ const Comments = ({ setReload, reload, place_id }) => {
             </Container>
           </Form>
         </Wrapper>
-      ) : (
-        <>
-          {comment.comments &&
-            comment.comments
-              .filter((comment) => comment.place_id === place_id)
-              .map((comment) => (
-                <div key={comment._id}>
-                  <div>
-                    <Rating rating={comment.rating} />
-                    <p>My review: {comment.comments}</p>
-                    <p>added on {comment.createdAt}</p>
-                    <DeleteLink onClick={(ev) => handleDelete(ev)}>
-                      Delete my review
-                    </DeleteLink>
-                  </div>
-                </div>
-              ))}
-        </>
       )}
     </>
   );
@@ -192,7 +229,6 @@ const Img = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 3px;
-  border: 1px red solid;
   margin: 0 0 10px 0;
 `;
 const Container = styled.div`
@@ -204,7 +240,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   padding: 20px;
   width: 50%;
-  border: 1px red solid;
+
 `;
 
 const Form = styled.form`

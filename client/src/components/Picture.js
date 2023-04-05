@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import road from "./images/1.jpeg"
-import image from "./images/2.jpeg"
-import thailand from "./images/3.jpeg"
+import restaurant1 from "../images/image12.webp"
+import restaurant2 from "../images/image6.jpeg"
+import restaurant3 from "../images/image14.webp"
 
 const Picture = () => {
   return (
     <>
       <Wrapper>
-        <Img src={road} alt="My Image" />
-        <Img src={image} alt="My Image" />
-        <Img src={thailand} alt="My Image" />
+        <Img src={restaurant1} alt="My Image" />
+        <Img src={restaurant2} alt="My Image" />
+        <Img src={restaurant3} alt="My Image" />
       </Wrapper>
     </>
   );

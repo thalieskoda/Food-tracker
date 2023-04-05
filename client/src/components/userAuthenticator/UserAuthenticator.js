@@ -1,12 +1,8 @@
 import styled from "styled-components";
 import LoginButton from "./LoginButton";
-import Profile from "../Profile";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import Homefeed from "../Homefeed";
 import { FiLoader } from "react-icons/fi";
-import UserLogin from "./UserLogin";
 import Picture from "../Picture";
 
 const UserAuthenticator = () => {
@@ -31,7 +27,6 @@ const UserAuthenticator = () => {
                 </P>
               </Welcome>
               <Buttons>
-                <UserLogin />
                 <LoginButton />
               </Buttons>
               </Center>

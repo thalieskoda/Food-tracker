@@ -12,7 +12,7 @@ const ContactUs = () => {
               service team at the following email address:
             </SectionText>
             <SectionLink href="mailto:info@trvlup.com">
-              info@trvlup.com
+              info@foodtracker.com
             </SectionLink>
           </Section>
           <Section>
@@ -22,7 +22,7 @@ const ContactUs = () => {
               following email address:
             </SectionText>
             <SectionLink href="mailto:career@trvlup.com">
-              career@trvlup.com
+              career@foodtracker.com
             </SectionLink>
           </Section>
         </Box>
@@ -75,22 +75,21 @@ box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
   `;
   
   const SectionLink = styled.a`
-     background-color:black;
-     border-radius:5px;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 100;
-    padding: 12px 50px;
-    transition: all 0.3s ease;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-    border: 1px black solid;
-    width:150px;
+  background-color: black;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 100;
+  padding: 12px 50px;
+  transition: all 0.3s ease;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px black solid;
+  width: 150px;
 
-    &:hover {
-        background-color:transparent;
-        color:black;
-        transition:0.5s;
-    }
-  `;
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+`;
   export default ContactUs

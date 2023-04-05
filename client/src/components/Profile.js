@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FiLoader } from "react-icons/fi";
+import {CgMailForward} from "react-icons/cg"
 import styled, { keyframes } from "styled-components";
 import Comments from "./Comments";
 import { someImages } from "../images/someImages";
@@ -15,15 +16,6 @@ const Profile = () => {
   const [currentImage, setCurrentImage] = useState(someImages[0]);
   const [newImage, setNewImage] = useState(null);
 
-  //image display if there's no favorite restaurant
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      const randomIndex = Math.floor(Math.random() * someImages.length);
-      setCurrentImage(someImages[randomIndex]);
-    }, 5000);
-    return () => clearInterval(intervalId);
-  }, []);
-  
 //Random image display for each favorite restaurant.
   useEffect(() => {
     if (someImages.length > 0) {
@@ -79,11 +71,19 @@ const Profile = () => {
 
   return (
     <>
-      {user && favoriteRestaurant.length > 0 ? (
+      {!user ? (
+        <LoadingIcon>
+          <FiLoader />
+        </LoadingIcon>
+      ) : (
         <>
           <Container>
+          {favoriteRestaurant.length > 0 &&
+          <>
             <H1>Hey {user.given_name},</H1>
             <P>Here are your favorite restaurants:</P>
+          </>
+}
           </Container>
           {favoriteRestaurant.map((restaurant) => {
             return (
@@ -101,7 +101,6 @@ const Profile = () => {
                       <Span>Rating: </Span>
                       {restaurant.rating}/5
                     </Li>
-
                     <Li>
                       <ImgResto src={restaurant.image} alt="restaurant" />
                     </Li>
@@ -124,25 +123,39 @@ const Profile = () => {
               </Wrapper>
             );
           })}
-        </>
-      ) : (
-        <>
-          <Wrapper>
-            <H1>Hey {user.given_name},</H1>
-            <P>
-              You should probably go back in the home page to add your favorite
-              restaurants!
-            </P>
-          </Wrapper>
-          <ImageContainer>
-            <RandomImage src={someImages[currentImage]} alt="random" />
-          </ImageContainer>
+          {favoriteRestaurant.length === 0 && (
+           <>
+           <ContainerIcon>
+             <Icon>
+               <CgMailForward size={50}/>
+             </Icon>
+             <Click>click here to get started! </Click>
+           </ContainerIcon>
+           <Wrapper>
+             <H1>Hey {user.given_name},</H1>
+             <P>
+               you should probably go back to the homepage and add your favorite
+               restaurants!
+             </P>
+           </Wrapper>
+         </>
+          )}
         </>
       )}
     </>
   );
 };
 
+const ContainerIcon = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const Icon = styled.div`
+transform: rotate(-90deg);
+`
+const Click = styled.p`
+
+`
 const ImgResto = styled.img`
   max-width: 300px;
   max-height: 300px;
@@ -154,8 +167,8 @@ const SmallContainer = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  border-bottom: 1px pink solid;
-  border-left: 1px pink solid;
+  border-bottom: 3px #3b597b solid;
+  border-left: 3px #3b597b solid;
   padding: 0 0 30px 30px;
 `;
 const Small = styled.div`
@@ -198,29 +211,7 @@ const Ul = styled.ul`
   list-style-type: none;
 `;
 
-const ImageContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  height: 100vh;
-`;
 
-const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
-
-const RandomImage = styled.img`
-  opacity: 0;
-  animation: ${rotate} 1s ease-out forwards;
-  position: absolute;
-  top: ${(props) => Math.random() * 80 + 10}vh;
-  left: ${(props) => Math.random() * 80 + 10}vw;
-`;
 
 const LoadingIcon = styled(FiLoader)`
   position: relative;

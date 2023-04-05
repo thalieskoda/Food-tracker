@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import UserIcon from "./UserIcon";
 import { NavLink } from "react-router-dom";
 import Navigation from "./Navigation";
-import logo from "../images/travelup.png";
+import logo from "../images/newlogo.png";
 import { useEffect, useState } from "react";
 const Header = () => {
   const { user, isAuthenticated } = useAuth0();

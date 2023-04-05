@@ -8,7 +8,7 @@ const Rating = ({ rating }) => {
         size={24}
         value={rating}
         edit={false}
-        activeColor="#ffd700"
+        activeColor="#3b597b"
         isHalf={false}
       />
     );
