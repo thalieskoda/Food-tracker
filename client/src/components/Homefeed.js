@@ -7,13 +7,12 @@ const Homefeed = () => {
       <Wrapper>
         <Searching>
         <>
-          <p>1. Enter a city that you would like to visit</p>
-          <p>2. Select your favorite restaurants</p>
-          <p>3. Add them to your profile</p>
-          <p>
-            4. Check the address of the restaurant you'd like to go directly from
-            your profile when the time comes
-          </p>
+          <P>1. Enter a city that you would like to visit</P>
+          <P>2. Select your favorite restaurants</P>
+          <P>3. Add them to your profile</P>
+          <P>
+            4. Rate them once you ate there ! 
+          </P>
         </>
         </Searching>
         <Maps>
@@ -23,13 +22,21 @@ const Homefeed = () => {
     </>
   );
 };
+
+const P = styled.p`
+padding:10px;
+font-weight:bold;
+`
 const Maps = styled.div`
 
   width: 100%;
 `;
 const Searching = styled.div`
-
+padding: 30px;
   width: 40%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-around;
 `;
 const Wrapper = styled.div`
   display: flex;
