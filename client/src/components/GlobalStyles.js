@@ -84,7 +84,7 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
     font-size: 16px;
     font-weight: 100;
-    padding: 12px 50px;
+    padding: 10px;
     transition: all 0.3s ease;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     border: 1px black solid;

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import moment from "moment"
+import { images } from "../images/someImages"
 
 
 const TravelSearch = ({
@@ -57,39 +58,39 @@ const TravelSearch = ({
   }
 };
 
-  const handleClick = (ev) => {
-    ev.preventDefault();
+const handleClick = (ev) => {
+  ev.preventDefault();
 
-    setIsAdded(true);
-    fetch("/add-restaurant", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: name,
-        address: address,
-        rating: rating,
-        price_level: price,
-        photos : photos,
-        place_id: id,
-        icon:icon,
-        email: user.email,
-        isAvailable: false,
-        date_added: currentDate
-      }),
+  setIsAdded(true);
+  const image = images[Math.floor(Math.random() * images.length)]; // Select a random photo from the array
+  fetch("/add-restaurant", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      address: address,
+      rating: rating,
+      price_level: price,
+      image:image,
+      place_id: id,
+      email: user.email,
+      isAvailable: false,
+      date_added: currentDate
+    }),
+  }) 
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      setFavoriteRestaurant([...favoriteRestaurant, data]);
+      setIsAvailable(false);
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setFavoriteRestaurant([...favoriteRestaurant, data]);
-        setIsAvailable(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
   return (
     <>
@@ -155,12 +156,12 @@ const Info = styled.ul`
 `;
 
 const Li = styled.li`
-  /* border-bottom:1px black solid; */
+list-style-type:none;
 `;
 const Wrapper = styled.div`
   position: relative;
-  left: 20px;
-  top: 80px;
+  left: -420px;
+  top: -600px;
   padding: 10px;
   z-index: 1;
 `;

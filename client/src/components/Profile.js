@@ -77,6 +77,7 @@ const Profile = () => {
                   <Li>
                     <Span>Price level:</Span> {restaurant.price_level === null ? "unknown" : `${restaurant.price_level}/5` } 
                   </Li>
+                  <Li><Img   src={restaurant.image} alt="restaurant" /></Li>
                 </Ul>
                 <Small>
                   <Date>
@@ -106,6 +107,9 @@ const Profile = () => {
   );
 };
 
+const Img = styled.img`
+width:200px;
+`
 const SmallContainer = styled.div`
 display:flex;
 flex-direction:column;

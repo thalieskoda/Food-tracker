@@ -4,7 +4,7 @@ import { Autocomplete } from "@react-google-maps/api";
 import React, { useState, useContext, useEffect } from "react";
 import CurrentPositionContext from "./CurrentPositionContext";
 
-const SearchBar = ({ map, setPlaces }) => {
+const SearchBar = ({ map, setPlaces, selectedRestaurant }) => {
   const { setCenter } = useContext(CurrentPositionContext);
   const [autoComplete, setAutoComplete] = useState(null);
 
@@ -70,7 +70,7 @@ const SearchBar = ({ map, setPlaces }) => {
       <div>
         <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
           <div>
-            <Input placeholder="search..."></Input>
+            <Input placeholder="search..." disabled={selectedRestaurant ? true : false}></Input>
             <FiSearch />
           </div>
         </Autocomplete>
@@ -83,7 +83,7 @@ const SearchBar = ({ map, setPlaces }) => {
 const P = styled.p`
   padding: 10px;
   font-weight:bold;
-  border-bottom:1px black solid;
+  
 `;
 
 const Input = styled.input`
@@ -95,7 +95,7 @@ const Input = styled.input`
 const Wrapper = styled.div`
   position: relative;
   top: 20px;
-  left:170px;
+  left:-490px;
   display: flex;
   align-items: center;
 
@@ -104,6 +104,8 @@ const Wrapper = styled.div`
   width: 550px;
   align-items: center;
   border-radius:20px;
+  display:flex;
+  flex-direction:column;
 `;
 
 export default SearchBar;

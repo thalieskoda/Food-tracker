@@ -5,6 +5,8 @@ import { useState, useContext, useEffect } from "react";
 import CurrentPositionContext from "./CurrentPositionContext";
 import TravelSearch from "./TravelSearch";
 import SearchBar from "./SearchBar";
+import Homefeed from "./Homefeed";
+import Instructions from "./Instructions";
 
 //setting styles to the map
 const containerStyle = {
@@ -23,7 +25,7 @@ const Map = () => {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   console.log(selectedRestaurant);
   // verify if the map is loaded.
-  const { isLoaded } = useJsApiLoader({
+  const { isLoaded } = useJsApiLoader({ 
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     // libraries: ['places'] //only looking for "places" --> restaurant
@@ -67,7 +69,7 @@ const Map = () => {
   console.log(selectedRestaurant);
   return isLoaded ? (
     <>
-      <SearchBar map={map} setPlaces={setPlaces} />
+      <SearchBar map={map} setPlaces={setPlaces} selectedRestaurant={selectedRestaurant} />
       <MapContainer>
         <GoogleMap
           mapContainerStyle={containerStyle}
@@ -96,9 +98,10 @@ const Map = () => {
             />
           ))}
         </GoogleMap>
+        
       </MapContainer>
       <SearchContainer>
-      {selectedRestaurant && (
+      {selectedRestaurant ? (
         <TravelSearch
           name={selectedRestaurant.name}
           address={selectedRestaurant.vicinity}
@@ -110,6 +113,8 @@ const Map = () => {
           icon={selectedRestaurant.icon}
           onClose={() => setSelectedRestaurant(null)}
         />
+
+      ) : ( <Instructions/>
       )}
       </SearchContainer>
     </>
@@ -127,7 +132,7 @@ position:relative;
 `
 const MapContainer = styled.div`
   position: relative;
-  top: -40px;
+  top: -80px;
 `;
 const LoadingIcon = styled(FiLoader)`
   position: relative;

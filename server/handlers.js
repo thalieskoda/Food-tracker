@@ -225,11 +225,10 @@ const addRestaurant = async (req, res) => {
       rating,
       email,
       place_id,
-      photos,
+      image,
       price_level,
       isAvailable,
       date_added,
-      icon,
     } = req.body;
 
     const db = client.db("trvl-up");
@@ -248,9 +247,8 @@ const addRestaurant = async (req, res) => {
       address,
       rating,
       price_level,
-      photos,
+      image,
       place_id,
-      icon,
       isAvailable,
       date_added,
     };

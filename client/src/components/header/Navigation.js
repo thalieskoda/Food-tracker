@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import HamburgerMenu from "./HamburgerMenu";
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -28,10 +27,6 @@ const Navigation = () => {
             Contact us
           </Li>
         </Ul>
-        <HamburgerMenu
-          toggleMenu={toggleMenu}
-          isOpen={isMenuOpen}
-        />
       </Nav>
     </div>
   );
