@@ -226,7 +226,6 @@ const addRestaurant = async (req, res) => {
       email,
       place_id,
       image,
-      price_level,
       isAvailable,
       date_added,
     } = req.body;
@@ -246,7 +245,6 @@ const addRestaurant = async (req, res) => {
       name,
       address,
       rating,
-      price_level,
       image,
       place_id,
       isAvailable,
@@ -314,12 +312,16 @@ const updateFavorite = async (req, res) => {
     }
 
       // Remove the restaurant from the favorites array
-      const removeResult = await db
-        .collection("users")
-        .updateOne(
-          { email: email },
-          { $pull: { favorites: { place_id: place_id } } }
-        );
+      const removeResult = await db.collection("users").updateOne(
+        { email: email },
+        { 
+          $pull: { 
+            favorites: { place_id: place_id },
+            comments: { place_id: place_id } 
+          } 
+        }
+      );
+      
       if (removeResult.modifiedCount === 1) {
         return res.json({
           status: 200,

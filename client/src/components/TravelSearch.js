@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
-import moment from "moment"
-import { images } from "../images/someImages"
-
+import moment from "moment";
+import { someImages } from "../images/someImages";
 
 const TravelSearch = ({
   name,
@@ -11,18 +10,23 @@ const TravelSearch = ({
   address,
   rating,
   ratingNumber,
-  price,
-  photos,
   id,
-  icon
 }) => {
-
   const { user } = useAuth0();
   const [isAdded, setIsAdded] = useState(false);
   const [isAvailable, setIsAvailable] = useState(true);
   const [favoriteRestaurant, setFavoriteRestaurant] = useState(null);
+const [newImage, setNewImage] = useState(null)
+  const currentDate = moment().format("MMMM Do YYYY, h:mm:ss a");
 
-  const currentDate = moment().format('MMMM Do YYYY, h:mm:ss a');
+
+  useEffect(() => {
+    if (someImages.length > 0) {
+      const randomImage = someImages[Math.floor(Math.random() * someImages.length)];
+      setNewImage(randomImage);
+    }
+  }, []);
+
   useEffect(() => {
     fetch("/favorite-restaurants")
       .then((res) => res.json())
@@ -38,59 +42,58 @@ const TravelSearch = ({
   const handleDelete = (ev) => {
     ev.preventDefault();
     if (favoriteRestaurant.length > 0) {
-    fetch("/update-favorites", {
-      method: "PATCH",
-      body: JSON.stringify({
-        place_id: id,
-        isAvailble: isAvailable,
-        email: user.email,
-      }),
+      fetch("/update-favorites", {
+        method: "PATCH",
+        body: JSON.stringify({
+          place_id: id,
+          isAvailble: isAvailable,
+          email: user.email,
+        }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }).then(() => {
+        setIsAdded(false);
+        setIsAvailable(true);
+      });
+    } else {
+      console.log("favoriteRestaurant is empty");
+    }
+  };
+
+  const handleClick = (ev) => {
+    ev.preventDefault();
+
+    setIsAdded(true);
+
+    fetch("/add-restaurant", {
+      method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-    }).then(() => {
-      setIsAdded(false);
-      setIsAvailable(true);
-    });
-  } else {
-    console.log("favoriteRestaurant is empty");
-  }
-};
-
-const handleClick = (ev) => {
-  ev.preventDefault();
-
-  setIsAdded(true);
-  const image = images[Math.floor(Math.random() * images.length)]; // Select a random photo from the array
-  fetch("/add-restaurant", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: name,
-      address: address,
-      rating: rating,
-      price_level: price,
-      image:image,
-      place_id: id,
-      email: user.email,
-      isAvailable: false,
-      date_added: currentDate
-    }),
-  }) 
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      setFavoriteRestaurant([...favoriteRestaurant, data]);
-      setIsAvailable(false);
+      body: JSON.stringify({
+        name: name,
+        address: address,
+        rating: rating,
+        image: newImage,
+        place_id: id,
+        email: user.email,
+        isAvailable: false,
+        date_added: currentDate,
+      }),
     })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setFavoriteRestaurant([...favoriteRestaurant, data]);
+        setIsAvailable(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -122,13 +125,14 @@ const handleClick = (ev) => {
             <Li>
               {rating} stars - numbers of ratings: {ratingNumber}
             </Li>
-            <Li>Price level : {price}/5</Li>
-
+  
             <Li>{address}</Li>
-            {photos.map((photo, id) => {
-              return <img alt={`${name}'s pictures`} src={photo} key={id} />;
-            })}
-          
+            {someImages.length > 0 && (
+              <Img
+                alt={`${name}'s pictures`}
+                src={newImage}
+              />
+            )}
           </Info>
           {isAdded ? (
             <DeleteLink onClick={(ev) => handleDelete(ev)}>
@@ -141,6 +145,11 @@ const handleClick = (ev) => {
   );
 };
 
+const Img = styled.img`
+max-width: 300px;
+  max-height: 300px;
+  object-fit: cover;
+`
 const Buttons = styled.div``;
 const AddButton = styled.button`
   width: 240px;
@@ -156,7 +165,7 @@ const Info = styled.ul`
 `;
 
 const Li = styled.li`
-list-style-type:none;
+  list-style-type: none;
 `;
 const Wrapper = styled.div`
   position: relative;
@@ -175,6 +184,5 @@ const DeleteLink = styled.a`
   font-size: 12px;
   cursor: pointer;
 `;
-
 
 export default TravelSearch;

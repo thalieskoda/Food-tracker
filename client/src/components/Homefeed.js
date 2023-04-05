@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import { FaCity } from "react-icons/fa";
-import { MdOutlineFastfood } from "react-icons/md";
-import { FiUser } from "react-icons/fi";
-import { GiPodium } from "react-icons/gi";
+
 import Map from "./Map";
 const Homefeed = () => {
   return (
@@ -18,7 +15,7 @@ const Homefeed = () => {
 
 const Maps = styled.div`
 position:relative;
-right:-420px;
+right:-550px;
 width:70%;
 `;
 

@@ -25,7 +25,7 @@ const Map = () => {
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   console.log(selectedRestaurant);
   // verify if the map is loaded.
-  const { isLoaded } = useJsApiLoader({ 
+  const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     // libraries: ['places'] //only looking for "places" --> restaurant
@@ -66,10 +66,13 @@ const Map = () => {
     }
   }, [isLoaded, map, places, coordinates]); // Everything that one of those changes, this useEffect gets called.
 
-  console.log(selectedRestaurant);
   return isLoaded ? (
     <>
-      <SearchBar map={map} setPlaces={setPlaces} selectedRestaurant={selectedRestaurant} />
+      <SearchBar
+        map={map}
+        setPlaces={setPlaces}
+        selectedRestaurant={selectedRestaurant}
+      />
       <MapContainer>
         <GoogleMap
           mapContainerStyle={containerStyle}
@@ -98,24 +101,20 @@ const Map = () => {
             />
           ))}
         </GoogleMap>
-        
       </MapContainer>
       <SearchContainer>
-      {selectedRestaurant ? (
-        <TravelSearch
-          name={selectedRestaurant.name}
-          address={selectedRestaurant.vicinity}
-          rating={selectedRestaurant.rating}
-          ratingNumber={selectedRestaurant.user_ratings_total}
-          price={selectedRestaurant.price_level}
-          photos={selectedRestaurant.photos}
-          id={selectedRestaurant.place_id}
-          icon={selectedRestaurant.icon}
-          onClose={() => setSelectedRestaurant(null)}
-        />
-
-      ) : ( <Instructions/>
-      )}
+        {selectedRestaurant ? (
+          <TravelSearch
+            name={selectedRestaurant.name}
+            address={selectedRestaurant.vicinity}
+            rating={selectedRestaurant.rating}
+            ratingNumber={selectedRestaurant.user_ratings_total}
+            id={selectedRestaurant.place_id}
+            onClose={() => setSelectedRestaurant(null)}
+          />
+        ) : (
+          <Instructions />
+        )}
       </SearchContainer>
     </>
   ) : (
@@ -128,8 +127,8 @@ const Map = () => {
 };
 
 const SearchContainer = styled.div`
-position:relative;
-`
+  position: relative;
+`;
 const MapContainer = styled.div`
   position: relative;
   top: -80px;
