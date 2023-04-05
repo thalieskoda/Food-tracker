@@ -53,6 +53,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     padding-bottom: 50px;
+    height:60vh;
     `;
 
 const P = styled.p`

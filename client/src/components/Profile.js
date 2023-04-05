@@ -12,50 +12,55 @@ const Profile = () => {
   const [isAdded, setIsAdded] = useState(false);
   const [isAvailable, setIsAvailable] = useState(true);
   const [reload, setReload] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null)
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetch(`/get-user/${user.email}`)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("here", data);
-          setFavoriteRestaurant(data.data.favorites);
-        });
-    }
-  }, [isAuthenticated]);
-  console.log("favoriteRestaurant", favoriteRestaurant);
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     fetch(`/get-user/${user.email}`)
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         console.log("currentUser", data.data);
+  //         setCurrentUser(data.data)
+  //       });
+  //   }
+  // }, [isAuthenticated]);
+  // console.log(currentUser);
 
   useEffect(() => {
     fetch("/favorite-restaurants")
       .then((res) => res.json())
       .then((data) => {
         setFavoriteRestaurant(data.data.favorites);
-        console.log(data.data.favorites);
+        console.log("FAV",data.data.favorites);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [user.email, favoriteRestaurant.name, favoriteRestaurant.place_idid]); //Everytime it's a new restaurant or a new user, we fetch different favorite restaurants
-
+  }, [user.email]); //Everytime it's a new user, we fetch different favorite restaurants
+  
   const handleDelete = (ev) => {
     ev.preventDefault();
     setIsAdded(false);
     setIsAvailable(true);
-    console.log(favoriteRestaurant);
-    fetch("/update-favorites", {
-      method: "PATCH",
-      body: JSON.stringify({
-        place_id: favoriteRestaurant.place_id,
-        isAvailble: isAvailable,
-        email: user.email,
-      }),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }).then(() => {});
+  
+    if (favoriteRestaurant.length > 0) {
+      fetch("/update-favorites", {
+        method: "PATCH",
+        body: JSON.stringify({
+          place_id: favoriteRestaurant[0].place_id,
+          isAvailble: isAvailable,
+          email: user.email,
+        }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }).then(() => {});
+    } else {
+      console.log("favoriteRestaurant is empty");
+    }
   };
-
+  
   return (
     <>
       {user && favoriteRestaurant ? (
@@ -81,7 +86,7 @@ const Profile = () => {
                     {restaurant.rating}/5
                   </Li>
                   <Li>
-                    <Span>Price level:</Span> {restaurant.price_level}/5
+                    <Span>Price level:</Span> {restaurant.price_level === null ? "unknown" : `${restaurant.price_level}/5` } 
                   </Li>
                 </Ul>
                 <Small>
@@ -117,16 +122,21 @@ display:flex;
 flex-direction:column;
 justify-content:space-around;
 align-items:center;
+border-bottom:1px pink solid;
+border-left:1px pink solid;
+padding: 0 0 30px 30px;
 `;
 const Small = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  
 `;
 const DeleteLink = styled.a`
   text-decoration: underline;
   font-size: 12px;
   cursor: pointer;
+  padding: 0 0 0 40px;
 `;
 
 const Date = styled.p`
@@ -140,21 +150,19 @@ const H1 = styled.h1``;
 const P = styled.p``;
 const Span = styled.span`
   font-weight: bold;
-  padding: 0 0 0 20px;
 `;
 const Wrapper = styled.div`
   display: flex;
   flex-direction:row;
   align-items: center;
   justify-content: space-evenly;
-  border: 2px blue solid;
 `;
 
 const Li = styled.li`
   padding: 10px;
 `;
 const Ul = styled.ul`
-  padding: 10px;
+padding: 0 0 10px 0px;
   list-style-type: none;
 `;
 

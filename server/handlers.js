@@ -339,13 +339,9 @@ const updateFavorite = async (req, res) => {
         return res
           .status(500)
           .json({ status: 500, data: "Failed to update favorite restaurant" });
-      }
-    } else {
-      return res
-        .status(500)
-        .json({ status: 500, data: "Failed to update favorite restaurant" });
+      } 
     }
-  } catch (err) {
+  }catch (err) {
     console.error(err);
     res
       .status(500)

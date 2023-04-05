@@ -1,18 +1,21 @@
 import styled from "styled-components";
-import TravelSearch from "./TravelSearch";
+import {FaCity} from "react-icons/fa";
+import {MdOutlineFastfood} from "react-icons/md";
+import {FiUser} from "react-icons/fi";
+import {GiPodium} from "react-icons/gi";
 import Map from "./Map";
 const Homefeed = () => {
   return (
     <>
       <Wrapper>
-        {}
+        
         <Searching>
         <>
-          <P>1. Enter a city that you would like to visit</P>
-          <P>2. Select your favorite restaurants</P>
-          <P>3. Add them to your profile</P>
+          <P><FaCity/> Enter a city that you would like to visit</P>
+          <P><MdOutlineFastfood/> Select your favorite restaurants</P>
+          <P><FiUser/> Add them to your profile</P>
           <P>
-            4. Rate them once you ate there ! 
+            <GiPodium/> Rate them once you ate there ! 
           </P>
         </>
         </Searching>
@@ -26,7 +29,8 @@ const Homefeed = () => {
 
 const P = styled.p`
 padding:10px;
-font-weight:bold;
+font-weight:100;
+
 `
 const Maps = styled.div`
 
