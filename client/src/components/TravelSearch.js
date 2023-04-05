@@ -17,6 +17,7 @@ const TravelSearch = ({
   const [isAvailable, setIsAvailable] = useState(true);
   const [favoriteRestaurant, setFavoriteRestaurant] = useState(null);
 const [newImage, setNewImage] = useState(null)
+
   const currentDate = moment().format("MMMM Do YYYY, h:mm:ss a");
 
 

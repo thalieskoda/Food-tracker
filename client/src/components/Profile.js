@@ -15,6 +15,7 @@ const Profile = () => {
   const [currentImage, setCurrentImage] = useState(someImages[0]);
   const [newImage, setNewImage] = useState(null);
 
+  //image display if there's no favorite restaurant
   useEffect(() => {
     const intervalId = setInterval(() => {
       const randomIndex = Math.floor(Math.random() * someImages.length);
@@ -22,7 +23,8 @@ const Profile = () => {
     }, 5000);
     return () => clearInterval(intervalId);
   }, []);
-
+  
+//Random image display for each favorite restaurant.
   useEffect(() => {
     if (someImages.length > 0) {
       const randomImage =

@@ -9,7 +9,7 @@ import Rating from "./Rating";
 const Comments = ({ setReload, reload, place_id }) => {
   const { user } = useAuth0();
 
-  const currentDate = moment().format('MMMM Do YYYY, h:mm:ss a');
+  const currentDate = moment().format("MMMM Do YYYY, h:mm:ss a");
 
   const [characterCount, setcharacterCount] = useState(280);
   const [value, setValue] = useState("");
@@ -30,13 +30,20 @@ const Comments = ({ setReload, reload, place_id }) => {
   const handleSumbit = (event) => {
     event.preventDefault();
 
+    const currentDate = moment().format("MMMM Do YYYY, h:mm:ss a");
+
     fetch(`/add-comments/${place_id}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: user.email, comments: value, createdAt: currentDate, rating: rating }), 
+      body: JSON.stringify({
+        email: user.email,
+        comments: value,
+        createdAt: currentDate,
+        rating: rating,
+      }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -48,7 +55,7 @@ const Comments = ({ setReload, reload, place_id }) => {
           setReload(!reload);
           setValue("");
           setComment(value);
-          setRating(0); 
+          setRating(0);
         }
       })
       .catch((error) => {
@@ -57,7 +64,7 @@ const Comments = ({ setReload, reload, place_id }) => {
   };
 
   const handleRatingChange = (newRating) => {
-    setRating(newRating); 
+    setRating(newRating);
   };
 
   useEffect(() => {
@@ -77,15 +84,14 @@ const Comments = ({ setReload, reload, place_id }) => {
       method: "PATCH",
       body: JSON.stringify({
         email: user.email,
-        _id: comment.comments[0]._id
+        _id: comment.comments[0]._id,
       }),
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
     }).then(() => {
-    setComment("")
-
+      setComment("");
     });
   };
 
@@ -138,9 +144,9 @@ const Comments = ({ setReload, reload, place_id }) => {
               .map((comment) => (
                 <div key={comment._id}>
                   <div>
-                  <Rating rating={comment.rating} />
+                    <Rating rating={comment.rating} />
                     <p>My review: {comment.comments}</p>
-                    <p>added on {currentDate}</p>
+                    <p>added on {comment.createdAt}</p>
                     <DeleteLink onClick={(ev) => handleDelete(ev)}>
                       Delete my review
                     </DeleteLink>
