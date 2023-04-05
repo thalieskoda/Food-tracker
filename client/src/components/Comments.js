@@ -157,7 +157,9 @@ const LoadingIcon = styled(FiLoader)`
 const Img = styled.img`
   width: 50px;
   height: 50px;
-  border-radius: 100%;
+  border-radius: 3px;
+border:1px red solid;
+margin: 0 0 10px 0;
 `;
 const Container = styled.div`
   display: flex;
@@ -168,6 +170,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   padding: 20px;
   width: 50%;
+  border: 1px red solid;
 `;
 
 const Form = styled.form`
@@ -178,14 +181,14 @@ const Form = styled.form`
 
 const Input = styled.textarea`
   width: 100%;
-  height: 200px;
+  height: 150px;
   font-size: 18px;
   border: 1px black solid;
   overflow: auto;
   resize: none;
   word-wrap: break-word;
   padding: 10px 0px 0px 10px;
-
+border-radius:5px;
   font-family: Arial, Helvetica, sans-serif;
 
   ::placeholder {
@@ -196,7 +199,7 @@ const Input = styled.textarea`
 
 const Count = styled.span`
   margin-left: 10px;
-  color: ${({ inputColor }) => inputColor || "grey"};
+  color: ${({ inputColor }) => inputColor || "black"};
   font-weight: bold;
   padding: 10px;
 `;
@@ -208,10 +211,14 @@ const Button = styled.button`
   font-size: 18px;
   font-weight: bold;
   color: white;
+  padding:10px;
+  margin:10px 0 0 0;
 
-  opacity: ${({ disabled }) => (disabled ? "0.5" : "1")};
+  opacity: ${({ disabled }) => (disabled ? "0.8" : "1")};
   cursor: pointer;
   &:disabled {
+    background-color:black;
+    color:white;
     cursor: not-allowed;
   }
 `;

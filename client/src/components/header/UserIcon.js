@@ -55,13 +55,17 @@ font-size:100px;
 const Dropdown = styled.div`
   position: absolute;
   top: 40px;
-  right: 0;
+  left: -40px;
   width: 150px;
   background-color: #fff;
   border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   z-index:9999;
+
+  &:hover {
+    border-radius:5px;
+  }
   `;
 
 const DropdownOption = styled.div`

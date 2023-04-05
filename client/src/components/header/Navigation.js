@@ -18,11 +18,20 @@ const Navigation = () => {
     <div>
       <Nav>
         <Ul isOpen={isMenuOpen}>
-          <Li to="/homefeed" onClick={handleClick}>Home</Li>
-          <Li to="/about" onClick={handleClick}>About</Li>
-          <Li to="/contact" onClick={handleClick}>Contact us</Li>
+          <Li to="/homefeed" onClick={handleClick}>
+            Home
+          </Li>
+          <Li to="/about" onClick={handleClick}>
+            About
+          </Li>
+          <Li to="/contact" onClick={handleClick}>
+            Contact us
+          </Li>
         </Ul>
-        <HamburgerMenu toggleMenu={toggleMenu} isOpen={isMenuOpen} />
+        <HamburgerMenu
+          toggleMenu={toggleMenu}
+          isOpen={isMenuOpen}
+        />
       </Nav>
     </div>
   );
@@ -31,16 +40,12 @@ const Navigation = () => {
 const Li = styled(Link)`
   list-style-type: none;
   padding-right: 20px;
-
 `;
 
 const Ul = styled.ul`
   display: flex;
-  flex-wrap: wrap;
-  float: right;
   margin: 20 0px;
-  padding: 0 25px;
-  transform: ${({ isOpen }) => (isOpen ? "translateX(1%)" : "translateX(-100%)")};
+padding:0 20px;
   transition: transform 0.2s ease-in-out;
 `;
 
@@ -48,4 +53,5 @@ const Nav = styled.div`
   width: 100%;
   height: 50%;
 `;
+
 export default Navigation;

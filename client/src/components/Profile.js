@@ -26,30 +26,21 @@ const Profile = () => {
     <>
       {user && favoriteRestaurant ? (
         <>
-          <h1>Hey {user.given_name},</h1>
-          <p>Here are your favorite restaurants:</p>
+        <Container>
+
+          <H1>Hey {user.given_name},</H1>
+          <P>Here are your favorite restaurants:</P>
+        </Container>
           {favoriteRestaurant.map((restaurant) => {
            
             return (
               <Wrapper key={restaurant.place_id}>
                 <Ul>
-                  <li>Name: {restaurant.name}</li>
-                  <li>Address: {restaurant.address}</li>
-                  <li>Rating: {restaurant.rating}/5</li>
-                  <li>Price level: {restaurant.price_level}/5</li>
-                 {/* <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=Aap_uEA7vb0DDYVJWEaX3O-AtYp77AaswQKSGtDaimt3gt7QCNpdjp1BkdM6acJ96xTec3tsV_ZJNL_JP-lqsVxydG3nh739RE_hepOOL05tfJh2_ranjMadb3VoBYFvF0ma6S24qZ6QJUuV6sSRrhCskSBP5C1myCzsebztMfGvm7ij3gZT&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`} alt="allo"/> */}
-                 {restaurant.photos.map((photo) => {
-                    const photoUrl = `${photo.html_attribution}?maxwidth=400&photo_reference=${photo.photo_reference}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
-                    return (
-                      <div key={photo.photo_reference}>
-                        <img
-                          alt={`${restaurant.name}'s pictures`}
-                          src={photoUrl}
-                        />
-                      </div>
-                    );
-                  })}
-                  <li>Added to your favorites on {restaurant.date_added}</li>
+                  <Li><Span>Name:</Span> {restaurant.name}</Li>
+                  <Li><Span>Address: </Span>{restaurant.address}</Li>
+                  <Li><Span>Rating: </Span>{restaurant.rating}/5</Li>
+                  <Li><Span>Price level:</Span> {restaurant.price_level}/5</Li>             
+                  <Date><Span>Added to your favorites on </Span>{restaurant.date_added}</Date>
                 </Ul>
                 <Comments
                   setReload={setReload}
@@ -69,9 +60,28 @@ const Profile = () => {
   );
 };
 
+const Date = styled.p`
+font-size:0.6em;
+padding:0 0 0 10px;
+`
+const Container = styled.div`
+padding:30px;
+`
+const H1 = styled.h1`
+
+`;
+
+const P = styled.p`
+`;
+const Span = styled.span`
+font-weight:bold;
+padding:0 0 0 20px;
+`
 const Wrapper = styled.div`
   display: flex;
-  border: 2px red solid;
+  align-items:center;
+  justify-content:space-evenly;
+  border: 1px blue solid;
 `;
 
 const LoadingIcon = styled(FiLoader)`
