@@ -35,6 +35,9 @@ const ContactUs = () => {
     flex-direction: column;
     align-items: center;
     padding-bottom: 50px;
+    border-radius:5px;
+    height:70vh;
+   
   `;
   
   const Title = styled.h1`
@@ -47,6 +50,11 @@ const ContactUs = () => {
     border-radius: 2px;
     padding: 24px;
     max-width: 600px;
+box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
+
+    &:hover {
+ background: radial-gradient(circle, #d6ffe6, #d6ecff) no-repeat;
+ } 
   `;
   
   const Section = styled.div`
@@ -66,6 +74,7 @@ const ContactUs = () => {
   
   const SectionLink = styled.a`
      background-color:black;
+     border-radius:5px;
     color: white;
     cursor: pointer;
     font-size: 16px;

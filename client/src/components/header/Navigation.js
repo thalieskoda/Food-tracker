@@ -24,7 +24,7 @@ const Navigation = () => {
             About
           </Li>
           <Li to="/contact" onClick={handleClick}>
-            Contact us
+            Contact
           </Li>
         </Ul>
       </Nav>
