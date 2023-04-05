@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
+import ReactStars from "react-rating-stars-component";
 import { FiLoader } from "react-icons/fi";
 import { useAuth0 } from "@auth0/auth0-react";
-import moment from "moment"
+import moment from "moment";
+import Rating from "./Rating";
 
 const Comments = ({ setReload, reload, place_id }) => {
   const { user } = useAuth0();
@@ -12,6 +14,7 @@ const Comments = ({ setReload, reload, place_id }) => {
   const [characterCount, setcharacterCount] = useState(280);
   const [value, setValue] = useState("");
   const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0); // initialize rating state to 0
 
   const maxLength = 280;
   const restCharacters = maxLength - value.length;
@@ -33,7 +36,7 @@ const Comments = ({ setReload, reload, place_id }) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: user.email, comments: value, createdAt: currentDate }),
+      body: JSON.stringify({ email: user.email, comments: value, createdAt: currentDate, rating: rating }), 
     })
       .then((res) => res.json())
       .then((data) => {
@@ -44,12 +47,17 @@ const Comments = ({ setReload, reload, place_id }) => {
         } else {
           setReload(!reload);
           setValue("");
-          setComment(value)
+          setComment(value);
+          setRating(0); 
         }
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const handleRatingChange = (newRating) => {
+    setRating(newRating); 
   };
 
   useEffect(() => {
@@ -87,10 +95,22 @@ const Comments = ({ setReload, reload, place_id }) => {
         <LoadingIcon>
           <FiLoader />
         </LoadingIcon>
-      ) : !comment || !comment.comments || !comment.comments.some(comment => comment.place_id === place_id) ? (
+      ) : !comment ||
+        !comment.comments ||
+        !comment.comments.some((comment) => comment.place_id === place_id) ? (
         <Wrapper>
           <Form onSubmit={handleSumbit}>
-            <Img src={user.picture} alt={`${user}'s picture`} />
+            <Div>
+              <Img src={user.picture} alt={`${user}'s picture`} />
+              <Stars>
+                <ReactStars
+                  count={5}
+                  onChange={handleRatingChange}
+                  size={24}
+                  activeColor="#ffd700"
+                />
+              </Stars>
+            </Div>
             <Input
               value={value}
               placeholder="What's your review?"
@@ -118,6 +138,7 @@ const Comments = ({ setReload, reload, place_id }) => {
               .map((comment) => (
                 <div key={comment._id}>
                   <div>
+                  <Rating rating={comment.rating} />
                     <p>My review: {comment.comments}</p>
                     <p>added on {currentDate}</p>
                     <DeleteLink onClick={(ev) => handleDelete(ev)}>
@@ -132,6 +153,13 @@ const Comments = ({ setReload, reload, place_id }) => {
   );
 };
 
+const Stars = styled.div`
+  padding: 0 0 0 30px;
+`;
+const Div = styled.div`
+  display: flex;
+  align-items: center;
+`;
 const DeleteLink = styled.a`
   text-decoration: underline;
   font-size: 12px;
@@ -158,8 +186,8 @@ const Img = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 3px;
-border:1px red solid;
-margin: 0 0 10px 0;
+  border: 1px red solid;
+  margin: 0 0 10px 0;
 `;
 const Container = styled.div`
   display: flex;
@@ -188,7 +216,7 @@ const Input = styled.textarea`
   resize: none;
   word-wrap: break-word;
   padding: 10px 0px 0px 10px;
-border-radius:5px;
+  border-radius: 5px;
   font-family: Arial, Helvetica, sans-serif;
 
   ::placeholder {
@@ -211,14 +239,14 @@ const Button = styled.button`
   font-size: 18px;
   font-weight: bold;
   color: white;
-  padding:10px;
-  margin:10px 0 0 0;
+  padding: 10px;
+  margin: 10px 0 0 0;
 
   opacity: ${({ disabled }) => (disabled ? "0.8" : "1")};
   cursor: pointer;
   &:disabled {
-    background-color:black;
-    color:white;
+    background-color: black;
+    color: white;
     cursor: not-allowed;
   }
 `;

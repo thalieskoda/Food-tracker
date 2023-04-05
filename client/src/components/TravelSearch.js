@@ -36,9 +36,7 @@ const TravelSearch = ({
 
   const handleDelete = (ev) => {
     ev.preventDefault();
-    setIsAdded(false);
-    setIsAvailable(true);
-    console.log(favoriteRestaurant);
+    if (favoriteRestaurant.length > 0) {
     fetch("/update-favorites", {
       method: "PATCH",
       body: JSON.stringify({
@@ -50,8 +48,14 @@ const TravelSearch = ({
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-    }).then(() => {});
-  };
+    }).then(() => {
+      setIsAdded(false);
+      setIsAvailable(true);
+    });
+  } else {
+    console.log("favoriteRestaurant is empty");
+  }
+};
 
   const handleClick = (ev) => {
     ev.preventDefault();

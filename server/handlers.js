@@ -140,12 +140,13 @@ const handleComments = async (req, res) => {
     await client.connect();
     const db = client.db("trvl-up");
 
-    const { email, comments, createdAt } = req.body;
+    const { email, comments, createdAt, rating } = req.body;
     const userCommentsObject = {
       place_id,
       email,
       comments,
       createdAt,
+      rating,
       _id: uuid(),
     };
 
@@ -290,22 +291,22 @@ const updateFavorite = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
 
   try {
-    const { email, place_id, isAvailable } = req.body;
-
+    const { email, place_id} = req.body;
     await client.connect();
     const db = client.db("trvl-up");
-
-    const user = await db.collection("users").findOne({ _id: email });
-
+    
+    const user = await db.collection("users").findOne({ email: email });
+    
     if (!user) {
       return res
-        .status(400)
-        .json({ status: 400, data: "This user doesn't exist" });
+      .status(400)
+      .json({ status: 400, data: "This user doesn't exist" });
     }
-
+    
     const existingFavorite = user.favorites.find(
       (favorite) => favorite.place_id === place_id
-    );
+      );
+      console.log(existingFavorite);
 
     if (!existingFavorite) {
       return res.status(400).json({
@@ -314,33 +315,25 @@ const updateFavorite = async (req, res) => {
       });
     }
 
-    const updateResult = await db
-      .collection("users")
-      .updateOne(
-        { _id: email, "favorites.place_id": place_id },
-        { $set: { "favorites.$.isAvailable": true } }
-      );
-
-    if (updateResult.modifiedCount === 1) {
       // Remove the restaurant from the favorites array
       const removeResult = await db
         .collection("users")
         .updateOne(
-          { _id: email },
+          { email: email },
           { $pull: { favorites: { place_id: place_id } } }
         );
       if (removeResult.modifiedCount === 1) {
         return res.json({
           status: 200,
           data: "Favorite restaurant updated successfully",
-          "successful update": updateResult.modifiedCount,
+          "successful update": removeResult.modifiedCount,
         });
       } else {
         return res
           .status(500)
           .json({ status: 500, data: "Failed to update favorite restaurant" });
       } 
-    }
+    
   }catch (err) {
     console.error(err);
     res

@@ -12,19 +12,6 @@ const Profile = () => {
   const [isAdded, setIsAdded] = useState(false);
   const [isAvailable, setIsAvailable] = useState(true);
   const [reload, setReload] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null)
-
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     fetch(`/get-user/${user.email}`)
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log("currentUser", data.data);
-  //         setCurrentUser(data.data)
-  //       });
-  //   }
-  // }, [isAuthenticated]);
-  // console.log(currentUser);
 
   useEffect(() => {
     fetch("/favorite-restaurants")
@@ -37,25 +24,27 @@ const Profile = () => {
         console.log(error);
       });
   }, [user.email]); //Everytime it's a new user, we fetch different favorite restaurants
+  console.log(user.email);
   
   const handleDelete = (ev) => {
     ev.preventDefault();
-    setIsAdded(false);
-    setIsAvailable(true);
-  
+   
     if (favoriteRestaurant.length > 0) {
       fetch("/update-favorites", {
         method: "PATCH",
         body: JSON.stringify({
           place_id: favoriteRestaurant[0].place_id,
-          isAvailble: isAvailable,
+      
           email: user.email,
         }),
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-      }).then(() => {});
+      }).then(() => {
+        setIsAvailable(true);
+        setIsAdded(false);
+      });
     } else {
       console.log("favoriteRestaurant is empty");
     }
