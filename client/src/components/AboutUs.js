@@ -60,9 +60,12 @@ const Wrapper = styled.div`
   border: 1px solid black;
   padding: 20px;
   max-width: 800px;
+  color:black;
 
   &:hover {
-    background: radial-gradient(circle, #d6ffe6, #d6ecff) no-repeat;
+    background: radial-gradient(circle, #3b597b, #030e1b) no-repeat;
+    color:white;
+      font-weight:200;
   }
 `;
 

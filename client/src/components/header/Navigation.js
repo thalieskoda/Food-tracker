@@ -35,6 +35,15 @@ const Navigation = () => {
 const Li = styled(Link)`
   list-style-type: none;
   padding-right: 20px;
+  color:white;
+
+  &:hover {
+    color:white;
+    opacity:0.8;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
 `;
 
 const Ul = styled.ul`
