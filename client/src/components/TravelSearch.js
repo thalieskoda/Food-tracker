@@ -4,26 +4,19 @@ import { useAuth0 } from "@auth0/auth0-react";
 import moment from "moment";
 import { someImages } from "../images/someImages";
 
-const TravelSearch = ({
-  name,
-  onClose,
-  address,
-  rating,
-  ratingNumber,
-  id,
-}) => {
+const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
   const { user } = useAuth0();
   const [isAdded, setIsAdded] = useState(false);
   const [isAvailable, setIsAvailable] = useState(true);
   const [favoriteRestaurant, setFavoriteRestaurant] = useState(null);
-const [newImage, setNewImage] = useState(null)
+  const [newImage, setNewImage] = useState(null);
 
   const currentDate = moment().format("MMMM Do YYYY, h:mm:ss a");
 
-
   useEffect(() => {
     if (someImages.length > 0) {
-      const randomImage = someImages[Math.floor(Math.random() * someImages.length)];
+      const randomImage =
+        someImages[Math.floor(Math.random() * someImages.length)];
       setNewImage(randomImage);
     }
   }, []);
@@ -122,17 +115,16 @@ const [newImage, setNewImage] = useState(null)
             </Buttons>
           )}
           <Info>
-            <Li>Name : {name}</Li>
             <Li>
-              {rating} stars - numbers of ratings: {ratingNumber}
+              <Span>Name :</Span> {name}
             </Li>
-  
-            <Li>{address}</Li>
+            <Li><Span>Rating: </Span>{rating} stars</Li>
+            <Li>
+              <Span>numbers of ratings:</Span> {ratingNumber}
+            </Li>
+            <Li><Span>Address: </Span>{address}</Li>
             {someImages.length > 0 && (
-              <Img
-                alt={`${name}'s pictures`}
-                src={newImage}
-              />
+              <Img alt={`${name}'s pictures`} src={newImage} />
             )}
           </Info>
           {isAdded ? (
@@ -146,11 +138,14 @@ const [newImage, setNewImage] = useState(null)
   );
 };
 
+const Span = styled.span`
+  font-weight: bold;
+`;
 const Img = styled.img`
-max-width: 300px;
+  max-width: 300px;
   max-height: 300px;
   object-fit: cover;
-`
+`;
 const Buttons = styled.div``;
 const AddButton = styled.button`
   width: 240px;
@@ -162,6 +157,8 @@ const AddButton = styled.button`
 const Info = styled.ul`
   display: flex;
   flex-direction: column;
+  justify-content:space-around;
+  height:600px;
   padding: 10px;
 `;
 
@@ -170,8 +167,8 @@ const Li = styled.li`
 `;
 const Wrapper = styled.div`
   position: relative;
-  left: -420px;
-  top: -600px;
+  left: -480px;
+  top: -750px;
   padding: 10px;
   z-index: 1;
 `;

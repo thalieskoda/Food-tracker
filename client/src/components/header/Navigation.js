@@ -5,10 +5,6 @@ const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   const handleClick = () => {
     setShowDropdown(!showDropdown)
     setIsMenuOpen(false)

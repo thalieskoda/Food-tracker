@@ -9,8 +9,6 @@ import Rating from "./Rating";
 const Comments = ({ setReload, reload, place_id }) => {
   const { user } = useAuth0();
 
-  const currentDate = moment().format("MMMM Do YYYY, h:mm:ss a");
-
   const [characterCount, setcharacterCount] = useState(280);
   const [value, setValue] = useState("");
   const [comment, setComment] = useState("");

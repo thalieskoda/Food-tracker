@@ -21,7 +21,7 @@ const Header = () => {
         body: JSON.stringify(user),
       });
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

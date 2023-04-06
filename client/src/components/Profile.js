@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FiLoader } from "react-icons/fi";
 import {CgMailForward} from "react-icons/cg"
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import Comments from "./Comments";
 import { someImages } from "../images/someImages";
 
 const Profile = () => {
-  const { user, isAuthenticated } = useAuth0();
+  const { user} = useAuth0();
 
   const [favoriteRestaurant, setFavoriteRestaurant] = useState([]);
   const [isAdded, setIsAdded] = useState(false);
@@ -43,7 +43,7 @@ const Profile = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [user.email]);
+  }, [user.email, reload]);
 
   const handleDelete = (ev) => {
     ev.preventDefault();
@@ -63,6 +63,7 @@ const Profile = () => {
       }).then(() => {
         setIsAvailable(true);
         setIsAdded(false);
+        setReload((previousState) => !previousState);
       });
     } else {
       console.log("favoriteRestaurant is empty");
