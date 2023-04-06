@@ -13,11 +13,8 @@ const Profile = () => {
   const [isAdded, setIsAdded] = useState(false);
   const [isAvailable, setIsAvailable] = useState(true);
   const [reload, setReload] = useState(false);
-  const [currentImage, setCurrentImage] = useState(someImages[0]);
   const [newImage, setNewImage] = useState(null);
-  const [sortedRestaurants, setSortedRestaurants] = useState([])
-  const [sortOption, setSortOption] = useState("Sort by")
-  const [comment, setComment] = useState("");
+ 
 
 
   //Random image display for each favorite restaurant.
@@ -50,15 +47,16 @@ const Profile = () => {
       });
   }, [user.email, reload]);
 
-  const handleDelete = (ev) => {
+  console.log(favoriteRestaurant);
+
+  const handleDelete = (ev, placeId) => {
     ev.preventDefault();
 
     if (favoriteRestaurant.length > 0) {
       fetch("/update-favorites", {
         method: "PATCH",
         body: JSON.stringify({
-          place_id: favoriteRestaurant[0].place_id,
-
+          place_id: placeId,
           email: user.email,
         }),
         headers: {
@@ -75,35 +73,6 @@ const Profile = () => {
     }
   };
 
-  useEffect(() => {
-    if (user) {
-      fetch(`/get-comments`)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data.data[0].comments);
-          setComment(data.data[0].comments.map(comment => ({...comment, rating: comment.rating})));
-        });
-    }
-  }, [user, reload]);
-
-  
-  const sortRestaurants = (option = "sort by") => {
-    setSortOption(option);
-    let sortedRestaurants = [...favoriteRestaurant];
-  
-    if (option === "date") {
-      sortedRestaurants.sort((a, b) => {
-        const dateA = moment(a.date_added);
-        const dateB = moment(b.date_added);
-        return dateA - dateB; // Sort by date in ascending order
-      });
-    } else if (option === "rating") {
-      sortedRestaurants = sortedRestaurants.filter((restaurant) => restaurant.comment);
-      sortedRestaurants.sort((a, b) => (b.comment?.rating || 0) - (a.comment?.rating || 0));
-    } 
-    setSortedRestaurants(sortedRestaurants);
-  };
-
 
   return (
     <>
@@ -118,14 +87,6 @@ const Profile = () => {
               <>
                 <H1>Hey {user.given_name},</H1>
                 <P>Here are your favorite restaurants:</P>
-                <Select
-                  value={sortOption}
-                  onChange={(e) => sortRestaurants(e.target.value)}
-                >
-                  <option value="sort by">Sort by</option>
-                  <option value="date">Date</option>
-                  <option value="rating">Rating</option>
-                </Select>
               </>
             )}
           </Container>
@@ -156,7 +117,7 @@ const Profile = () => {
                         <Span>Added to your favorites on </Span>
                         {restaurant.date_added}
                       </Date>
-                      <DeleteLink onClick={(ev) => handleDelete(ev)}>
+                      <DeleteLink onClick={(ev) => handleDelete(ev, restaurant.place_id)}>
                         Remove from favorites
                       </DeleteLink>
                     </Small>

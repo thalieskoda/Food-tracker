@@ -41,6 +41,7 @@ const Comments = ({ setReload, reload, place_id }) => {
         comments: value,
         createdAt: currentDate,
         rating: rating,
+        place_id
       }),
     })
       .then((res) => res.json())
@@ -59,38 +60,45 @@ const Comments = ({ setReload, reload, place_id }) => {
       .catch((error) => {
         console.log(error);
       });
-  };
+  }; 
 
   const handleRatingChange = (newRating) => {
     setRating(newRating);
   };
 
+  //Fetching the comments to access the comment id in order to delete the right one with the right place_id.
   useEffect(() => {
     if (user) {
       fetch(`/get-comments`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data.data[0]);
           setComment(data.data[0]);
         });
     }
   }, [user, reload]);
 
-  const handleDelete = (ev) => {
+  const handleDelete = (ev, commentId, placeId) => {
     ev.preventDefault();
     fetch("/update-comments", {
       method: "PATCH",
       body: JSON.stringify({
         email: user.email,
-        _id: comment.comments[0]._id,
+        _id: commentId,
+        place_id: placeId
       }),
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-    }).then(() => {
-      setComment("");
-    });
+    })
+      .then(() => {
+        setComment("");
+        setRating(0);
+        setValue("");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -116,7 +124,7 @@ const Comments = ({ setReload, reload, place_id }) => {
                     <Date><Span>added on</Span>
                     {comment.createdAt}
                     </Date>
-                  <DeleteLink onClick={(ev) => handleDelete(ev)}>
+                  <DeleteLink onClick={(ev) => handleDelete(ev, comment._id, comment.place_id)}>
                     Delete my review
                   </DeleteLink>
                   </Small>

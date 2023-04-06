@@ -84,7 +84,7 @@ const updateComments = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
 
   try {
-    const { _id, email } = req.body;
+    const { _id, email, place_id } = req.body;
 
     await client.connect();
     const db = client.db("trvl-up");
@@ -102,13 +102,21 @@ const updateComments = async (req, res) => {
     const existingComment = user.comments.find(
       (comment) => comment._id === _id
     );
-console.log(existingComment);
+
     if (!existingComment) {
       return res.status(400).json({
         status: 400,
         data: "There's no comments for this restaurant",
       });
     }
+
+    if (existingComment.place_id !== place_id) {
+      return res.status(400).json({
+        status: 400,
+        data: "Comment does not belong to this restaurant",
+      });
+    }
+    
     // Use updateOne to remove the comment from the comments array
     const updateResult = await db.collection("users").updateOne(
       { email: email },
@@ -140,7 +148,8 @@ const handleComments = async (req, res) => {
     await client.connect();
     const db = client.db("trvl-up");
 
-    const { email, comments, createdAt, rating } = req.body;
+    const { email, comments, createdAt, rating} = req.body;
+
     const userCommentsObject = {
       place_id,
       email,
