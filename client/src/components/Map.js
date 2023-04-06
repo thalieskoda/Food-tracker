@@ -23,6 +23,7 @@ const Map = () => {
   const [places, setPlaces] = useState([]);
   const [map, setMap] = useState(null);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  const [selectedRestaurantData, setSelectedRestaurantData] = useState(null);
   console.log(selectedRestaurant);
   // verify if the map is loaded.
   const { isLoaded } = useJsApiLoader({
@@ -102,20 +103,18 @@ const Map = () => {
           ))}
         </GoogleMap>
       </MapContainer>
-      <SearchContainer>
-        {selectedRestaurant ? (
-          <TravelSearch
-            name={selectedRestaurant.name}
-            address={selectedRestaurant.vicinity}
-            rating={selectedRestaurant.rating}
-            ratingNumber={selectedRestaurant.user_ratings_total}
-            id={selectedRestaurant.place_id}
-            onClose={() => setSelectedRestaurant(null)}
-          />
-        ) : (
-          <Instructions />
-        )}
-      </SearchContainer>
+      {selectedRestaurant ? (
+        <TravelSearch
+          name={selectedRestaurant.name}
+          address={selectedRestaurant.vicinity}
+          rating={selectedRestaurant.rating}
+          ratingNumber={selectedRestaurant.user_ratings_total}
+          id={selectedRestaurant.place_id}
+          onClose={() => setSelectedRestaurant(null)}
+        />
+      ) : (
+        <Instructions />
+      )}
     </>
   ) : (
     <>
@@ -126,12 +125,9 @@ const Map = () => {
   );
 };
 
-const SearchContainer = styled.div`
-  position: relative;
-`;
 const MapContainer = styled.div`
   position: relative;
-  top: -80px;
+  top: -85px;
 `;
 const LoadingIcon = styled(FiLoader)`
   position: relative;

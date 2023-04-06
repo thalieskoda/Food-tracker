@@ -93,27 +93,6 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
     <>
       {name ? (
         <Wrapper>
-          {favoriteRestaurant && (
-            <Buttons>
-              <CloseButton onClick={onClose}>Close</CloseButton>
-              <AddButton
-                onClick={handleClick}
-                isAdded={isAdded}
-                isAvailable={isAvailable}
-                disabled={
-                  favoriteRestaurant.some(
-                    (restaurant) => restaurant.place_id === id
-                  ) || !isAvailable
-                }
-              >
-                {!favoriteRestaurant.some(
-                  (restaurant) => restaurant.place_id === id
-                ) && isAvailable
-                  ? "Add to my favorites"
-                  : "Already in my favorites"}
-              </AddButton>
-            </Buttons>
-          )}
           <Info>
             <Li>
               <Span>Name :</Span> {name}
@@ -126,12 +105,33 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
             {someImages.length > 0 && (
               <Img alt={`${name}'s pictures`} src={newImage} />
             )}
+            {favoriteRestaurant && (
+              <Buttons>
+                <CloseButton onClick={onClose}>Close</CloseButton>
+                <AddButton
+                  onClick={handleClick}
+                  isAdded={isAdded}
+                  isAvailable={isAvailable}
+                  disabled={
+                    favoriteRestaurant.some(
+                      (restaurant) => restaurant.place_id === id
+                    ) || !isAvailable
+                  }
+                >
+                  {!favoriteRestaurant.some(
+                    (restaurant) => restaurant.place_id === id
+                  ) && isAvailable
+                    ? "Add to my favorites"
+                    : "Already in my favorites"}
+                </AddButton>
+              </Buttons>
+            )}
+            {isAdded ? (
+              <DeleteLink onClick={(ev) => handleDelete(ev)}>
+                Remove from favorites
+              </DeleteLink>
+            ) : null}
           </Info>
-          {isAdded ? (
-            <DeleteLink onClick={(ev) => handleDelete(ev)}>
-              Remove from favorites
-            </DeleteLink>
-          ) : null}
         </Wrapper>
       ) : null}
     </>
@@ -146,7 +146,10 @@ const Img = styled.img`
   max-height: 300px;
   object-fit: cover;
 `;
-const Buttons = styled.div``;
+const Buttons = styled.div`
+align-items:center;
+
+`;
 const AddButton = styled.button`
   width: 240px;
   margin: 10px;
@@ -171,6 +174,7 @@ const Wrapper = styled.div`
   top: -750px;
   padding: 10px;
   z-index: 1;
+  width:500px;
 `;
 
 const CloseButton = styled.button`

@@ -36,6 +36,7 @@ const P = styled.p`
   max-width:325px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
   background-color: #092a51;
+  border-radius:5px;
   padding: 15px 30px 15px 30px;
   color:white;
 `;
