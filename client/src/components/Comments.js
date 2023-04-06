@@ -310,7 +310,7 @@ const Count = styled.span`
 const Button = styled.button`
   height: 50px;
   border: none;
-  background-color: black;
+  background-color: #10355f;
   font-size: 18px;
   font-weight: bold;
   color: white;
@@ -320,7 +320,7 @@ const Button = styled.button`
   opacity: ${({ disabled }) => (disabled ? "0.8" : "1")};
   cursor: pointer;
   &:disabled {
-    background-color: black;
+    background-color: #10355f;
     color: white;
     cursor: not-allowed;
   }

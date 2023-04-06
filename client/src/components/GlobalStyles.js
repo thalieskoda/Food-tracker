@@ -79,7 +79,7 @@ const GlobalStyles = createGlobalStyle`
 
   /* Buttons */
   button {
-    background-color:black;
+    background-color:#10355f;
     color: white;
     cursor: pointer;
     font-size: 16px;
@@ -93,7 +93,7 @@ const GlobalStyles = createGlobalStyle`
 
     &:hover {
         background-color:transparent;
-        color:black;
+        color:#10355f;
         transition:0.5s;
     }
   }
