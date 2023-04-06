@@ -108,14 +108,21 @@ const Comments = ({ setReload, reload, place_id }) => {
             .filter((comment) => comment.place_id === place_id)
             .map((comment) => (
               <div key={comment._id}>
-                <div>
+                <CommentReview>
                   <Rating rating={comment.rating} />
-                  <p>My review: {comment.comments}</p>
-                  <p>added on {comment.createdAt}</p>
+                  <P>
+                    <Span>My review: </Span>
+                    {comment.comments}
+                  </P>
+                  <Small>
+                    <Date><Span>added on</Span>
+                    {comment.createdAt}
+                    </Date>
                   <DeleteLink onClick={(ev) => handleDelete(ev)}>
                     Delete my review
                   </DeleteLink>
-                </div>
+                  </Small>
+                </CommentReview>
               </div>
             ))}
           {!comment.comments.some(
@@ -130,7 +137,7 @@ const Comments = ({ setReload, reload, place_id }) => {
                       count={5}
                       onChange={handleRatingChange}
                       size={24}
-                      activeColor="#ffd700"
+                      activeColor="#3b597b"
                     />
                   </Stars>
                 </Div>
@@ -168,7 +175,7 @@ const Comments = ({ setReload, reload, place_id }) => {
                   count={5}
                   onChange={handleRatingChange}
                   size={24}
-                  activeColor="#ffd700"
+                  activeColor="#3b597b"
                 />
               </Stars>
             </Div>
@@ -179,7 +186,7 @@ const Comments = ({ setReload, reload, place_id }) => {
               maxLength="400"
               inputColor={inputColor}
             />
-            <Container>
+            <Container comment={comment}>
               <Count inputColor={inputColor}>
                 {restCharacters < 0
                   ? "-" + Math.abs(restCharacters)
@@ -196,6 +203,33 @@ const Comments = ({ setReload, reload, place_id }) => {
   );
 };
 
+const Small = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items:center;
+`;
+const Date = styled.p`
+  font-size: 0.6em;
+  padding: 0 30px 0 0 ;
+`
+const Span = styled.span`
+  font-weight: bold;
+  padding: 0 10px 0 0 ;
+`;
+const P = styled.p`
+  font-weight: 200;
+`;
+const CommentReview = styled.div`
+  border-top: 3px #3b597b solid;
+  border-right: 3px #3b597b solid;
+  padding: 60px 60px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-around;
+  height:400px;
+  align-items:center;
+`;
 const Stars = styled.div`
   padding: 0 0 0 30px;
 `;
@@ -238,9 +272,10 @@ const Container = styled.div`
   justify-content: right;
 `;
 const Wrapper = styled.div`
-  padding: 20px;
   width: 50%;
-
+  border-top: 3px #3b597b solid;
+  border-right: 3px #3b597b solid;
+  padding: 60px 60px;
 `;
 
 const Form = styled.form`

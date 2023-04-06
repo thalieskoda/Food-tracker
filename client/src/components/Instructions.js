@@ -9,22 +9,22 @@ const Instructions = () => {
     <Searching>
       <Wrapper />
       <P>
-        <FaCity /> Enter a city that you would like to visit
+        <FaCity color="white"/> Enter a city that you would like to visit
+      </P>
+
+      <Wrapper/>
+      <P>
+        <MdOutlineFastfood color="white"/> Select your favorite restaurants
+      </P>
+
+      <Wrapper  />
+      <P>
+        <FiUser color="white"/> Add them to your profile
       </P>
 
       <Wrapper />
       <P>
-        <MdOutlineFastfood /> Select your favorite restaurants
-      </P>
-
-      <Wrapper />
-      <P>
-        <FiUser /> Add them to your profile
-      </P>
-
-      <Wrapper />
-      <P>
-        <GiPodium /> Rate them once you ate there !
+        <GiPodium color="white"/> Rate them once you ate there !
       </P>
     </Searching>
   );
@@ -33,10 +33,11 @@ const Instructions = () => {
 const P = styled.p`
   z-index: 9999;
   font-weight: 200;
-  max-width:320px;
+  max-width:325px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
-  background-color: #f5f5f5;
-  padding: 15px;
+  background-color: #092a51;
+  padding: 15px 30px 15px 30px;
+  color:white;
 `;
 
 const Wrapper = styled.div`

@@ -129,14 +129,14 @@ const Profile = () => {
              <Icon>
                <CgMailForward size={50}/>
              </Icon>
-             <Click>click here to get started! </Click>
+             <Click>click there to get started! </Click>
            </ContainerIcon>
            <Wrapper>
-             <H1>Hey {user.given_name},</H1>
-             <P>
-               you should probably go back to the homepage and add your favorite
+             <Hey>Hey {user.given_name},</Hey>
+             <Text>
+               you should probably go back to the home page and add your favorite
                restaurants!
-             </P>
+             </Text>
            </Wrapper>
          </>
           )}
@@ -146,15 +146,29 @@ const Profile = () => {
   );
 };
 
+const Hey = styled.h1`
+border-bottom:3px #3b597b solid;
+border-left:3px #3b597b solid;
+padding:60px 60px;
+`
+
+const Text = styled.p`
+border-top:3px #3b597b solid;
+border-right:3px #3b597b solid;
+padding:60px 60px;
+`
 const ContainerIcon = styled.div`
   display: flex;
   align-items: center;
+padding: 0 0 0 15px;
+position:relative;
+top:-50px;
 `;
 const Icon = styled.div`
 transform: rotate(-90deg);
 `
 const Click = styled.p`
-
+font-weight:200;
 `
 const ImgResto = styled.img`
   max-width: 300px;
