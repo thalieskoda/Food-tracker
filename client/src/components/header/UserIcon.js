@@ -53,7 +53,7 @@ width:40px;
 height:40px;
 border-radius:50%;
 cursor: pointer;
-font-size:100px;
+font-size:3em;
 `;
 
 const Dropdown = styled.div`

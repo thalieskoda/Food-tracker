@@ -44,7 +44,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 36px;
+  font-size: 2.5em;
   margin: 30px;
   align-items: center;
 
@@ -59,7 +59,7 @@ const Wrapper = styled.div`
   border-radius: 5px;
   border: 1px solid black;
   padding: 20px;
-  max-width: 800px;
+  max-width: 60%;
   color:black;
 
   &:hover {

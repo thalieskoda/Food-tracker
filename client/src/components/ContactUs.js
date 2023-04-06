@@ -40,7 +40,7 @@ const ContactUs = () => {
   `;
   
   const Title = styled.h1`
-    font-size: 36px;
+    font-size: 2.5em;
     margin: 48px;
   `;
   
@@ -48,7 +48,7 @@ const ContactUs = () => {
     border: 1px solid black;
     border-radius: 2px;
     padding: 24px;
-    max-width: 600px;
+    max-width: 30%
    color:black;
 box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
 
@@ -65,12 +65,12 @@ box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
   `;
   
   const SectionTitle = styled.h2`
-    font-size: 28px;
+    font-size: 1.5em;
     margin-bottom: 16px;
   `;
   
   const SectionText = styled.p`
-    font-size: 16px;
+    font-size: 1em;
     margin-bottom: 20px;
   `;
   
@@ -79,13 +79,13 @@ box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
   border-radius: 5px;
   color: white;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1em;
   font-weight: 100;
   padding: 12px 50px;
   transition: all 0.3s ease;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
   border: 1px black solid;
-  width: 150px;
+  width: 10%;
 
   &:hover {
     background-color: white;

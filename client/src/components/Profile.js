@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FiLoader } from "react-icons/fi";
-import {CgMailForward} from "react-icons/cg"
+import { CgMailForward } from "react-icons/cg";
 import styled from "styled-components";
 import Comments from "./Comments";
 import { someImages } from "../images/someImages";
-
+import moment from "moment";
 const Profile = () => {
-  const { user} = useAuth0();
+  const { user } = useAuth0();
 
   const [favoriteRestaurant, setFavoriteRestaurant] = useState([]);
   const [isAdded, setIsAdded] = useState(false);
@@ -15,8 +15,12 @@ const Profile = () => {
   const [reload, setReload] = useState(false);
   const [currentImage, setCurrentImage] = useState(someImages[0]);
   const [newImage, setNewImage] = useState(null);
+  const [sortedRestaurants, setSortedRestaurants] = useState([])
+  const [sortOption, setSortOption] = useState("Sort by")
+  const [comment, setComment] = useState("");
 
-//Random image display for each favorite restaurant.
+
+  //Random image display for each favorite restaurant.
   useEffect(() => {
     if (someImages.length > 0) {
       const randomImage =
@@ -37,6 +41,7 @@ const Profile = () => {
             image: randomImage,
           };
         });
+        
         setFavoriteRestaurant(favorites);
         console.log("FAV", favorites);
       })
@@ -70,6 +75,36 @@ const Profile = () => {
     }
   };
 
+  useEffect(() => {
+    if (user) {
+      fetch(`/get-comments`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data.data[0].comments);
+          setComment(data.data[0].comments.map(comment => ({...comment, rating: comment.rating})));
+        });
+    }
+  }, [user, reload]);
+
+  
+  const sortRestaurants = (option = "sort by") => {
+    setSortOption(option);
+    let sortedRestaurants = [...favoriteRestaurant];
+  
+    if (option === "date") {
+      sortedRestaurants.sort((a, b) => {
+        const dateA = moment(a.date_added);
+        const dateB = moment(b.date_added);
+        return dateA - dateB; // Sort by date in ascending order
+      });
+    } else if (option === "rating") {
+      sortedRestaurants = sortedRestaurants.filter((restaurant) => restaurant.comment);
+      sortedRestaurants.sort((a, b) => (b.comment?.rating || 0) - (a.comment?.rating || 0));
+    } 
+    setSortedRestaurants(sortedRestaurants);
+  };
+
+
   return (
     <>
       {!user ? (
@@ -79,67 +114,77 @@ const Profile = () => {
       ) : (
         <>
           <Container>
-          {favoriteRestaurant.length > 0 &&
-          <>
-            <H1>Hey {user.given_name},</H1>
-            <P>Here are your favorite restaurants:</P>
-          </>
-}
+            {favoriteRestaurant.length > 0 && (
+              <>
+                <H1>Hey {user.given_name},</H1>
+                <P>Here are your favorite restaurants:</P>
+                <Select
+                  value={sortOption}
+                  onChange={(e) => sortRestaurants(e.target.value)}
+                >
+                  <option value="sort by">Sort by</option>
+                  <option value="date">Date</option>
+                  <option value="rating">Rating</option>
+                </Select>
+              </>
+            )}
           </Container>
-          {favoriteRestaurant.map((restaurant) => {
-            return (
-              <Wrapper key={restaurant.place_id}>
-                <SmallContainer>
-                  <Ul>
-                    <Li>
-                      <Span>Name:</Span> {restaurant.name}
-                    </Li>
-                    <Li>
-                      <Span>Address: </Span>
-                      {restaurant.address}
-                    </Li>
-                    <Li>
-                      <Span>Rating: </Span>
-                      {restaurant.rating}/5
-                    </Li>
-                    <Li>
-                      <ImgResto src={restaurant.image} alt="restaurant" />
-                    </Li>
-                  </Ul>
-                  <Small>
-                    <Date>
-                      <Span>Added to your favorites on </Span>
-                      {restaurant.date_added}
-                    </Date>
-                    <DeleteLink onClick={(ev) => handleDelete(ev)}>
-                      Remove from favorites
-                    </DeleteLink>
-                  </Small>
-                </SmallContainer>
-                <Comments
-                  setReload={setReload}
-                  place_id={restaurant.place_id}
-                  reload={reload}
-                />
+  
+          {favoriteRestaurant.length > 0 ? (
+            <>
+              {favoriteRestaurant.map((restaurant) => (
+                <Wrapper key={restaurant.place_id}>
+                  <SmallContainer>
+                    <Ul>
+                      <Li>
+                        <Span>Name:</Span> {restaurant.name}
+                      </Li>
+                      <Li>
+                        <Span>Address: </Span>
+                        {restaurant.address}
+                      </Li>
+                      <Li>
+                        <Span>Rating: </Span>
+                        {restaurant.rating}/5
+                      </Li>
+                      <Li>
+                        <ImgResto src={restaurant.image} alt="restaurant" />
+                      </Li>
+                    </Ul>
+                    <Small>
+                      <Date>
+                        <Span>Added to your favorites on </Span>
+                        {restaurant.date_added}
+                      </Date>
+                      <DeleteLink onClick={(ev) => handleDelete(ev)}>
+                        Remove from favorites
+                      </DeleteLink>
+                    </Small>
+                  </SmallContainer>
+                  <Comments
+                    setReload={setReload}
+                    place_id={restaurant.place_id}
+                    reload={reload}
+                  />
+                </Wrapper>
+              ))}
+            </>
+          ) : (
+            <>
+              <ContainerIcon>
+                <Icon>
+                  <CgMailForward size={50} />
+                </Icon>
+                <Click>click there to get started! </Click>
+              </ContainerIcon>
+              <Wrapper>
+                <Hey>Hey {user.given_name},</Hey>
+                <Text>
+                  you should probably go back to the home page and add your
+                  favorite restaurants!
+                </Text>
               </Wrapper>
-            );
-          })}
-          {favoriteRestaurant.length === 0 && (
-           <>
-           <ContainerIcon>
-             <Icon>
-               <CgMailForward size={50}/>
-             </Icon>
-             <Click>click there to get started! </Click>
-           </ContainerIcon>
-           <Wrapper>
-             <Hey>Hey {user.given_name},</Hey>
-             <Text>
-               you should probably go back to the home page and add your favorite
-               restaurants!
-             </Text>
-           </Wrapper>
-         </>
+            </>
           )}
         </>
       )}
@@ -147,30 +192,46 @@ const Profile = () => {
   );
 };
 
+const Select = styled.select`
+  font-size: 1em;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  color: #333;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  }
+`;
+
 const Hey = styled.h1`
-border-bottom:3px #3b597b solid;
-border-left:3px #3b597b solid;
-padding:60px 60px;
-`
+  border-bottom: 3px #3b597b solid;
+  border-left: 3px #3b597b solid;
+  padding: 60px 60px;
+`;
 
 const Text = styled.p`
-border-top:3px #3b597b solid;
-border-right:3px #3b597b solid;
-padding:60px 60px;
-`
+  border-top: 3px #3b597b solid;
+  border-right: 3px #3b597b solid;
+  padding: 60px 60px;
+`;
 const ContainerIcon = styled.div`
   display: flex;
   align-items: center;
-padding: 0 0 0 15px;
-position:relative;
-top:-50px;
+  padding: 0 0 0 15px;
+  position: relative;
+  top: -50px;
 `;
 const Icon = styled.div`
-transform: rotate(-90deg);
-`
+  transform: rotate(-90deg);
+`;
 const Click = styled.p`
-font-weight:200;
-`
+  font-weight: 200;
+`;
 const ImgResto = styled.img`
   max-width: 300px;
   max-height: 300px;
@@ -193,7 +254,7 @@ const Small = styled.div`
 `;
 const DeleteLink = styled.a`
   text-decoration: underline;
-  font-size: 12px;
+  font-size: 0.8em;
   cursor: pointer;
   padding: 0 0 0 40px;
 `;
@@ -225,8 +286,6 @@ const Ul = styled.ul`
   padding: 0 0 10px 0px;
   list-style-type: none;
 `;
-
-
 
 const LoadingIcon = styled(FiLoader)`
   position: relative;

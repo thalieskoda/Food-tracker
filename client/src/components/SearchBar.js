@@ -101,7 +101,7 @@ const Wrapper = styled.div`
 
   z-index: 9999;
   /* background-color: rgba(255, 255, 255, 0.85); */
-  width: 550px;
+  width: 55%;
   align-items: center;
   border-radius:20px;
   display:flex;

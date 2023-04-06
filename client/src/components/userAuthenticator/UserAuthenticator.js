@@ -74,6 +74,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 30vh;
+padding: 0 0 0 30px;
+
 `;
 const Welcome = styled.div`
   display: flex;
@@ -86,8 +88,7 @@ padding: 0 0 0 20px;
 
 const Buttons = styled.div`
   display: flex;
-  justify-content: space-around;
-  padding: 0 20px 0 0;
+  padding: 0 0 0 20px;
 `;
 const LoadingIcon = styled(FiLoader)`
   position: relative;

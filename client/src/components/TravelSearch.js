@@ -99,7 +99,7 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
             </Li>
             <Li><Span>Rating: </Span>{rating} stars</Li>
             <Li>
-              <Span>numbers of ratings:</Span> {ratingNumber}
+              <Span>Numbers of ratings:</Span> {ratingNumber}
             </Li>
             <Li><Span>Address: </Span>{address}</Li>
             {someImages.length > 0 && (
@@ -174,7 +174,7 @@ const Wrapper = styled.div`
   top: -750px;
   padding: 10px;
   z-index: 1;
-  width:500px;
+
 `;
 
 const CloseButton = styled.button`
@@ -183,7 +183,7 @@ const CloseButton = styled.button`
 
 const DeleteLink = styled.a`
   text-decoration: underline;
-  font-size: 12px;
+  font-size: 0.8em;
   cursor: pointer;
 `;
 

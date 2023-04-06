@@ -22,7 +22,7 @@ const GlobalStyles = createGlobalStyle`
   /* Set default font family, size, and line height */
   body {
     font-family: var(--font-body);
-    font-size: 16px;
+    font-size: 1em;
     line-height: 1.5;
   }
 
@@ -44,28 +44,13 @@ const GlobalStyles = createGlobalStyle`
   }
 
   h1 {
-    font-size: 36px;
+    font-size: 2.5em;
   }
 
   h2 {
-    font-size: 32px;
+    font-size: 2em;
   }
 
-  h3 {
-    font-size: 28px;
-  }
-
-  h4 {
-    font-size: 24px;
-  }
-
-  h5 {
-    font-size: 20px;
-  }
-
-  h6 {
-    font-size: 16px;
-  }
 
   /* Links */
   a {
@@ -82,7 +67,7 @@ const GlobalStyles = createGlobalStyle`
     background-color:#10355f;
     color: white;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1em;
     font-weight: 100;
     padding: 10px;
     transition: all 0.3s ease;
@@ -117,7 +102,7 @@ const GlobalStyles = createGlobalStyle`
 
   nav a {
     color: #333;
-    font-size: 18px;
+    font-size: 1.2em;
     font-weight: bold;
   }
 `;
