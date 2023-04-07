@@ -5,7 +5,8 @@ import { CgMailForward } from "react-icons/cg";
 import styled from "styled-components";
 import Comments from "./Comments";
 import { someImages } from "../images/someImages";
-import moment from "moment";
+import Sort from "./Sort";
+
 const Profile = () => {
   const { user } = useAuth0();
 
@@ -14,9 +15,22 @@ const Profile = () => {
   const [isAvailable, setIsAvailable] = useState(true);
   const [reload, setReload] = useState(false);
   const [newImage, setNewImage] = useState(null);
+  const [comment, setComment] = useState("");
+  const [sort, setSort] = useState([]);
+
+
  
-
-
+  //Getting the comments to sent it to the Sort.js
+  useEffect(() => {
+    if (user) {
+      fetch(`/get-comments`)
+        .then((res) => res.json())
+        .then((data) => {
+          setComment(data.data[0]);
+        });
+    }
+  }, [user, reload]);
+  console.log(comment.comments);
   //Random image display for each favorite restaurant.
   useEffect(() => {
     if (someImages.length > 0) {
@@ -72,8 +86,44 @@ const Profile = () => {
       console.log("favoriteRestaurant is empty");
     }
   };
+ 
+  let sorted = [...favoriteRestaurant];
+
+  // This useEffect is looking for changes in ''sort'' which is a string that is changed in Sidebar.js.
+  // The four cases are sorting the array ''sorted'', and eventually gets setted backed to state variable
+  // ''singleCategory'' which is rendered in JSX
+
+  useEffect(() => {
+    if (sort === "ascending rating") {
+    favoriteRestaurant.sort((a,b) => {
+        return b.rating - a.rating;
+      })
+    } else if (sort === "descending rating") {
+      favoriteRestaurant.sort((b,a) => {
+        return a.rating - b.rating;
+      })
+    } else if (sort === "oldest added restaurant") {
+      sorted.sort((a, b) => {
+        if (a.date_added < b.date_added) return -1;
+        if (a.date_added > b.date_added) return 1;
+        return 0;
+      });
+    }
+    else if (sort === "newest added restaurant") {
+      sorted.sort((a, b) => {
+        if (a.date_added < b.date_added) return 1;
+        if (a.date_added > b.date_added) return -1;
+        return 0;
+      });
+    }
+   else {
+      sorted = favoriteRestaurant;
+    }
+  setFavoriteRestaurant(sorted)
+  }, [sort])
 
 
+ 
   return (
     <>
       {!user ? (
@@ -87,6 +137,7 @@ const Profile = () => {
               <>
                 <H1>Hey {user.given_name},</H1>
                 <P>Here are your favorite restaurants:</P>
+                <Sort setSort={setSort} />
               </>
             )}
           </Container>
@@ -153,21 +204,7 @@ const Profile = () => {
   );
 };
 
-const Select = styled.select`
-  font-size: 1em;
-  padding: 8px;
-  border: none;
-  border-radius: 4px;
-  background-color: #f8f8f8;
-  color: #333;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
 
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
-  }
-`;
 
 const Hey = styled.h1`
   border-bottom: 3px #3b597b solid;
