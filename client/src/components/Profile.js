@@ -26,11 +26,12 @@ const Profile = () => {
       fetch(`/get-comments`)
         .then((res) => res.json())
         .then((data) => {
-          setComment(data.data[0]);
+          setComment(data.data[0].comments);
         });
     }
   }, [user, reload]);
-  console.log(comment.comments);
+
+
   //Random image display for each favorite restaurant.
   useEffect(() => {
     if (someImages.length > 0) {
@@ -61,8 +62,6 @@ const Profile = () => {
       });
   }, [user.email, reload]);
 
-  console.log(favoriteRestaurant);
-
   const handleDelete = (ev, placeId) => {
     ev.preventDefault();
 
@@ -86,44 +85,36 @@ const Profile = () => {
       console.log("favoriteRestaurant is empty");
     }
   };
- 
-  let sorted = [...favoriteRestaurant];
-
-  // This useEffect is looking for changes in ''sort'' which is a string that is changed in Sidebar.js.
-  // The four cases are sorting the array ''sorted'', and eventually gets setted backed to state variable
-  // ''singleCategory'' which is rendered in JSX
 
   useEffect(() => {
+    let sorted = [...favoriteRestaurant];
+  
     if (sort === "ascending rating") {
-    favoriteRestaurant.sort((a,b) => {
-        return b.rating - a.rating;
-      })
+      sorted.sort((a, b) => b.rating - a.rating);
     } else if (sort === "descending rating") {
-      favoriteRestaurant.sort((b,a) => {
-        return a.rating - b.rating;
-      })
+      sorted.sort((a, b) => a.rating - b.rating);
+
+
     } else if (sort === "oldest added restaurant") {
       sorted.sort((a, b) => {
         if (a.date_added < b.date_added) return -1;
         if (a.date_added > b.date_added) return 1;
         return 0;
       });
-    }
-    else if (sort === "newest added restaurant") {
+    } else if (sort === "newest added restaurant") {
       sorted.sort((a, b) => {
         if (a.date_added < b.date_added) return 1;
         if (a.date_added > b.date_added) return -1;
         return 0;
       });
-    }
-   else {
+    } else {
       sorted = favoriteRestaurant;
     }
-  setFavoriteRestaurant(sorted)
-  }, [sort])
+    setFavoriteRestaurant(sorted);
+    console.log(sorted);
+  }, [sort, favoriteRestaurant]);
 
 
- 
   return (
     <>
       {!user ? (
