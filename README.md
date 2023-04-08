@@ -1,3 +1,4 @@
+https://img.shields.io/badge/Capstone%20Project-Food%20Tracker-blue
 # Food tracker
 My final project for Concordia's Web Development Bootcamp
 
