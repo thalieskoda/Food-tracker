@@ -6,25 +6,31 @@ import { useAuth0 } from "@auth0/auth0-react";
 import moment from "moment";
 import Rating from "./Rating";
 
+//Comments component for the user to add a review on his favorite restaurant
 const Comments = ({ setReload, reload, place_id }) => {
   const { user } = useAuth0();
-
+//Setting the state for the character count and the value's input
   const [characterCount, setcharacterCount] = useState(280);
   const [value, setValue] = useState("");
+//setting the comment
   const [comment, setComment] = useState("");
+  //Setting the rating from 1-5
   const [rating, setRating] = useState(0);
 
   const maxLength = 280;
   const restCharacters = maxLength - value.length;
 
+  //Setting the character count to the user's input value
   const handleChange = (event) => {
     setValue(event.target.value);
     setcharacterCount(280 - event.target.value.length);
   };
 
+
   const inputColor =
     restCharacters < 0 ? "red" : restCharacters < maxLength * 0.2 ? "gold" : "";
 
+    //When the user clicks on Add review, POSTing the info through the comment's array
   const handleSumbit = (event) => {
     event.preventDefault();
 
@@ -62,6 +68,7 @@ const Comments = ({ setReload, reload, place_id }) => {
       });
   };
 
+  //When the user chooses a rating 1-5
   const handleRatingChange = (newRating) => {
     setRating(newRating);
   };
@@ -77,6 +84,8 @@ const Comments = ({ setReload, reload, place_id }) => {
     }
   }, [user, reload]);
 
+
+  //Patch to update the comment's array when a user delete a review.
   const handleDelete = (ev, commentId, placeId) => {
     ev.preventDefault();
     fetch("/update-comments", {
@@ -101,6 +110,7 @@ const Comments = ({ setReload, reload, place_id }) => {
       });
   };
 
+  
   return (
     <>
       {!user || comment.length < 0 ? (

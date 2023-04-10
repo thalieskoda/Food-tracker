@@ -18,9 +18,13 @@ const Map = () => {
     CurrentPositionContext
   );
 
+  //Setting the boundaries of the map
   const [bounds, setBounds] = useState({});
+  //Setting the places for the searchBar
   const [places, setPlaces] = useState([]);
+  //Setting the map
   const [map, setMap] = useState(null);
+  //Setting the restaurant
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
   // verify if the map is loaded.
@@ -65,6 +69,10 @@ const Map = () => {
     }
   }, [isLoaded, map, places, coordinates]); // Everything that one of those changes, this useEffect gets called.
 
+
+  //If the map isLoaded, return the Google Map
+  //If there's a selected restaurant, show the information, if not, show the instructions.
+  //Passing the props through TravelSearch
   return isLoaded ? (
     <>
       <SearchBar

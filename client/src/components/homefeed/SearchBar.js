@@ -1,9 +1,10 @@
 import { FiSearch } from "react-icons/fi";
-import styled from "styled-components";
 import { Autocomplete } from "@react-google-maps/api";
 import React, { useState, useContext, useEffect } from "react";
+import styled from "styled-components";
 import CurrentPositionContext from "../CurrentPositionContext";
 
+//SearchBar component - searching places with the Autocomplete in GoogleMaps
 const SearchBar = ({ map, setPlaces, selectedRestaurant }) => {
   const { setCenter } = useContext(CurrentPositionContext);
   const [autoComplete, setAutoComplete] = useState(null);
@@ -64,6 +65,7 @@ const SearchBar = ({ map, setPlaces, selectedRestaurant }) => {
     });
   }, [map, setPlaces]);
 
+  //Return the Search Bar
   return (
     <Wrapper>
       <P>Explore new places</P>

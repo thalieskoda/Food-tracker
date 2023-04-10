@@ -4,15 +4,23 @@ import { useAuth0 } from "@auth0/auth0-react";
 import moment from "moment";
 import { someImages } from "../../images/someImages";
 
+//TravelSearch component
+//Receiving the props from Map.js
 const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
   const { user } = useAuth0();
+  //If the restaurant is added to the Favorite's array
   const [isAdded, setIsAdded] = useState(false);
+  //If the restaurant is available to be added in the Favorite's array
   const [isAvailable, setIsAvailable] = useState(true);
+  //Show the favorite restaurant array
   const [favoriteRestaurant, setFavoriteRestaurant] = useState(null);
+  //Adding a new random image for a new selected restaurant.
   const [newImage, setNewImage] = useState(null);
 
+  //Current date for the exacte time it's going to be added in the array
   const currentDate = moment().format("MMMM Do YYYY, h:mm:ss a");
 
+  //Having a random image
   useEffect(() => {
     if (someImages.length > 0) {
       const randomImage =
@@ -21,6 +29,7 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
     }
   }, []);
 
+  //Fetching the favorite's restaurant
   useEffect(() => {
     fetch("/favorite-restaurants")
       .then((res) => res.json())
@@ -33,6 +42,7 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
       });
   }, [user.email, name, id]); //Everytime it's a new restaurant or a new user, we fetch different favorite restaurants
 
+  //Patch in order to update the favorite's array when the user deletes a restaurant from the array
   const handleDelete = (ev) => {
     ev.preventDefault();
     if (favoriteRestaurant.length > 0) {
@@ -56,6 +66,7 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
     }
   };
 
+//Post when the user adds a new restaurant in the favorite's array
   const handleClick = (ev) => {
     ev.preventDefault();
 
@@ -89,6 +100,7 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
       });
   };
 
+  //return the restaurant's information
   return (
     <>
       {name ? (
