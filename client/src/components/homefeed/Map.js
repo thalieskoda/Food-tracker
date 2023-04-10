@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FiLoader } from "react-icons/fi";
 import { useState, useContext, useEffect } from "react";
 import CurrentPositionContext from "../CurrentPositionContext";
-import TravelSearch from "../TravelSearch";
+import TravelSearch from "./TravelSearch";
 import SearchBar from "./SearchBar";
 import Instructions from "./Instructions";
 

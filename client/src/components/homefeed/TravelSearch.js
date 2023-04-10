@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import moment from "moment";
-import { someImages } from "../images/someImages";
+import { someImages } from "../../images/someImages";
 
 const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
   const { user } = useAuth0();
@@ -97,11 +97,17 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
             <Li>
               <Span>Name :</Span> {name}
             </Li>
-            <Li><Span>Rating: </Span>{rating} stars</Li>
+            <Li>
+              <Span>Rating: </Span>
+              {rating} stars
+            </Li>
             <Li>
               <Span>Numbers of ratings:</Span> {ratingNumber}
             </Li>
-            <Li><Span>Address: </Span>{address}</Li>
+            <Li>
+              <Span>Address: </Span>
+              {address}
+            </Li>
             {someImages.length > 0 && (
               <Img alt={`${name}'s pictures`} src={newImage} />
             )}
@@ -147,8 +153,7 @@ const Img = styled.img`
   object-fit: cover;
 `;
 const Buttons = styled.div`
-align-items:center;
-
+  align-items: center;
 `;
 const AddButton = styled.button`
   width: 240px;
@@ -160,8 +165,8 @@ const AddButton = styled.button`
 const Info = styled.ul`
   display: flex;
   flex-direction: column;
-  justify-content:space-around;
-  height:600px;
+  justify-content: space-around;
+  height: 600px;
   padding: 10px;
 `;
 
@@ -174,7 +179,6 @@ const Wrapper = styled.div`
   top: -750px;
   padding: 10px;
   z-index: 1;
-
 `;
 
 const CloseButton = styled.button`
