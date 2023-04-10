@@ -4,6 +4,7 @@ import { MdOutlineFastfood } from "react-icons/md";
 import { FiUser } from "react-icons/fi";
 import { GiPodium } from "react-icons/gi";
 
+//If the user didn't use the searchbar yet, show the instructions : 
 const Instructions = () => {
   return (
     <Searching>

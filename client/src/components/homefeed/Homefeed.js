@@ -1,7 +1,7 @@
-import styled from "styled-components";
 import Map from "../Homefeed/Map";
+import styled from "styled-components";
 
-
+//Homefeed  component where we see the map on the right and Instructions / TravelSearch on the left
 const Homefeed = () => {
   return (
     <>
@@ -15,9 +15,9 @@ const Homefeed = () => {
 };
 
 const Maps = styled.div`
-position:relative;
-right:-550px;
-width:70%;
+  position: relative;
+  right: -550px;
+  width: 70%;
 `;
 
 const Wrapper = styled.div`
