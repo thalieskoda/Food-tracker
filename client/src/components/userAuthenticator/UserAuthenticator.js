@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import LoginButton from "./LoginButton";
 import { useAuth0 } from "@auth0/auth0-react";
-import Homefeed from "../Homefeed";
+import Homefeed from "../Homefeed/Homefeed";
 import { FiLoader } from "react-icons/fi";
 import Picture from "../Picture";
 

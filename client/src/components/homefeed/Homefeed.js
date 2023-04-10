@@ -1,14 +1,11 @@
 import styled from "styled-components";
-import TravelSearch from "../TravelSearch";
-import Map from "../Map";
-const Homefeed = () => {
+import Map from "../Homefeed/Map";
 
+
+const Homefeed = () => {
   return (
     <>
       <Wrapper>
-        <Searching>
-          <TravelSearch />
-        </Searching>
         <Maps>
           <Map />
         </Maps>
@@ -16,16 +13,16 @@ const Homefeed = () => {
     </>
   );
 };
+
 const Maps = styled.div`
-
-  width: 60%;
+position:relative;
+right:-550px;
+width:70%;
 `;
-const Searching = styled.div`
 
-  width: 40%;
-`;
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: row;
   height: 90vh;
 `;
 export default Homefeed;

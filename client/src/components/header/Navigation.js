@@ -1,25 +1,21 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-const Navigation = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
 
-  const handleClick = () => {
-    setShowDropdown(!showDropdown)
-    setIsMenuOpen(false)
-  }
+//Navigation component
+const Navigation = () => {
+
   return (
     <div>
       <Nav>
-        <Ul isOpen={isMenuOpen}>
-          <Li to="/homefeed" onClick={handleClick}>
+        <Ul>
+          <Li to="/homefeed">
             Home
           </Li>
-          <Li to="/about" onClick={handleClick}>
+          <Li to="/about">
             About
           </Li>
-          <Li to="/contact" onClick={handleClick}>
+          <Li to="/contact">
             Contact
           </Li>
         </Ul>

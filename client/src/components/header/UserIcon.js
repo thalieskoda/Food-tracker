@@ -1,59 +1,61 @@
 import { useState } from "react";
-import { FiUser,FiChevronUp, FiChevronDown} from "react-icons/fi";
+import { FiUser, FiChevronUp, FiChevronDown } from "react-icons/fi";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
+
+// User Icon component (Icon at the top right of the header )
 const UserIcon = () => {
+  const navigate = useNavigate();
+  const { logout } = useAuth0();
 
-  const navigate = useNavigate()
-  const {logout} = useAuth0()
   const [showDropdown, setShowDropdown] = useState(false);
-  
-const handleProfileOptions = () => {
+
+  //toggle dropdrown
+  const handleProfileOptions = () => {
     setShowDropdown(!showDropdown);
+  };
 
-}
-
-const handleClick = () => {
-navigate("/profile")
-setShowDropdown(!showDropdown)
-
-}
+  // Navigates to profile
+  const handleClick = () => {
+    navigate("/profile");
+    setShowDropdown(!showDropdown);
+  };
   return (
     <Wrapper>
       <Options onClick={handleProfileOptions}>
- 
+        <FiUser color="white" />
 
-        <FiUser color="white"/>
-   
-      {showDropdown ? <FiChevronUp color="white"/> : <FiChevronDown color="white"/>}
+        {showDropdown ? (
+          <FiChevronUp color="white" />
+        ) : (
+          <FiChevronDown color="white" />
+        )}
       </Options>
       {showDropdown && (
         <Dropdown>
           <DropdownOption onClick={handleClick}>My profile</DropdownOption>
-          <DropdownOption onClick={()=> logout()}>Log out</DropdownOption>
+          <DropdownOption onClick={() => logout()}>Log out</DropdownOption>
         </Dropdown>
       )}
     </Wrapper>
   );
 };
 
-
-const Wrapper =styled.div`
-position:relative;
-padding: 0 40px;
-
+const Wrapper = styled.div`
+  position: relative;
+  padding: 0 40px;
 `;
 
 const Options = styled.div`
-display:flex;
-align-items:center;
-justify-content:center;
-width:40px;
-height:40px;
-border-radius:50%;
-cursor: pointer;
-font-size:3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 3em;
 `;
 
 const Dropdown = styled.div`
@@ -65,18 +67,19 @@ const Dropdown = styled.div`
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
-  z-index:9999;
+  z-index: 9999;
 
   &:hover {
-    border-radius:5px;
+    border-radius: 5px;
   }
-  `;
+`;
 
 const DropdownOption = styled.div`
   padding: 8px 16px;
   cursor: pointer;
   &:hover {
     background-color: #f2f2f2;
-  }`;
+  }
+`;
 
 export default UserIcon;

@@ -4,11 +4,10 @@ import UserAuthenticator from "./userAuthenticator/UserAuthenticator";
 import GlobalStyles from "./GlobalStyles";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Header from "./header/Header";
-import Homefeed from "./Homefeed";
+import Homefeed from "./Homefeed/Homefeed";
 import Profile from "./Profile";
-import AboutUs from "./AboutUs";
-import ContactUs from "./ContactUs";
-
+import AboutUs from "./header/AboutUs";
+import ContactUs from "./header/ContactUs";
 const App = () => {
 
 

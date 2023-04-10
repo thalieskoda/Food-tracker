@@ -5,11 +5,12 @@ import { NavLink } from "react-router-dom";
 import Navigation from "./Navigation";
 import logo from "../images/newlogo.png";
 import { useEffect, useState } from "react";
+
+//Header component with the logo and the Nav bar
 const Header = () => {
   const { user, isAuthenticated } = useAuth0();
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  //POSTing the information of the new logged in user to the server
   useEffect(() => {
     if (isAuthenticated) {
       fetch("/add-users", {
@@ -23,20 +24,17 @@ const Header = () => {
     }
   }, [isAuthenticated, user]);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
   return (
     <Wrapper>
       <>
-        <Navigation toggleMenu={toggleMenu} isOpen={isMenuOpen} />
+        <Navigation />
         {!user ? (
           <Link to="/">
-            <Logo src={logo} alt="logo" isMenuOpen={isMenuOpen} />
+            <Logo src={logo} alt="logo" />
           </Link>
         ) : (
           <Link to="/homefeed">
-            <Logo src={logo} alt="logo" isMenuOpen={isMenuOpen} />
+            <Logo src={logo} alt="logo" />
           </Link>
         )}
       </>
