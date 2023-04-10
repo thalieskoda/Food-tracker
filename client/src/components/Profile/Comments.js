@@ -41,7 +41,7 @@ const Comments = ({ setReload, reload, place_id }) => {
         comments: value,
         createdAt: currentDate,
         rating: rating,
-        place_id
+        place_id,
       }),
     })
       .then((res) => res.json())
@@ -60,7 +60,7 @@ const Comments = ({ setReload, reload, place_id }) => {
       .catch((error) => {
         console.log(error);
       });
-  }; 
+  };
 
   const handleRatingChange = (newRating) => {
     setRating(newRating);
@@ -84,7 +84,7 @@ const Comments = ({ setReload, reload, place_id }) => {
       body: JSON.stringify({
         email: user.email,
         _id: commentId,
-        place_id: placeId
+        place_id: placeId,
       }),
       headers: {
         Accept: "application/json",
@@ -121,12 +121,17 @@ const Comments = ({ setReload, reload, place_id }) => {
                     {comment.comments}
                   </P>
                   <Small>
-                    <Date><Span>reviewed on</Span>
-                    {comment.createdAt}
+                    <Date>
+                      <Span>reviewed on</Span>
+                      {comment.createdAt}
                     </Date>
-                  <DeleteLink onClick={(ev) => handleDelete(ev, comment._id, comment.place_id)}>
-                    Delete my review
-                  </DeleteLink>
+                    <DeleteLink
+                      onClick={(ev) =>
+                        handleDelete(ev, comment._id, comment.place_id)
+                      }
+                    >
+                      Delete my review
+                    </DeleteLink>
                   </Small>
                 </CommentReview>
               </div>
@@ -213,15 +218,15 @@ const Small = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items:center;
+  align-items: center;
 `;
 const Date = styled.p`
   font-size: 0.6em;
-  padding: 0 30px 0 0 ;
-`
+  padding: 0 30px 0 0;
+`;
 const Span = styled.span`
   font-weight: bold;
-  padding: 0 10px 0 0 ;
+  padding: 0 10px 0 0;
 `;
 const P = styled.p`
   font-weight: 200;
@@ -230,11 +235,11 @@ const CommentReview = styled.div`
   /* border-top: 3px #3b597b solid;
   border-right: 3px #3b597b solid; */
   padding: 60px 60px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-around;
-  height:400px;
-  align-items:center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 400px;
+  align-items: center;
 `;
 const Stars = styled.div`
   padding: 0 0 0 30px;

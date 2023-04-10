@@ -5,23 +5,33 @@ import GlobalStyles from "./GlobalStyles";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Header from "./header/Header";
 import Homefeed from "./Homefeed/Homefeed";
-import Profile from "./Profile";
+import Profile from "./Profile/Profile";
 import AboutUs from "./header/AboutUs";
 import ContactUs from "./header/ContactUs";
 const App = () => {
-
-
   return (
     <>
       <BrowserRouter>
         <GlobalStyles />
         <Header />
         <Routes>
-        <Route path="/" element={<UserAuthenticator />} />
-        <Route path="/homefeed" element={<ProtectedRoutes component={Homefeed} />} />
-        <Route path="/about" element={<ProtectedRoutes component={AboutUs} />} />
-        <Route path="/contact" element={<ProtectedRoutes component={ContactUs} />} />
-        <Route path="/profile" element={<ProtectedRoutes component={Profile} />} />
+          <Route path="/" element={<UserAuthenticator />} />
+          <Route
+            path="/homefeed"
+            element={<ProtectedRoutes component={Homefeed} />}
+          />
+          <Route
+            path="/about"
+            element={<ProtectedRoutes component={AboutUs} />}
+          />
+          <Route
+            path="/contact"
+            element={<ProtectedRoutes component={ContactUs} />}
+          />
+          <Route
+            path="/profile"
+            element={<ProtectedRoutes component={Profile} />}
+          />
         </Routes>
       </BrowserRouter>
     </>

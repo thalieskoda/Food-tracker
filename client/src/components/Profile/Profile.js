@@ -4,7 +4,7 @@ import { FiLoader } from "react-icons/fi";
 import { CgMailForward } from "react-icons/cg";
 import styled from "styled-components";
 import Comments from "./Comments";
-import { someImages } from "../images/someImages";
+import { someImages } from "../../images/someImages";
 import Sort from "./Sort";
 
 const Profile = () => {
@@ -18,8 +18,6 @@ const Profile = () => {
   const [comment, setComment] = useState("");
   const [sort, setSort] = useState([]);
 
-
- 
   //Getting the comments to sent it to the Sort.js
   useEffect(() => {
     if (user) {
@@ -30,7 +28,6 @@ const Profile = () => {
         });
     }
   }, [user, reload]);
-
 
   //Random image display for each favorite restaurant.
   useEffect(() => {
@@ -53,7 +50,7 @@ const Profile = () => {
             image: randomImage,
           };
         });
-        
+
         setFavoriteRestaurant(favorites);
         console.log("FAV", favorites);
       })
@@ -88,13 +85,11 @@ const Profile = () => {
 
   useEffect(() => {
     let sorted = [...favoriteRestaurant];
-  
+
     if (sort === "ascending rating") {
       sorted.sort((a, b) => a.rating - b.rating);
     } else if (sort === "descending rating") {
       sorted.sort((a, b) => b.rating - a.rating);
-
-
     } else if (sort === "oldest added restaurant") {
       sorted.sort((a, b) => {
         if (a.date_added < b.date_added) return -1;
@@ -114,7 +109,6 @@ const Profile = () => {
     console.log(sorted);
   }, [sort, favoriteRestaurant]);
 
-
   return (
     <>
       {!user ? (
@@ -132,7 +126,7 @@ const Profile = () => {
               </>
             )}
           </Container>
-  
+
           {favoriteRestaurant.length > 0 ? (
             <>
               {favoriteRestaurant.map((restaurant) => (
@@ -159,7 +153,9 @@ const Profile = () => {
                         <Span>Added to your favorites on </Span>
                         {restaurant.date_added}
                       </Date>
-                      <DeleteLink onClick={(ev) => handleDelete(ev, restaurant.place_id)}>
+                      <DeleteLink
+                        onClick={(ev) => handleDelete(ev, restaurant.place_id)}
+                      >
                         Remove from favorites
                       </DeleteLink>
                     </Small>
@@ -239,14 +235,12 @@ const SmallContainer = styled.div`
   flex-direction: column;
   justify-content: space-around;
   padding: 0 0 5px 10px;
-
-
 `;
 const Small = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items:center;
+  align-items: center;
 `;
 const DeleteLink = styled.a`
   text-decoration: underline;
@@ -264,7 +258,6 @@ const Container = styled.div`
 const H1 = styled.h1``;
 
 const P = styled.p``;
-
 
 const Span = styled.span`
   font-weight: bold;

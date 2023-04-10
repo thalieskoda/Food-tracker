@@ -4,8 +4,8 @@ import { FiLoader } from "react-icons/fi";
 import { useState, useContext, useEffect } from "react";
 import CurrentPositionContext from "../CurrentPositionContext";
 import TravelSearch from "../TravelSearch";
-import SearchBar from "../SearchBar";
-import Instructions from "../Instructions";
+import SearchBar from "./SearchBar";
+import Instructions from "./Instructions";
 
 //setting styles to the map
 const containerStyle = {

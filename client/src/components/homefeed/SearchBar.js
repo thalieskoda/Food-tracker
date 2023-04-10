@@ -2,7 +2,7 @@ import { FiSearch } from "react-icons/fi";
 import styled from "styled-components";
 import { Autocomplete } from "@react-google-maps/api";
 import React, { useState, useContext, useEffect } from "react";
-import CurrentPositionContext from "./CurrentPositionContext";
+import CurrentPositionContext from "../CurrentPositionContext";
 
 const SearchBar = ({ map, setPlaces, selectedRestaurant }) => {
   const { setCenter } = useContext(CurrentPositionContext);
@@ -27,18 +27,18 @@ const SearchBar = ({ map, setPlaces, selectedRestaurant }) => {
         type: ["restaurant"],
       };
       service.nearbySearch(request, (results, status) => {
-  if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-    // Modify the results array to add the name of each restaurant to the corresponding place object in setPlaces
-    const modifiedResults = results.map((result) => {
-      console.log(result);
-      return {
-        ...result,
-        name: result.name,
-      };
-    });
-    setPlaces(modifiedResults);
-  }
-});
+        if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+          // Modify the results array to add the name of each restaurant to the corresponding place object in setPlaces
+          const modifiedResults = results.map((result) => {
+            console.log(result);
+            return {
+              ...result,
+              name: result.name,
+            };
+          });
+          setPlaces(modifiedResults);
+        }
+      });
     }
   };
 
@@ -49,12 +49,12 @@ const SearchBar = ({ map, setPlaces, selectedRestaurant }) => {
         const marker = new window.google.maps.Marker({
           position: place.geometry.location,
           map,
-          title: place.name
+          title: place.name,
         });
         // Add a click listener for each marker and set up the info window from Google documentation
         marker.addListener("click", () => {
           const infoWindow = new window.google.maps.InfoWindow({
-            content:marker.title
+            content: marker.title,
           });
           infoWindow.open(map, marker);
         });
@@ -70,7 +70,10 @@ const SearchBar = ({ map, setPlaces, selectedRestaurant }) => {
       <div>
         <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
           <div>
-            <Input placeholder="search..." disabled={selectedRestaurant ? true : false}></Input>
+            <Input
+              placeholder="search..."
+              disabled={selectedRestaurant ? true : false}
+            ></Input>
             <FiSearch />
           </div>
         </Autocomplete>
@@ -79,11 +82,9 @@ const SearchBar = ({ map, setPlaces, selectedRestaurant }) => {
   );
 };
 
-
 const P = styled.p`
   padding: 10px;
-  font-weight:bold;
-  
+  font-weight: bold;
 `;
 
 const Input = styled.input`
@@ -95,7 +96,7 @@ const Input = styled.input`
 const Wrapper = styled.div`
   position: relative;
   top: 20px;
-  left:-650px;
+  left: -650px;
   display: flex;
   align-items: center;
 
@@ -103,9 +104,9 @@ const Wrapper = styled.div`
   /* background-color: rgba(255, 255, 255, 0.85); */
   width: 55%;
   align-items: center;
-  border-radius:20px;
-  display:flex;
-  flex-direction:column;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export default SearchBar;
