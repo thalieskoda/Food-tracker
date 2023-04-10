@@ -95,7 +95,7 @@ const Input = styled.input`
 const Wrapper = styled.div`
   position: relative;
   top: 20px;
-  left:-550px;
+  left:-650px;
   display: flex;
   align-items: center;
 

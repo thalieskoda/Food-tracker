@@ -15,7 +15,7 @@ const Sort = ({ setSort }) => {
           <Option value="ascending rating">ascending rating</Option>
           <Option value="descending rating">descending rating</Option>
           <Option value="oldest added restaurant">oldest added restaurant</Option>
-          <Option value="newest added restaurant">newest added restaurant</Option>
+          <Option value="recent added restaurant">newest added restaurant</Option>
         </Select>
       </>
     );

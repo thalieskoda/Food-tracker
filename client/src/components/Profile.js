@@ -90,9 +90,9 @@ const Profile = () => {
     let sorted = [...favoriteRestaurant];
   
     if (sort === "ascending rating") {
-      sorted.sort((a, b) => b.rating - a.rating);
-    } else if (sort === "descending rating") {
       sorted.sort((a, b) => a.rating - b.rating);
+    } else if (sort === "descending rating") {
+      sorted.sort((a, b) => b.rating - a.rating);
 
 
     } else if (sort === "oldest added restaurant") {
@@ -176,17 +176,17 @@ const Profile = () => {
             <>
               <ContainerIcon>
                 <Icon>
-                  <CgMailForward size={50} />
+                  <CgMailForward size={50} color="#3b597b" />
                 </Icon>
                 <Click>click there to get started! </Click>
               </ContainerIcon>
-              <Wrapper>
+              <NoFavorite>
                 <Hey>Hey {user.given_name},</Hey>
                 <Text>
                   you should probably go back to the home page and add your
                   favorite restaurants!
                 </Text>
-              </Wrapper>
+              </NoFavorite>
             </>
           )}
         </>
@@ -195,7 +195,14 @@ const Profile = () => {
   );
 };
 
-
+const NoFavorite = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 70vh;
+  margin: 50px 200px;
+`;
 
 const Hey = styled.h1`
   border-bottom: 3px #3b597b solid;
@@ -231,15 +238,15 @@ const SmallContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
-  border-bottom: 3px #3b597b solid;
-  border-left: 3px #3b597b solid;
-  padding: 0 0 30px 30px;
+  padding: 0 0 5px 10px;
+
+
 `;
 const Small = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items:center;
 `;
 const DeleteLink = styled.a`
   text-decoration: underline;
@@ -257,6 +264,8 @@ const Container = styled.div`
 const H1 = styled.h1``;
 
 const P = styled.p``;
+
+
 const Span = styled.span`
   font-weight: bold;
 `;
@@ -266,6 +275,9 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
   height: 70vh;
+  margin: 50px 200px;
+  border-bottom: 3px #3b597b solid;
+  border-left: 3px #3b597b solid;
 `;
 
 const Li = styled.li`

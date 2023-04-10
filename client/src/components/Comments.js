@@ -121,7 +121,7 @@ const Comments = ({ setReload, reload, place_id }) => {
                     {comment.comments}
                   </P>
                   <Small>
-                    <Date><Span>added on</Span>
+                    <Date><Span>reviewed on</Span>
                     {comment.createdAt}
                     </Date>
                   <DeleteLink onClick={(ev) => handleDelete(ev, comment._id, comment.place_id)}>
@@ -227,8 +227,8 @@ const P = styled.p`
   font-weight: 200;
 `;
 const CommentReview = styled.div`
-  border-top: 3px #3b597b solid;
-  border-right: 3px #3b597b solid;
+  /* border-top: 3px #3b597b solid;
+  border-right: 3px #3b597b solid; */
   padding: 60px 60px;
   display:flex;
   flex-direction:column;
@@ -279,8 +279,8 @@ const Container = styled.div`
 `;
 const Wrapper = styled.div`
   width: 50%;
-  border-top: 3px #3b597b solid;
-  border-right: 3px #3b597b solid;
+  /* border-top: 3px #3b597b solid;
+  border-right: 3px #3b597b solid; */
   padding: 60px 60px;
 `;
 

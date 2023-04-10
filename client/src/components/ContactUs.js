@@ -11,7 +11,7 @@ const ContactUs = () => {
               For any questions you might have, please reach out to our customer
               service team at the following email address:
             </SectionText>
-            <SectionLink href="mailto:info@trvlup.com">
+            <SectionLink href="mailto:info@foodtracker.com">
               info@foodtracker.com
             </SectionLink>
           </Section>
@@ -21,7 +21,7 @@ const ContactUs = () => {
               If you would like to work with us, please send us your CV at the
               following email address:
             </SectionText>
-            <SectionLink href="mailto:career@trvlup.com">
+            <SectionLink href="mailto:career@foodtracker.com">
               career@foodtracker.com
             </SectionLink>
           </Section>
