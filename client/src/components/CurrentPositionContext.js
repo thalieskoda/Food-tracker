@@ -12,16 +12,17 @@ export const CurrentPositionProvider = ({ children }) => {
 
 
 //Getting the user's geolocation according to his currentPosition if he accepted it.
+//GetCurrentPosition()  takes 2 parameter ; a success callback and an error callback. 
 useEffect(() => {
-  navigator.geolocation.getCurrentPosition(
-    ({ coords: { latitude, longitude } }) => {
-      setCenter({ lat: latitude, lng: longitude })
-    },
-    () => {
-      // Use default location if user denies geolocation access
-      setCenter(defaultLocation)
-    }
-  )
+    navigator.geolocation.getCurrentPosition(
+      ({ coords: { latitude, longitude } }) => {
+        setCenter({ lat: latitude, lng: longitude })
+      },
+      () => {
+        // Use default location if user denies geolocation access
+        setCenter(defaultLocation)
+      }
+    )
 }, [])
 
   return (
