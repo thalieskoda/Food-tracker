@@ -1,10 +1,11 @@
-![title](https://img.shields.io/badge/Capstone%20Project-Food%20tracker-blue) ![MERN](https://img.shields.io/badge/Project-MERN-ff69b4)
+![title](https://img.shields.io/badge/Capstone%20Project-Food%20tracker-blue) - ![MERN](https://img.shields.io/badge/stack-MERN-ff69b4)
 # Food tracker
 My final project for Concordia's Web Development Bootcamp
 
 # Description
 This website allows you to search for restaurants in any area by inputting the address, city or country. You can save your favorite restaurants in your profile and leave reviews for the places you've visited to remember your experience for future reference.
 
+<img src="profileIcon"/>
 ### Used Api's : 
 I used the Google Maps Api and Auth0 for this project.
 
