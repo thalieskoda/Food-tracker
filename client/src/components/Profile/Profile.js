@@ -153,7 +153,7 @@ const Profile = () => {
                       </Li>
                       <Li>
                         <Span><CiStar size={23}/></Span>
-                         {restaurant.rating}/5
+                         {restaurant.rating} / 5
                       </Li>
                       <Li>
                         <ImgResto src={restaurant.image} alt="restaurant" />
@@ -249,15 +249,15 @@ const SmallContainer = styled.div`
 `;
 const Small = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  padding: 0 0 0 8px;
 `;
 const DeleteLink = styled.a`
   text-decoration: underline;
   font-size: 0.8em;
   cursor: pointer;
-  padding: 0 0 0 40px;
+ margin:10px 0 0 0 ;
 `;
 
 const Date = styled.p`

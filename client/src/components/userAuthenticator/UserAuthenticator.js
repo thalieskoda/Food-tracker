@@ -17,7 +17,7 @@ const UserAuthenticator = () => {
         <>
           <Container>
             <Div>
-              <Center>
+              
                 <Welcome>
                   <h1>Hello there ! </h1>
                   <P>
@@ -29,11 +29,11 @@ const UserAuthenticator = () => {
                     world's best-kept culinary secrets. Allow us to be your
                     culinary compass to an unforgettable food adventure.
                   </P>
-                </Welcome>
                 <Buttons>
                   <LoginButton />
                 </Buttons>
-              </Center>
+                </Welcome>
+        
             </Div>
 
             <Picture />
@@ -53,10 +53,7 @@ const UserAuthenticator = () => {
     </Wrapper>
   );
 };
-const Center = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+
 const Div = styled.div`
   display: flex;
   flex-direction: column;
@@ -66,6 +63,7 @@ const Div = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content:space-evenly;
 `;
 
 const P = styled.p`
@@ -76,20 +74,21 @@ const P = styled.p`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 30vh;
-  padding: 0 0 0 30px;
+
+  width:100vw;
 `;
 const Welcome = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  height: 400px;
-  padding: 0 0 0 20px;
+  justify-content: space-around;
+  height: 70vh;
+  width:44vw;
+  /* padding: 0 0 0 20px; */
+ 
 `;
 
 const Buttons = styled.div`
-  display: flex;
-  padding: 0 0 0 20px;
+  text-align:center;
 `;
 const LoadingIcon = styled(FiLoader)`
   position: relative;

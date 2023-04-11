@@ -167,6 +167,7 @@ const Img = styled.img`
 `;
 const Buttons = styled.div`
   align-items: center;
+  width: 23vw;
 `;
 const AddButton = styled.button`
   width: 50%;
@@ -185,7 +186,7 @@ const Info = styled.ul`
   justify-content: space-around;
   height: 600px;
   padding: 10px;
-  width: 44%;
+  width: 25vw;
 `;
 
 const Li = styled.li`
