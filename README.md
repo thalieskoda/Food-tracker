@@ -1,4 +1,4 @@
-![title](https://img.shields.io/badge/Capstone%20Project-Food%20Tracker-blue)
+![title](https://img.shields.io/badge/Capstone%20Project-Food%20tracker-blue) ![MERN](https://img.shields.io/badge/Project -MERN-ff69b4)
 # Food tracker
 My final project for Concordia's Web Development Bootcamp
 
