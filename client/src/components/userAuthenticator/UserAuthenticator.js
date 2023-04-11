@@ -17,23 +17,21 @@ const UserAuthenticator = () => {
         <>
           <Container>
             <Div>
-              
-                <Welcome>
-                  <h1>Hello there ! </h1>
-                  <P>
-                    Welcome to our personalized food guide, where we assist you
-                    in discovering hidden culinary gems and creating
-                    unforgettable dining experiences. With us, you can craft
-                    your own gastronomic journey by exploring distinctive food
-                    destinations, savoring local delicacies, and uncovering the
-                    world's best-kept culinary secrets. Allow us to be your
-                    culinary compass to an unforgettable food adventure.
-                  </P>
+              <Welcome>
+                <h1>Hello there ! </h1>
+                <P>
+                  Welcome to our personalized food guide, where we assist you in
+                  discovering hidden culinary gems and creating unforgettable
+                  dining experiences. With us, you can craft your own
+                  gastronomic journey by exploring distinctive food
+                  destinations, savoring local delicacies, and uncovering the
+                  world's best-kept culinary secrets. Allow us to be your
+                  culinary compass to an unforgettable food adventure.
+                </P>
                 <Buttons>
                   <LoginButton />
                 </Buttons>
-                </Welcome>
-        
+              </Welcome>
             </Div>
 
             <Picture />
@@ -63,7 +61,7 @@ const Div = styled.div`
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
 `;
 
 const P = styled.p`
@@ -75,20 +73,19 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  width:100vw;
+  width: 100vw;
 `;
 const Welcome = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   height: 70vh;
-  width:44vw;
+  width: 44vw;
   /* padding: 0 0 0 20px; */
- 
 `;
 
 const Buttons = styled.div`
-  text-align:center;
+  text-align: center;
 `;
 const LoadingIcon = styled(FiLoader)`
   position: relative;

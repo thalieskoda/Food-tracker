@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import ReactStars from "react-rating-stars-component";
 import { FiLoader } from "react-icons/fi";
-import {BsChatSquareText} from "react-icons/bs"
+import { BsChatSquareText } from "react-icons/bs";
 import { useAuth0 } from "@auth0/auth0-react";
 import moment from "moment";
 import Rating from "./Rating";
@@ -52,8 +52,6 @@ const Comments = ({ setReload, reload, place_id }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-
-
         if (data.status === 400 || data.status === 500) {
           throw new Error("Error");
         } else {
@@ -127,7 +125,9 @@ const Comments = ({ setReload, reload, place_id }) => {
                 <CommentReview>
                   <Rating rating={comment.rating} />
                   <P>
-                    <Span><BsChatSquareText size={20}/></Span>
+                    <Span>
+                      <BsChatSquareText size={20} />
+                    </Span>
                     {comment.comments}
                   </P>
                   <Small>
@@ -240,8 +240,8 @@ const Span = styled.span`
 `;
 const P = styled.p`
   font-weight: 200;
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
 `;
 const CommentReview = styled.div`
   /* border-top: 3px #3b597b solid;

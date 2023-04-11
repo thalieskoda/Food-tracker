@@ -46,19 +46,19 @@ const Title = styled.h1`
 `;
 
 const Box = styled.div`
-    border: 1px solid black;
-    border-radius: 2px;
-    padding: 24px;
-    max-width: 50%;
-    color:black;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
+  border: 1px solid black;
+  border-radius: 2px;
+  padding: 24px;
+  max-width: 50%;
+  color: black;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
 
-    &:hover {
-      background: radial-gradient(circle, #3b597b, #030e1b) no-repeat;
-      color:white;
-      font-weight:200;
-    } 
-  `;
+  &:hover {
+    background: radial-gradient(circle, #3b597b, #030e1b) no-repeat;
+    color: white;
+    font-weight: 200;
+  }
+`;
 
 const Section = styled.div`
   margin-bottom: 32px;

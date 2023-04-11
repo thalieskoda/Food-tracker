@@ -14,9 +14,8 @@ const containerStyle = {
 };
 //Rendering GoogleMaps
 const Map = () => {
-  const { setCoordinates, coordinates, center, setCenter } = useContext(
-    CurrentPositionContext
-  );
+  const { setCoordinates, coordinates, center, setCenter, defaultLocation } =
+    useContext(CurrentPositionContext);
   //Setting the boundaries of the map
   const [bounds, setBounds] = useState({});
   //Setting the places for the searchBar
@@ -68,7 +67,6 @@ const Map = () => {
     }
   }, [isLoaded, map, places, coordinates]); // Everything that one of those changes, this useEffect gets called.
 
-
   //If the map isLoaded, return the Google Map
   //If there's a selected restaurant, show the information, if not, show the instructions.
   //Passing the props through TravelSearch
@@ -82,7 +80,7 @@ const Map = () => {
       <MapContainer>
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={center}
+          center={center.lat && center.lng ? center : center}
           zoom={14}
           margin={[50, 50, 50, 50]}
           onChange={(e) => {

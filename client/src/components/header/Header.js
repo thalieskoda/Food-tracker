@@ -57,8 +57,8 @@ const Link = styled(NavLink)`
 const Logo = styled.img`
   padding: 10px;
   width: 100px;
-  position:relative;
-  left:-120px;
+  position: relative;
+  left: -120px;
 `;
 
 const Container2 = styled.div`
@@ -73,6 +73,5 @@ const Wrapper = styled.div`
   align-items: center;
   height: 10vh;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
- 
 `;
 export default Header;

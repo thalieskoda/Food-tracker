@@ -4,20 +4,13 @@ import styled from "styled-components";
 
 //Navigation component
 const Navigation = () => {
-
   return (
     <div>
       <Nav>
         <Ul>
-          <Li to="/homefeed">
-            Home
-          </Li>
-          <Li to="/about">
-            About
-          </Li>
-          <Li to="/contact">
-            Contact
-          </Li>
+          <Li to="/homefeed">Home</Li>
+          <Li to="/about">About</Li>
+          <Li to="/contact">Contact</Li>
         </Ul>
       </Nav>
     </div>
@@ -27,11 +20,11 @@ const Navigation = () => {
 const Li = styled(Link)`
   list-style-type: none;
   padding-right: 20px;
-  color:white;
+  color: white;
 
   &:hover {
-    color:white;
-    opacity:0.8;
+    color: white;
+    opacity: 0.8;
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 4px;
@@ -41,7 +34,7 @@ const Li = styled(Link)`
 const Ul = styled.ul`
   display: flex;
   margin: 20 0px;
-padding:0 20px;
+  padding: 0 20px;
   transition: transform 0.2s ease-in-out;
 `;
 

@@ -8,7 +8,7 @@ export const CurrentPositionProvider = ({ children }) => {
   const [coordinates, setCoordinates] = useState({});
 
   //Center of Eiffel tower for the beginning
-  const defaultLocation = { lat: 48.8584, lng: 2.2945 };
+  const defaultLocation = { lat: 45.419998, lng: -73.5 };
   const [center, setCenter] = useState(defaultLocation);
 
   //Getting the user's geolocation according to his currentPosition if he accepted it.
@@ -27,7 +27,13 @@ export const CurrentPositionProvider = ({ children }) => {
 
   return (
     <CurrentPositionContext.Provider
-      value={{ coordinates, setCoordinates, center, setCenter }}
+      value={{
+        coordinates,
+        setCoordinates,
+        center,
+        setCenter,
+        defaultLocation,
+      }}
     >
       {children}
     </CurrentPositionContext.Provider>

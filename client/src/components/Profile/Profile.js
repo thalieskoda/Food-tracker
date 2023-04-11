@@ -61,7 +61,6 @@ const Profile = () => {
           });
           setIsLoading(false);
           setFavoriteRestaurant(favorites);
-
         })
         .catch((error) => {
           console.log(error);
@@ -120,7 +119,6 @@ const Profile = () => {
       sorted = favoriteRestaurant;
     }
     setFavoriteRestaurant(sorted);
-    
   }, [sort]);
 
   //If there's no user, return Loading
@@ -133,10 +131,14 @@ const Profile = () => {
       ) : favoriteRestaurant.length > 0 ? (
         <Container>
           <H1>Hey {user.given_name},</H1>
-          <P>
-            Here are the {favoriteRestaurant.length} restaurants you have
-            favorited.
-          </P>
+          {favoriteRestaurant.length === 1 ? (
+            <P>Here is the restaurant you have favorited.</P>
+          ) : (
+            <P>
+              Here are the {favoriteRestaurant.length} restaurants you have
+              favorited.
+            </P>
+          )}
           <Sort setSort={setSort} />
           {favoriteRestaurant.map((restaurant) => (
             <Wrapper key={restaurant.place_id}>
@@ -202,8 +204,8 @@ const SmallContainer = styled.div`
   flex-direction: column;
   justify-content: space-around;
   padding: 0 0 5px 10px;
-  width:30vw;
-max-height:65vh;
+  width: 30vw;
+  max-height: 65vh;
 `;
 const Small = styled.div`
   display: flex;

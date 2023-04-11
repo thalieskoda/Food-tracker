@@ -4,28 +4,28 @@ import { MdOutlineFastfood } from "react-icons/md";
 import { FiUser } from "react-icons/fi";
 import { GiPodium } from "react-icons/gi";
 
-//If the user didn't use the searchbar yet, show the instructions : 
+//If the user didn't use the searchbar yet, show the instructions :
 const Instructions = () => {
   return (
     <Searching>
       <Wrapper />
       <P>
-        <FaCity color="white"/> Enter a city that you would like to visit
-      </P>
-
-      <Wrapper/>
-      <P>
-        <MdOutlineFastfood color="white"/> Select your favorite restaurants
-      </P>
-
-      <Wrapper  />
-      <P>
-        <FiUser color="white"/> Add them to your profile
+        <FaCity color="white" /> Enter a city that you would like to visit
       </P>
 
       <Wrapper />
       <P>
-        <GiPodium color="white"/> Rate them once you ate there !
+        <MdOutlineFastfood color="white" /> Select your favorite restaurants
+      </P>
+
+      <Wrapper />
+      <P>
+        <FiUser color="white" /> Add them to your profile
+      </P>
+
+      <Wrapper />
+      <P>
+        <GiPodium color="white" /> Rate them once you ate there !
       </P>
     </Searching>
   );
@@ -34,20 +34,16 @@ const Instructions = () => {
 const P = styled.p`
   z-index: 9999;
   font-weight: 200;
-  max-width:325px;
+  max-width: 325px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
   background-color: #092a51;
-  border-radius:5px;
+  border-radius: 5px;
   padding: 15px 30px 15px 30px;
-  color:white;
+  color: white;
 `;
 
 const Wrapper = styled.div`
   position: relative;
-  /* top: 95px;
-  left:10px; */
- 
-  
 `;
 
 const Searching = styled.div`

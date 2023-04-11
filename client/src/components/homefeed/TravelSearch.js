@@ -18,7 +18,6 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
   const [newImage, setNewImage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-
   //Current date for the exacte time it's going to be added in the array
   const currentDate = moment().format("MMMM Do YYYY, h:mm:ss a");
 
@@ -37,7 +36,7 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
       .then((res) => res.json())
       .then((data) => {
         setFavoriteRestaurant(data.data.favorites);
-        setIsLoading(false)
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -62,7 +61,7 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
       }).then(() => {
         setIsAdded(false);
         setIsAvailable(true);
-      setIsLoading(false)
+        setIsLoading(false);
       });
     } else {
       console.log("favoriteRestaurant is empty");
@@ -94,11 +93,9 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-    
         setFavoriteRestaurant([...favoriteRestaurant, data]);
         setIsAvailable(false);
-      setIsLoading(false)
-
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
