@@ -8,7 +8,7 @@ const AboutUs = () => {
         <Title>About Us</Title>
         <Wrapper>
           <P>
-            Welcome to TRVL-UP! We are here to make your dining experience on
+            Welcome to Food tracker! We are here to make your dining experience on
             your travels as smooth and enjoyable as possible. Our website allows
             you to easily search for restaurants in any city that you'll be
             visiting.
