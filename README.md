@@ -5,7 +5,7 @@ My final project for Concordia's Web Development Bootcamp
 # Description
 This website allows you to search for restaurants in any area by inputting the address, city or country. You can save your favorite restaurants in your profile and leave reviews for the places you've visited to remember your experience for future reference.
 
-## Food tracker contains a few section :
+## Food tracker contains a few sections :
 
 * Homepage when there's no logged in user <br>
 <img src="./client/src/images/noUser.png" alt="home page when there's no logged in user" height="210" width="350"/>
