@@ -49,21 +49,19 @@ I used the Google Maps Api and Auth0 for this project.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
-
+### Project Setup
 In the client directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.\
+* Type `cd client`
+* Type `yarn install`
+* Type `yarn start` to start the frontend dev environment.
+Runs the app in the development mode.<br/>
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+<br/>
 In the server directory, you can run:
-
-### `yarn start`
-
-Runs the server at [http://localhost:8888]
-
+* Type `cd server`
+* Type `yarn install`
+* Type `yarn start` to start the backend dev environment.
+Runs the server at [http://localhost:8888](http://localhost:8888)
