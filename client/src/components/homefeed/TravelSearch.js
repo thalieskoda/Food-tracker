@@ -163,12 +163,13 @@ const Img = styled.img`
   max-width: 300px;
   max-height: 300px;
   object-fit: cover;
+  align-items:center;
 `;
 const Buttons = styled.div`
   align-items: center;
 `;
 const AddButton = styled.button`
-  width: 240px;
+  width: 190px;
   margin: 10px;
   opacity: ${(props) => (props.disabled ? "0.5" : "1")};
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
@@ -180,6 +181,7 @@ const Info = styled.ul`
   justify-content: space-around;
   height: 600px;
   padding: 10px;
+  width:430px;
 `;
 
 const Li = styled.li`
@@ -194,7 +196,7 @@ const Wrapper = styled.div`
 `;
 
 const CloseButton = styled.button`
-  margin-bottom: 20px;
+width:100px;
 `;
 
 const DeleteLink = styled.a`

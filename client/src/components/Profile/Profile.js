@@ -205,19 +205,19 @@ const NoFavorite = styled.div`
   align-items: center;
   justify-content: space-evenly;
   height: 70vh;
-  margin: 50px 200px;
+
 `;
 
 const Hey = styled.h1`
   border-bottom: 3px #3b597b solid;
   border-left: 3px #3b597b solid;
-  padding: 60px 60px;
+  padding:60px;
 `;
 
 const Text = styled.p`
   border-top: 3px #3b597b solid;
   border-right: 3px #3b597b solid;
-  padding: 60px 60px;
+  padding:60px;
 `;
 const ContainerIcon = styled.div`
   display: flex;
@@ -276,9 +276,10 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
   height: 70vh;
+  background-color:#f9f9f8;
   margin: 50px 200px;
-  border-bottom: 3px #3b597b solid;
-  border-left: 3px #3b597b solid;
+  border: 3px rgba(59, 89, 123, 0.5) solid;
+ 
 `;
 
 const Li = styled.li`
