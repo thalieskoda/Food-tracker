@@ -25,7 +25,6 @@ const Map = () => {
   const [map, setMap] = useState(null);
   //Setting the restaurant
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-  console.log(selectedRestaurant);
 
   // verify if the map is loaded.
   const { isLoaded } = useJsApiLoader({

@@ -91,7 +91,7 @@ const updateComments = async (req, res) => {
 
     // Use findOne to check if the user and comment exist
     const user = await db.collection("users").findOne({ email: email });
-// console.log(user);
+
     if (!user) {
       return res.status(404).json({
         status: 404,
@@ -311,7 +311,6 @@ const updateFavorite = async (req, res) => {
     const existingFavorite = user.favorites.find(
       (favorite) => favorite.place_id === place_id
       );
-      console.log(existingFavorite);
 
     if (!existingFavorite) {
       return res.status(400).json({

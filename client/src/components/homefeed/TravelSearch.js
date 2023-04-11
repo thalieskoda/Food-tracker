@@ -16,6 +16,8 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
   const [favoriteRestaurant, setFavoriteRestaurant] = useState(null);
   //Adding a new random image for a new selected restaurant.
   const [newImage, setNewImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   //Current date for the exacte time it's going to be added in the array
   const currentDate = moment().format("MMMM Do YYYY, h:mm:ss a");
@@ -35,7 +37,7 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
       .then((res) => res.json())
       .then((data) => {
         setFavoriteRestaurant(data.data.favorites);
-        console.log(data.data.favorites);
+        setIsLoading(false)
       })
       .catch((error) => {
         console.log(error);
@@ -60,6 +62,7 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
       }).then(() => {
         setIsAdded(false);
         setIsAvailable(true);
+      setIsLoading(false)
       });
     } else {
       console.log("favoriteRestaurant is empty");
@@ -91,9 +94,11 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+    
         setFavoriteRestaurant([...favoriteRestaurant, data]);
         setIsAvailable(false);
+      setIsLoading(false)
+
       })
       .catch((error) => {
         console.log(error);
@@ -103,7 +108,7 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
   //return the restaurant's information
   return (
     <>
-      {name ? (
+      {name && !isLoading ? (
         <Wrapper>
           <Info>
             <Li>

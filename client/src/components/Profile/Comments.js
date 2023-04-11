@@ -52,7 +52,7 @@ const Comments = ({ setReload, reload, place_id }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+
 
         if (data.status === 400 || data.status === 500) {
           throw new Error("Error");

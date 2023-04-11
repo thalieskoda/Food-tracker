@@ -61,7 +61,7 @@ const Profile = () => {
           });
           setIsLoading(false);
           setFavoriteRestaurant(favorites);
-          console.log("FAV", favorites);
+
         })
         .catch((error) => {
           console.log(error);
@@ -120,8 +120,8 @@ const Profile = () => {
       sorted = favoriteRestaurant;
     }
     setFavoriteRestaurant(sorted);
-    console.log(sorted);
-  }, [sort, favoriteRestaurant]);
+    
+  }, [sort]);
 
   //If there's no user, return Loading
   //Else, show the favorite restaurant
@@ -202,6 +202,8 @@ const SmallContainer = styled.div`
   flex-direction: column;
   justify-content: space-around;
   padding: 0 0 5px 10px;
+  width:30vw;
+max-height:65vh;
 `;
 const Small = styled.div`
   display: flex;
@@ -235,7 +237,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  height: 80vh;
+  height: 65vh;
   background-color: #f9f9f8;
   margin: 50px 200px;
   border: 3px rgba(59, 89, 123, 0.5) solid;
