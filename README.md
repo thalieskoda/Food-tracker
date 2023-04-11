@@ -5,7 +5,7 @@ My final project for Concordia's Web Development Bootcamp
 # Description
 This website allows you to search for restaurants in any area by inputting the address, city or country. You can save your favorite restaurants in your profile and leave reviews for the places you've visited to remember your experience for future reference.
 
-<img src="profileIcon.png" alt="profile Icon with Profile and Logout links"/>
+<img src="./images/profileIcon.png" alt="profile Icon with Profile and Logout links"/>
 ### Used Api's : 
 I used the Google Maps Api and Auth0 for this project.
 
