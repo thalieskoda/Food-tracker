@@ -8,26 +8,26 @@ This website allows you to search for restaurants in any area by inputting the a
 ## Food tracker contains a few section :
 
 * Homepage when there's no logged in user <br>
-<img src="./src/images/noUser.png" alt="home page when there's no logged in user" height="210" width="350"/>
+<img src="./client/src/images/noUser.png" alt="home page when there's no logged in user" height="210" width="350"/>
 
 * Homepage when the user's logged in <br>
-<img src="./src/images/Homefeed.png" alt="homefeed with the map and instructions" height="210" width="350"/>
+<img src="./client/src/images/Homefeed.png" alt="homefeed with the map and instructions" height="210" width="350"/>
 
 * Profile icon to access the profile page or logout <br>
-<img src="./src/images/profileIcon.png" alt="profile Icon with Profile and Logout links" height="210" width="350"/>
+<img src="./client/src/images/profileIcon.png" alt="profile Icon with Profile and Logout links" height="210" width="350"/>
 
 * Profile page <br>
-<img src="./src/images/Profile.png" alt="profile page" height="210" width="350"/>
+<img src="./client/src/images/Profile.png" alt="profile page" height="210" width="350"/>
 
 * In the profile page, a review from the user <br>
-<img src="./src/images/review.png" alt="review from user" height="210" width="350"/>
+<img src="./client/src/images/review.png" alt="review from user" height="210" width="350"/>
 
 * In the profile page, a sorting method to sort the favorite restaurants <br>
-<img src="./src/images/Sort.png" alt="sorting method" height="210" width="350"/>
+<img src="./client/src/images/Sort.png" alt="sorting method" height="210" width="350"/>
 
 * Contact us and About Us page <br>
-<img src="./src/images/contact.png" alt="Contact us page" height="210" width="350"/>
-<img src="./src/images/about.png" alt="About us page" height="210" width="350"/>
+<img src="./client/src/images/contact.png" alt="Contact us page" height="210" width="350"/>
+<img src="./client/src/images/about.png" alt="About us page" height="210" width="350"/>
 
 ### Used Api's : 
 I used the Google Maps Api and Auth0 for this project.
