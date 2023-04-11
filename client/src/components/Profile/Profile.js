@@ -7,15 +7,17 @@ import Comments from "./Comments";
 import { someImages } from "../../images/someImages";
 import Sort from "./Sort";
 
+//Profile component
 const Profile = () => {
   const { user } = useAuth0();
-
+  //Using the same variable from Map - FavoriteRestaurant, isAdded, isAvailable, newImage, Comment
   const [favoriteRestaurant, setFavoriteRestaurant] = useState([]);
   const [isAdded, setIsAdded] = useState(false);
   const [isAvailable, setIsAvailable] = useState(true);
   const [reload, setReload] = useState(false);
   const [newImage, setNewImage] = useState(null);
   const [comment, setComment] = useState("");
+  //sorting the date and rating
   const [sort, setSort] = useState([]);
 
   //Getting the comments to sent it to the Sort.js
@@ -38,6 +40,7 @@ const Profile = () => {
     }
   }, []);
 
+  //Fetching the favorite restaurant.
   useEffect(() => {
     fetch("/favorite-restaurants")
       .then((res) => res.json())
@@ -59,6 +62,7 @@ const Profile = () => {
       });
   }, [user.email, reload]);
 
+  //Patch to update the Favorite's restaurant Array when the user deletes a restaurant from his favorite
   const handleDelete = (ev, placeId) => {
     ev.preventDefault();
 
@@ -83,6 +87,7 @@ const Profile = () => {
     }
   };
 
+  //Sorting  for the rating and date
   useEffect(() => {
     let sorted = [...favoriteRestaurant];
 
@@ -109,6 +114,9 @@ const Profile = () => {
     console.log(sorted);
   }, [sort, favoriteRestaurant]);
 
+  //If there's no user, return Loading
+  //Else, show the favorite restaurant
+  //If there's no favorite restaurant, show text to help the user get started.
   return (
     <>
       {!user ? (

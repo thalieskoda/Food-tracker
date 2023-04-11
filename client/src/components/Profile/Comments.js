@@ -9,10 +9,10 @@ import Rating from "./Rating";
 //Comments component for the user to add a review on his favorite restaurant
 const Comments = ({ setReload, reload, place_id }) => {
   const { user } = useAuth0();
-//Setting the state for the character count and the value's input
+  //Setting the state for the character count and the value's input
   const [characterCount, setcharacterCount] = useState(280);
   const [value, setValue] = useState("");
-//setting the comment
+  //setting the comment
   const [comment, setComment] = useState("");
   //Setting the rating from 1-5
   const [rating, setRating] = useState(0);
@@ -26,11 +26,10 @@ const Comments = ({ setReload, reload, place_id }) => {
     setcharacterCount(280 - event.target.value.length);
   };
 
-
   const inputColor =
     restCharacters < 0 ? "red" : restCharacters < maxLength * 0.2 ? "gold" : "";
 
-    //When the user clicks on Add review, POSTing the info through the comment's array
+  //When the user clicks on Add review, POSTing the info through the comment's array
   const handleSumbit = (event) => {
     event.preventDefault();
 
@@ -84,7 +83,6 @@ const Comments = ({ setReload, reload, place_id }) => {
     }
   }, [user, reload]);
 
-
   //Patch to update the comment's array when a user delete a review.
   const handleDelete = (ev, commentId, placeId) => {
     ev.preventDefault();
@@ -110,7 +108,8 @@ const Comments = ({ setReload, reload, place_id }) => {
       });
   };
 
-  
+  //If there's no user or no comment in the comment's array, show loading icon
+  //else, show the comments.
   return (
     <>
       {!user || comment.length < 0 ? (
@@ -207,7 +206,7 @@ const Comments = ({ setReload, reload, place_id }) => {
               maxLength="400"
               inputColor={inputColor}
             />
-            <Container comment={comment}>
+            <Container>
               <Count inputColor={inputColor}>
                 {restCharacters < 0
                   ? "-" + Math.abs(restCharacters)

@@ -8,6 +8,7 @@ import Homefeed from "./Homefeed/Homefeed";
 import Profile from "./Profile/Profile";
 import AboutUs from "./header/AboutUs";
 import ContactUs from "./header/ContactUs";
+//App component with protected Routes with Auth0
 const App = () => {
   return (
     <>

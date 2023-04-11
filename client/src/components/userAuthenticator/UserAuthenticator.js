@@ -5,9 +5,12 @@ import Homefeed from "../Homefeed/Homefeed";
 import { FiLoader } from "react-icons/fi";
 import Picture from "../Picture";
 
+//UesrAuthenticator component - page for the user when he's not logged in.
 const UserAuthenticator = () => {
   const { user } = useAuth0();
 
+  //If the user is not logged in, show welcome text
+  //If the user is logged in, show the homeFeed (MAP)
   return (
     <Wrapper>
       {!user ? (
@@ -15,25 +18,25 @@ const UserAuthenticator = () => {
           <Container>
             <Div>
               <Center>
-              <Welcome>
-                <h1>Hello there ! </h1>
-                <P>
-                  Welcome to our personalized travel planner, where we help you
-                  find the hidden gems and create unforgettable memories. With
-                  us, you can create your own travel story by exploring unique
-                  destinations, tasting local cuisine, and discovering the
-                  world's best-kept secrets. Let us be your guide to an
-                  unforgettable adventure.
-                </P>
-              </Welcome>
-              <Buttons>
-                <LoginButton />
-              </Buttons>
+                <Welcome>
+                  <h1>Hello there ! </h1>
+                  <P>
+                    Welcome to our personalized food guide, where we assist you
+                    in discovering hidden culinary gems and creating
+                    unforgettable dining experiences. With us, you can craft
+                    your own gastronomic journey by exploring distinctive food
+                    destinations, savoring local delicacies, and uncovering the
+                    world's best-kept culinary secrets. Allow us to be your
+                    culinary compass to an unforgettable food adventure.
+                  </P>
+                </Welcome>
+                <Buttons>
+                  <LoginButton />
+                </Buttons>
               </Center>
             </Div>
 
-            
-            <Picture/>
+            <Picture />
           </Container>
         </>
       ) : (
@@ -50,10 +53,10 @@ const UserAuthenticator = () => {
     </Wrapper>
   );
 };
-const Center  =styled.div`
-display:flex;
-flex-direction:column;
-`
+const Center = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const Div = styled.div`
   display: flex;
   flex-direction: column;
@@ -68,23 +71,21 @@ const Container = styled.div`
 const P = styled.p`
   border: black 1px solid;
   padding: 20px;
-  width:500px;
+  width: 500px;
 `;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 30vh;
-padding: 0 0 0 30px;
-
+  padding: 0 0 0 30px;
 `;
 const Welcome = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   height: 400px;
-padding: 0 0 0 20px;
+  padding: 0 0 0 20px;
 `;
-
 
 const Buttons = styled.div`
   display: flex;

@@ -1,30 +1,29 @@
-
 import styled from "styled-components";
 
+//Sorting dropdown component
 const Sort = ({ setSort }) => {
-    
-    const handleChange = (e) => {
-      setSort(e.target.value);
-
-      }
-  
-    return (
-      <>
-        <Select onChange={(e) => handleChange(e)}>
-          <Option value="sort by">Sort by</Option>
-          <Option value="ascending rating">ascending rating</Option>
-          <Option value="descending rating">descending rating</Option>
-          <Option value="oldest added restaurant">oldest added restaurant</Option>
-          <Option value="recent added restaurant">newest added restaurant</Option>
-        </Select>
-      </>
-    );
+  //Setting the sort according to the user's value
+  const handleChange = (e) => {
+    setSort(e.target.value);
   };
+
+  return (
+    <>
+      <Select onChange={(e) => handleChange(e)}>
+        <Option value="sort by">Sort by</Option>
+        <Option value="ascending rating">ascending rating</Option>
+        <Option value="descending rating">descending rating</Option>
+        <Option value="oldest added restaurant">oldest added restaurant</Option>
+        <Option value="recent added restaurant">newest added restaurant</Option>
+      </Select>
+    </>
+  );
+};
 
 const Select = styled.select`
   font-size: 1em;
   padding: 8px;
-  margin: 30px 0 0 0 ;
+  margin: 30px 0 0 0;
   border: none;
   border-radius: 4px;
   background-color: #f8f8f8;
