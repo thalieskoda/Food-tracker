@@ -17,7 +17,6 @@ const Map = () => {
   const { setCoordinates, coordinates, center, setCenter } = useContext(
     CurrentPositionContext
   );
-
   //Setting the boundaries of the map
   const [bounds, setBounds] = useState({});
   //Setting the places for the searchBar
@@ -26,6 +25,7 @@ const Map = () => {
   const [map, setMap] = useState(null);
   //Setting the restaurant
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  console.log(selectedRestaurant);
 
   // verify if the map is loaded.
   const { isLoaded } = useJsApiLoader({

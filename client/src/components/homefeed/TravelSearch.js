@@ -66,7 +66,7 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
     }
   };
 
-//Post when the user adds a new restaurant in the favorite's array
+  //Post when the user adds a new restaurant in the favorite's array
   const handleClick = (ev) => {
     ev.preventDefault();
 
@@ -163,16 +163,20 @@ const Img = styled.img`
   max-width: 300px;
   max-height: 300px;
   object-fit: cover;
-  align-items:center;
+  align-items: center;
 `;
 const Buttons = styled.div`
   align-items: center;
 `;
 const AddButton = styled.button`
-  width: 190px;
+  width: 50%;
   margin: 10px;
   opacity: ${(props) => (props.disabled ? "0.5" : "1")};
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
+`;
+
+const CloseButton = styled.button`
+  width: 20%;
 `;
 
 const Info = styled.ul`
@@ -181,7 +185,7 @@ const Info = styled.ul`
   justify-content: space-around;
   height: 600px;
   padding: 10px;
-  width:430px;
+  width: 44%;
 `;
 
 const Li = styled.li`
@@ -193,10 +197,6 @@ const Wrapper = styled.div`
   top: -750px;
   padding: 10px;
   z-index: 1;
-`;
-
-const CloseButton = styled.button`
-width:100px;
 `;
 
 const DeleteLink = styled.a`

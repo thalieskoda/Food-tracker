@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { FiLoader } from "react-icons/fi";
 import { CgMailForward } from "react-icons/cg";
+import {MdOutlineDriveFileRenameOutline} from "react-icons/md";
+import {TfiLocationPin} from "react-icons/tfi"
+import {CiStar} from "react-icons/ci";
 import styled from "styled-components";
 import Comments from "./Comments";
 import { someImages } from "../../images/someImages";
@@ -142,15 +145,15 @@ const Profile = () => {
                   <SmallContainer>
                     <Ul>
                       <Li>
-                        <Span>Name:</Span> {restaurant.name}
+                        <Span><MdOutlineDriveFileRenameOutline size={23}/></Span>  {restaurant.name}
                       </Li>
                       <Li>
-                        <Span>Address: </Span>
-                        {restaurant.address}
+                        <Span><TfiLocationPin size={23}/></Span>
+                         {restaurant.address}
                       </Li>
                       <Li>
-                        <Span>Rating: </Span>
-                        {restaurant.rating}/5
+                        <Span><CiStar size={23}/></Span>
+                         {restaurant.rating}/5
                       </Li>
                       <Li>
                         <ImgResto src={restaurant.image} alt="restaurant" />
@@ -269,13 +272,14 @@ const P = styled.p``;
 
 const Span = styled.span`
   font-weight: bold;
+  padding: 0 20px 0 0 ;
 `;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  height: 70vh;
+  height: 80vh;
   background-color:#f9f9f8;
   margin: 50px 200px;
   border: 3px rgba(59, 89, 123, 0.5) solid;
@@ -284,6 +288,7 @@ const Wrapper = styled.div`
 
 const Li = styled.li`
   padding: 10px;
+  display:flex;
 `;
 const Ul = styled.ul`
   padding: 0 0 10px 0px;
