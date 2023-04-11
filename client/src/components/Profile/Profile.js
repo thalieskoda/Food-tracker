@@ -104,7 +104,7 @@ const Profile = () => {
         if (a.date_added > b.date_added) return 1;
         return 0;
       });
-    } else if (sort === "newest added restaurant") {
+    } else if (sort === "recent added restaurant") {
       sorted.sort((a, b) => {
         if (a.date_added < b.date_added) return 1;
         if (a.date_added > b.date_added) return -1;
@@ -132,7 +132,7 @@ const Profile = () => {
             {favoriteRestaurant.length > 0 && (
               <>
                 <H1>Hey {user.given_name},</H1>
-                <P>Here are your favorite restaurants:</P>
+                <P>Here are the {favoriteRestaurant.length} restaurants you have favorited.</P>
                 <Sort setSort={setSort} />
               </>
             )}
