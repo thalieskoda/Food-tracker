@@ -87,8 +87,8 @@ const Profile = () => {
       }).then(() => {
         setIsAvailable(true);
         setIsAdded(false);
-        setReload((previousState) => !previousState);
         setIsLoading(false);
+        setFavoriteRestaurant(prevRestaurants => prevRestaurants.filter(restaurant => restaurant.place_id !== placeId));
       });
     } else {
       console.log("favoriteRestaurant is empty");
