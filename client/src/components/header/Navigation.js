@@ -1,23 +1,48 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 //Navigation component
 const Navigation = () => {
+
   return (
     <div>
       <Nav>
         <Ul>
-          <Li to="/homefeed">Home</Li>
-          <Li to="/about">About</Li>
-          <Li to="/contact">Contact</Li>
+          <Li
+            whileHover={{
+              scale: 1.1,
+              transition: { duration: 0.3 },
+            }}
+            to="/homefeed"
+          >
+            Home
+          </Li>
+          <Li
+            whileHover={{
+              scale: 1.1,
+              transition: { duration: 0.3 },
+            }}
+            to="/about"
+          >
+            About
+          </Li>
+          <Li
+            whileHover={{
+              scale: 1.1,
+              transition: { duration: 0.3 },
+            }}
+            to="/contact"
+          >
+            Contact
+          </Li>
         </Ul>
       </Nav>
     </div>
   );
 };
 
-const Li = styled(Link)`
+const Li = styled(motion(Link))`
   list-style-type: none;
   padding-right: 20px;
   color: white;

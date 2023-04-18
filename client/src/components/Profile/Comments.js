@@ -4,6 +4,7 @@ import ReactStars from "react-rating-stars-component";
 import { FiLoader } from "react-icons/fi";
 import { BsChatSquareText } from "react-icons/bs";
 import { useAuth0 } from "@auth0/auth0-react";
+import { motion } from "framer-motion";
 import moment from "moment";
 import Rating from "./Rating";
 
@@ -115,40 +116,42 @@ const Comments = ({ setReload, reload, place_id }) => {
         <LoadingIcon>
           <FiLoader />
         </LoadingIcon>
-      ) : comment.comments &&
-        comment.comments.some((comment) => comment.place_id === place_id) ? (
+      ) : (
         <>
-          {comment.comments
-            .filter((comment) => comment.place_id === place_id)
-            .map((comment) => (
-              <div key={comment._id}>
-                <CommentReview>
-                  <Rating rating={comment.rating} />
-                  <P>
-                    <Span>
-                      <BsChatSquareText size={20} />
-                    </Span>
-                    {comment.comments}
-                  </P>
-                  <Small>
-                    <Date>
-                      <Span>reviewed on</Span>
-                      {comment.createdAt}
-                    </Date>
-                    <DeleteLink
-                      onClick={(ev) =>
-                        handleDelete(ev, comment._id, comment.place_id)
-                      }
-                    >
-                      Delete my review
-                    </DeleteLink>
-                  </Small>
-                </CommentReview>
-              </div>
-            ))}
-          {!comment.comments.some(
-            (comment) => comment.place_id === place_id
-          ) && (
+          {comment.comments &&
+          comment.comments.some((comment) => comment.place_id === place_id) ? (
+            <>
+              {comment.comments
+                .filter((comment) => comment.place_id === place_id)
+                .map((comment) => (
+                  <div key={comment._id}>
+                    <CommentReview>
+                      <Rating rating={comment.rating} />
+                      <P>
+                        <Span>
+                          <BsChatSquareText size={20} />
+                        </Span>
+                        {comment.comments}
+                      </P>
+                      <Small>
+                        <Date>
+                          <Span>reviewed on</Span>
+                          {comment.createdAt}
+                        </Date>
+                        <DeleteLink
+                           whileTap={{ scale: 0.8, transition: { duration: 0.2 } }}
+                          onClick={(ev) =>
+                            handleDelete(ev, comment._id, comment.place_id)
+                          }
+                        >
+                          Delete my review
+                        </DeleteLink>
+                      </Small>
+                    </CommentReview>
+                  </div>
+                ))}
+            </>
+          ) : (
             <Wrapper>
               <Form onSubmit={handleSumbit}>
                 <Div>
@@ -177,7 +180,8 @@ const Comments = ({ setReload, reload, place_id }) => {
                   </Count>
                   <Button
                     type="submit"
-                    disabled={!value || restCharacters < -0}
+                    disabled={!value || restCharacters < -0 || !rating}
+                    whileTap={{ scale: 0.3, transition: { duration: 0.2 } }}
                   >
                     add a review
                   </Button>
@@ -186,39 +190,6 @@ const Comments = ({ setReload, reload, place_id }) => {
             </Wrapper>
           )}
         </>
-      ) : (
-        <Wrapper>
-          <Form onSubmit={handleSumbit}>
-            <Div>
-              <Img src={user.picture} alt={`${user}'s picture`} />
-              <Stars>
-                <ReactStars
-                  count={5}
-                  onChange={handleRatingChange}
-                  size={24}
-                  activeColor="#3b597b"
-                />
-              </Stars>
-            </Div>
-            <Input
-              value={value}
-              placeholder="What's your review?"
-              onChange={handleChange}
-              maxLength="400"
-              inputColor={inputColor}
-            />
-            <Container>
-              <Count inputColor={inputColor}>
-                {restCharacters < 0
-                  ? "-" + Math.abs(restCharacters)
-                  : restCharacters}{" "}
-              </Count>
-              <Button type="submit" disabled={!value || restCharacters < -0}>
-                add a review
-              </Button>
-            </Container>
-          </Form>
-        </Wrapper>
       )}
     </>
   );
@@ -260,7 +231,7 @@ const Div = styled.div`
   display: flex;
   align-items: center;
 `;
-const DeleteLink = styled.a`
+const DeleteLink = styled(motion.a)`
   text-decoration: underline;
   font-size: 12px;
   cursor: pointer;
@@ -332,7 +303,7 @@ const Count = styled.span`
   padding: 10px;
 `;
 
-const Button = styled.button`
+const Button = styled(motion.button)`
   height: 50px;
   border: none;
   background-color: #10355f;

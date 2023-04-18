@@ -17,7 +17,7 @@ const Homefeed = () => {
 const Maps = styled.div`
   position: relative;
   right: -550px;
-  width: 70%;
+  width: 60%;
 `;
 
 const Wrapper = styled.div`

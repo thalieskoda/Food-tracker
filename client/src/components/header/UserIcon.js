@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 // User Icon component (Icon at the top right of the header )
 const UserIcon = () => {
+
   const navigate = useNavigate();
   const { logout } = useAuth0();
 

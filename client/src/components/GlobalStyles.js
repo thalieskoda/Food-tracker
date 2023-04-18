@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-
+import { motion } from "framer-motion";
 const GlobalStyles = createGlobalStyle`
 
   :root {
@@ -105,6 +105,7 @@ const GlobalStyles = createGlobalStyle`
     font-size: 1.2em;
     font-weight: bold;
   }
+
 `;
 
 export default GlobalStyles;

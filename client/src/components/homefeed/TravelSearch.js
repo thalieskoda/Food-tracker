@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import moment from "moment";
 import { someImages } from "../../images/someImages";
-
+import { motion } from "framer-motion";
 //TravelSearch component
 //Receiving the props from Map.js
 const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
@@ -127,8 +127,9 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
             )}
             {favoriteRestaurant && (
               <Buttons>
-                <CloseButton onClick={onClose}>Close</CloseButton>
+                <CloseButton whileTap={{ scale: 0.3, transition: { duration: 0.2 } }} onClick={onClose}>Close</CloseButton>
                 <AddButton
+                whileTap={{ scale: 0.3, transition: { duration: 0.2 } }}
                   onClick={handleClick}
                   isAdded={isAdded}
                   isAvailable={isAvailable}
@@ -147,7 +148,9 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
               </Buttons>
             )}
             {isAdded ? (
-              <DeleteLink onClick={(ev) => handleDelete(ev)}>
+              <DeleteLink 
+              whileTap={{ scale: 0.8, transition: { duration: 0.2 } }}
+              onClick={(ev) => handleDelete(ev)}>
                 Remove from favorites
               </DeleteLink>
             ) : null}
@@ -171,14 +174,14 @@ const Buttons = styled.div`
   align-items: center;
   width: 23vw;
 `;
-const AddButton = styled.button`
+const AddButton = styled(motion.button)`
   width: 50%;
   margin: 10px;
   opacity: ${(props) => (props.disabled ? "0.5" : "1")};
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
 `;
 
-const CloseButton = styled.button`
+const CloseButton = styled(motion.button)`
   width: 20%;
 `;
 
@@ -202,7 +205,7 @@ const Wrapper = styled.div`
   z-index: 1;
 `;
 
-const DeleteLink = styled.a`
+const DeleteLink = styled(motion.a)`
   text-decoration: underline;
   font-size: 0.8em;
   cursor: pointer;

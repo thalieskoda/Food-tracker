@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { motion, useTransform, useViewportScroll } from "framer-motion";
 import { FiLoader } from "react-icons/fi";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import { TfiLocationPin } from "react-icons/tfi";
@@ -88,7 +89,11 @@ const Profile = () => {
         setIsAvailable(true);
         setIsAdded(false);
         setIsLoading(false);
-        setFavoriteRestaurant(prevRestaurants => prevRestaurants.filter(restaurant => restaurant.place_id !== placeId));
+        setFavoriteRestaurant((prevRestaurants) =>
+          prevRestaurants.filter(
+            (restaurant) => restaurant.place_id !== placeId
+          )
+        );
       });
     } else {
       console.log("favoriteRestaurant is empty");
@@ -124,39 +129,62 @@ const Profile = () => {
   //If there's no user, return Loading
   //Else, show the favorite restaurant
   //If there's no favorite restaurant, show text to help the user get started.
+
+  //Track scroll bar progress:
+  const { scrollYProgress } = useViewportScroll();
+  const scale = useTransform(scrollYProgress, [0, 0.2, 1], [1, 0.8, 0.8]);
+
   return (
     <>
       {isLoading ? (
         <LoadingIcon />
       ) : favoriteRestaurant.length > 0 ? (
-        <Container>
-          <H1>Hey {user.given_name},</H1>
-          {favoriteRestaurant.length === 1 ? (
-            <P>Here is the restaurant you have favorited.</P>
-          ) : (
-            <P>
-              Here are the {favoriteRestaurant.length} restaurants you have
-              favorited.
-            </P>
-          )}
-          <Sort setSort={setSort} />
+        <Container >
+
+          <WelcomeText style={{ scale }}>
+            <h1>Hey {user.given_name},</h1>
+            {favoriteRestaurant.length === 1 ? (
+              <p>Here is the restaurant you have favorited.</p>
+            ) : (
+              <p>
+                Here are the {favoriteRestaurant.length} restaurants you have
+                favorited.
+              </p>
+            )}
+            <Sort setSort={setSort} />
+          </WelcomeText>
           {favoriteRestaurant.map((restaurant) => (
-            <Wrapper key={restaurant.place_id}>
+             <Wrapper key={restaurant.place_id}  >
               <SmallContainer>
                 <Ul>
-                  <Li>
+                  <Li
+                    whileHover={{
+                      scale: 1.1,
+                      transition: { duration: 0.5 },
+                    }}
+                  >
                     <Span>
                       <MdOutlineDriveFileRenameOutline size={23} />
                     </Span>{" "}
                     {restaurant.name}
                   </Li>
-                  <Li>
+                  <Li
+                    whileHover={{
+                      scale: 1.1,
+                      transition: { duration: 0.5 },
+                    }}
+                  >
                     <Span>
                       <TfiLocationPin size={23} />
                     </Span>
                     {restaurant.address}
                   </Li>
-                  <Li>
+                  <Li
+                    whileHover={{
+                      scale: 1.1,
+                      transition: { duration: 0.5 },
+                    }}
+                  >
                     <Span>
                       <CiStar size={23} />
                     </Span>
@@ -172,6 +200,10 @@ const Profile = () => {
                     {restaurant.date_added}
                   </Date>
                   <DeleteLink
+                    whileHover={{
+                      scale: 1.1,
+                      transition: { duration: 0.5 },
+                    }}
                     onClick={(ev) => handleDelete(ev, restaurant.place_id)}
                   >
                     Remove from favorites
@@ -205,7 +237,7 @@ const SmallContainer = styled.div`
   justify-content: space-around;
   padding: 0 0 5px 10px;
   width: 30vw;
-  max-height: 65vh;
+  max-height: 70vh;
 `;
 const Small = styled.div`
   display: flex;
@@ -213,7 +245,7 @@ const Small = styled.div`
   justify-content: space-between;
   padding: 0 0 0 8px;
 `;
-const DeleteLink = styled.a`
+const DeleteLink = styled(motion.a)`
   text-decoration: underline;
   font-size: 0.8em;
   cursor: pointer;
@@ -223,12 +255,15 @@ const DeleteLink = styled.a`
 const Date = styled.p`
   font-size: 0.6em;
 `;
-const Container = styled.div`
+const Container = styled(motion.div)`
   padding: 30px;
+  margin: 0 0 100px 0;
 `;
-const H1 = styled.h1``;
-
-const P = styled.p``;
+const WelcomeText = styled(motion.div)`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+`;
 
 const Span = styled.span`
   font-weight: bold;
@@ -239,13 +274,13 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  height: 65vh;
+  height: 80vh;
   background-color: #f9f9f8;
   margin: 50px 200px;
   border: 3px rgba(59, 89, 123, 0.5) solid;
 `;
 
-const Li = styled.li`
+const Li = styled(motion.li)`
   padding: 10px;
   display: flex;
 `;
