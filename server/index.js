@@ -3,6 +3,10 @@
 // import the needed node_modules.
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
+require("dotenv").config();
+
+
 const {
   addRestaurant,
   updateFavorite,
@@ -14,14 +18,15 @@ const {
   updateComments,
 } = require("./handlers");
 
-const port = 8888;
 
+const port = process.env.PORT || 8888;
 express()
   // Below are methods that are included in express(). We chain them for convenience.
   // --------------------------------------------------------------------------------
 
   .use(morgan("tiny"))
   .use(express.json())
+  .use(cors())
 
   /*********************************************************/
 
