@@ -33,7 +33,7 @@ express().use(function (req, res, next) {
 })
   // Below are methods that are included in express(). We chain them for convenience.
   // --------------------------------------------------------------------------------
-
+//Test
   app.use(morgan("tiny"));
 app.use(express.static("./server/assets"));
 app.use(express.json());
