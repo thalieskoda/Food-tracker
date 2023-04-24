@@ -37,7 +37,7 @@ const Comments = ({ setReload, reload, place_id }) => {
 
     const currentDate = moment().format("MMMM Do YYYY, h:mm:ss a");
 
-    fetch(`/add-comments/${place_id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/add-comments/${place_id}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -75,7 +75,7 @@ const Comments = ({ setReload, reload, place_id }) => {
   //Fetching the comments to access the comment id in order to delete the right one with the right place_id.
   useEffect(() => {
     if (user) {
-      fetch(`/get-comments`)
+      fetch(`${process.env.REACT_APP_BASE_URL}/get-comments`)
         .then((res) => res.json())
         .then((data) => {
           setComment(data.data[0]);
@@ -86,7 +86,7 @@ const Comments = ({ setReload, reload, place_id }) => {
   //Patch to update the comment's array when a user delete a review.
   const handleDelete = (ev, commentId, placeId) => {
     ev.preventDefault();
-    fetch("/update-comments", {
+    fetch(`${process.env.REACT_APP_BASE_URL}/update-comments${process.env.REACT_APP_BASE_URL}`, {
       method: "PATCH",
       body: JSON.stringify({
         email: user.email,

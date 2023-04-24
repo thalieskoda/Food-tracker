@@ -28,7 +28,7 @@ const Profile = () => {
   //Getting the comments to sent it to the Sort.js
   useEffect(() => {
     if (user) {
-      fetch(`/get-comments`)
+      fetch(`${process.env.REACT_APP_BASE_URL}/get-comments`)
         .then((res) => res.json())
         .then((data) => {
           setComment(data.data[0].comments);
@@ -49,7 +49,7 @@ const Profile = () => {
   //Fetching the favorite restaurant.
   useEffect(() => {
     if (user) {
-      fetch("/favorite-restaurants")
+      fetch(`${process.env.REACT_APP_BASE_URL}/favorite-restaurants`)
         .then((res) => res.json())
         .then((data) => {
           const favorites = data.data.favorites.map((favorite) => {
@@ -75,7 +75,7 @@ const Profile = () => {
     ev.preventDefault();
 
     if (favoriteRestaurant.length > 0) {
-      fetch("/update-favorites", {
+      fetch(`${process.env.REACT_APP_BASE_URL}/update-favorites`, {
         method: "PATCH",
         body: JSON.stringify({
           place_id: placeId,

@@ -32,7 +32,7 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
 
   //Fetching the favorite's restaurant
   useEffect(() => {
-    fetch("/favorite-restaurants")
+    fetch(`${process.env.REACT_APP_BASE_URL}/favorite-restaurants`)
       .then((res) => res.json())
       .then((data) => {
         setFavoriteRestaurant(data.data.favorites);
@@ -47,7 +47,7 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
   const handleDelete = (ev) => {
     ev.preventDefault();
     if (favoriteRestaurant.length > 0) {
-      fetch("/update-favorites", {
+      fetch(`${process.env.REACT_APP_BASE_URL}/update-favorites`, {
         method: "PATCH",
         body: JSON.stringify({
           place_id: id,
@@ -74,7 +74,7 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
 
     setIsAdded(true);
 
-    fetch("/add-restaurant", {
+    fetch(`${process.env.REACT_APP_BASE_URL}/add-restaurant`, {
       method: "POST",
       headers: {
         Accept: "application/json",

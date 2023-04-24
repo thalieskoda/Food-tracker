@@ -13,7 +13,7 @@ const Header = () => {
   //POSTing the information of the new logged in user to the server
   useEffect(() => {
     if (isAuthenticated) {
-      fetch("/add-users", {
+      fetch(`${process.env.REACT_APP_BASE_URL}/add-users`, {
         method: "POST",
         headers: {
           Accept: "application/json",

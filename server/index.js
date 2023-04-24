@@ -20,14 +20,30 @@ const {
 
 
 const port = process.env.PORT || 8888;
-express()
+express().use(function (req, res, next) {
+  res.header(
+    "Access-Control-Allow-Methods",
+    "OPTIONS, HEAD, GET, PUT, POST, DELETE"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+})
   // Below are methods that are included in express(). We chain them for convenience.
   // --------------------------------------------------------------------------------
 
-  .use(morgan("tiny"))
-  .use(express.json())
-  .use(cors())
-
+  app.use(morgan("tiny"));
+app.use(express.static("./server/assets"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use("/", express.static(__dirname + "/"));
+app.use(
+  cors({
+    origin: "https://suoni-archive-9oam-lcc7e824r-robfeulner-s-team.vercel.app",
+  })
+)
   /*********************************************************/
 
   .get("/favorite-restaurants", favorites)
