@@ -4,7 +4,7 @@ import UserAuthenticator from "./userAuthenticator/UserAuthenticator";
 import GlobalStyles from "./GlobalStyles";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Header from "./header/Header";
-import Homefeed from "./Homefeed/Homefeed";
+import Homefeed from "./homefeed/Homefeed";
 import Profile from "./Profile/Profile";
 import AboutUs from "./header/AboutUs";
 import ContactUs from "./header/ContactUs";

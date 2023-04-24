@@ -4,8 +4,8 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const app = express();
 require("dotenv").config();
-
 
 const {
   addRestaurant,
@@ -18,8 +18,8 @@ const {
   updateComments,
 } = require("./handlers");
 
+const port = process.env.PORT
 
-const port = process.env.PORT || 8888;
 express().use(function (req, res, next) {
   res.header(
     "Access-Control-Allow-Methods",
@@ -34,13 +34,14 @@ express().use(function (req, res, next) {
   // Below are methods that are included in express(). We chain them for convenience.
   // --------------------------------------------------------------------------------
 //Test
-  app.use(morgan("tiny"));
+app.use(morgan("tiny"));
 app.use(express.static("./server/assets"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/", express.static(__dirname + "/"));
 app.use(
-  cors({
+  cors({ //to change below
+
     origin: "https://suoni-archive-9oam-lcc7e824r-robfeulner-s-team.vercel.app",
   })
 )

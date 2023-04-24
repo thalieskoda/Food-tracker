@@ -1,4 +1,4 @@
-import Map from "../Homefeed/Map";
+import Map from "./Map";
 import styled from "styled-components";
 
 //Homefeed  component where we see the map on the right and Instructions / TravelSearch on the left
