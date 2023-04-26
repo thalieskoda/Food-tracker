@@ -6,7 +6,6 @@ const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 const app = express();
-const path = require("path");
 require("dotenv").config();
 
 const {
@@ -46,7 +45,9 @@ app
     cors({
       origin: "https://food-tracker-fqh6-git-main-thalieskoda.vercel.app/",
     })
-  )
+  );
+  app.use(helmet());
+
   /*********************************************************/
 
   app.get("/favorite-restaurants", favorites)
