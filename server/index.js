@@ -41,8 +41,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", express.static(__dirname + "/"));
 app.use(
   cors({ //to change below
-
-    origin: "https://suoni-archive-9oam-lcc7e824r-robfeulner-s-team.vercel.app",
+//food-tracker-rust.vercel.app
+//https://food-tracker-rust.vercel.app/
+    origin: "https://food-tracker-fqh6.vercel.app/",
   })
 )
   /*********************************************************/
