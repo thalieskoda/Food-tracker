@@ -43,7 +43,7 @@ app.use(
   cors({ //to change below
 //food-tracker-rust.vercel.app
 //https://food-tracker-rust.vercel.app/
-    origin: "https://food-tracker-fqh6.vercel.app/",
+    origin: "https://food-tracker-fqh6-git-main-thalieskoda.vercel.app/",
   })
 )
   /*********************************************************/
