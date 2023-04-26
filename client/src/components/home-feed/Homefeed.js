@@ -25,4 +25,4 @@ const Wrapper = styled.div`
   flex-direction: row;
   height: 90vh;
 `;
-export default Homefeed;
+export default Homefeed; 
