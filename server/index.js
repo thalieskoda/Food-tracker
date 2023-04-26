@@ -4,7 +4,9 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const helmet = require("helmet");
 const app = express();
+const path = require("path");
 require("dotenv").config();
 
 const {
@@ -18,7 +20,7 @@ const {
   updateComments,
 } = require("./handlers");
 
-const port = process.env.PORT
+const port = process.env.PORT;
 
 express().use(function (req, res, next) {
   res.header(
@@ -30,42 +32,41 @@ express().use(function (req, res, next) {
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
-})
-  // Below are methods that are included in express(). We chain them for convenience.
-  // --------------------------------------------------------------------------------
+});
+// Below are methods that are included in express(). We chain them for convenience.
+// --------------------------------------------------------------------------------
 //Test
 app.use(morgan("tiny"));
 app.use(express.static("./server/assets"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/", express.static(__dirname + "/"));
-app.use(
-  cors({ //to change below
-//food-tracker-rust.vercel.app
-//https://food-tracker-rust.vercel.app/
-    origin: "https://food-tracker-fqh6-git-main-thalieskoda.vercel.app/",
-  })
-)
+app
+  .use(
+    cors({
+      origin: "https://food-tracker-fqh6-git-main-thalieskoda.vercel.app/",
+    })
+  )
   /*********************************************************/
 
-  .get("/favorite-restaurants", favorites)
-  .get("/get-user/:email", getSingleUser)
-  .get("/get-comments", getComments)
+  app.get("/favorite-restaurants", favorites)
+  app.get("/get-user/:email", getSingleUser)
+  app.get("/get-comments", getComments)
 
-  .post("/add-users", handleUsers)
-  .post("/add-comments/:place_id", handleComments)
-  .post("/add-restaurant", addRestaurant)
+  app.post("/add-users", handleUsers)
+  app.post("/add-comments/:place_id", handleComments)
+  app.post("/add-restaurant", addRestaurant)
 
-  .patch("/update-favorites", updateFavorite)
-  .patch("/update-comments", updateComments)
+  app.patch("/update-favorites", updateFavorite)
+  app.patch("/update-comments", updateComments)
 
   /*********************************************************/
   // this is our catch all endpoint.
-  .get("*", (req, res) => {
+  app.get("*", (req, res) => {
     res.status(404).json({
       status: 404,
       message: "This is obviously not what you are looking for.",
     });
   })
 
-  .listen(port, () => console.log(`Listening on port ${port}`));
+  app.listen(port, () => console.log(`Listening on port ${port}`));
