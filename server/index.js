@@ -46,7 +46,6 @@ app
       origin: "https://food-tracker-fqh6-git-main-thalieskoda.vercel.app/",
     }) 
   );
-  app.use(helmet());
   /*********************************************************/
 
   app.get("/favorite-restaurants", favorites)
