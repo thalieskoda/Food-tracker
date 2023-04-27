@@ -43,7 +43,7 @@ app.use("/", express.static(__dirname + "/"));
 app
   .use(
     cors({
-      origin: "https://food-tracker-fqh6-git-main-thalieskoda.vercel.app/",
+      origin: "https://food-tracker-git-main-thalieskoda.vercel.app/",
     }) 
   );
   /*********************************************************/
