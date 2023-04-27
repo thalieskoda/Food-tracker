@@ -12,7 +12,7 @@ const Homefeed = () => {
       </Wrapper>
     </>
   );
-};
+}; 
 
 const Maps = styled.div`
   position: relative;
