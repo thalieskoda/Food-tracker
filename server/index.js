@@ -5,7 +5,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
-const helmet = require("helmet");
+
 require("dotenv").config();
 
 const {
@@ -43,8 +43,8 @@ app.use("/", express.static(__dirname + "/"));
 app
   .use(
     cors({
-      origin: "https://food-tracker-fqh6-git-main-thalieskoda.vercel.app/",
-    })
+      origin: "https://food-tracker-git-main-thalieskoda.vercel.app/",
+    }) //https://food-tracker-fqh6-git-main-thalieskoda.vercel.app/
   );
   app.use(helmet());
   /*********************************************************/
