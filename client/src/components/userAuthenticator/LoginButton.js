@@ -11,7 +11,7 @@ const LoginButton = () => {
       onClick={() => loginWithRedirect()}
       transition={{ ease: "easeOut", duration: 1 }}
     >
-      get started
+      Get started
     </motion.button>
   );
 };

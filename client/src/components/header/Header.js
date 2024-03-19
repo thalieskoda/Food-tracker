@@ -69,7 +69,7 @@ const Container2 = styled.div`
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  background: radial-gradient(circle, #DABCAC, #AD9A94) no-repeat;
+  background: radial-gradient(circle, #dfcabb, #ad9a94) no-repeat;
   align-items: center;
   height: 10vh;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);

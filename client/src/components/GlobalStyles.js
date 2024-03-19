@@ -4,8 +4,8 @@ const GlobalStyles = createGlobalStyle`
 
   :root {
     --color-main-background: #fff;
-    --color-secondary: #edf0f2;
-    --color-accent: #ceff1a;
+    --color-secondary: #AD9A94;
+    --color-accent: "black";
     --font-heading: 'Alegreya Sans', Arial, Helvetica, sans-serif;
     --font-body: 'Poppins', Arial, Helvetica, sans-serif;
   }
@@ -64,21 +64,19 @@ const GlobalStyles = createGlobalStyle`
 
   /* Buttons */
   button {
-    background-color:#10355f;
+    background-color:#c2b1a9;
     color: white;
     cursor: pointer;
     font-size: 1em;
     font-weight: 100;
     padding: 10px;
     transition: all 0.3s ease;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-    border: 1px black solid;
     width:150px;
     border-radius:5px;
 
     &:hover {
         background-color:transparent;
-        color:#10355f;
+        color:#c2b1a9;
         transition:0.5s;
     }
   }

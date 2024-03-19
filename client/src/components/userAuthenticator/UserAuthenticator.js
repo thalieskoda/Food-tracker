@@ -16,23 +16,19 @@ const UserAuthenticator = () => {
       {!user ? (
         <>
           <Container>
-            <Div>
-              <Welcome>
-                <h1>Hello there ! </h1>
-                <P>
-                  Welcome to our personalized food guide, where we assist you in
-                  discovering hidden culinary gems and creating unforgettable
-                  dining experiences. With us, you can craft your own
-                  gastronomic journey by exploring distinctive food
-                  destinations, savoring local delicacies, and uncovering the
-                  world's best-kept culinary secrets. Allow us to be your
-                  culinary compass to an unforgettable food adventure.
-                </P>
-                <Buttons>
-                  <LoginButton />
-                </Buttons>
-              </Welcome>
-            </Div>
+            <Welcome>
+              <P>Welcome Foodie!</P>
+              <P>
+                Let us be your go-to pals on a tasty adventure. From local
+                favorites to global gems, we've got the scoop on where to find
+                the best bites. Join us as we explore delicious delights and
+                create unforgettable dining experiences together. Let's eat,
+                explore, and enjoy every moment! 🍽️✨
+              </P>
+              <Buttons>
+                <LoginButton />
+              </Buttons>
+            </Welcome>
 
             <Picture />
           </Container>
@@ -52,36 +48,31 @@ const UserAuthenticator = () => {
   );
 };
 
-const Div = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-`;
-
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  //border: 3px solid red;
+`;
+const Welcome = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 70vh;
+  width: 44vw;
+  /* padding: 0 0 0 20px; */
 `;
 
 const P = styled.p`
-  border: black 1px solid;
   padding: 20px;
-  width: 500px;
+  width: 500px;  
 `;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
   width: 100vw;
-`;
-const Welcome = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 70vh;
-  width: 44vw;
-  /* padding: 0 0 0 20px; */
 `;
 
 const Buttons = styled.div`

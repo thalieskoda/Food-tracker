@@ -21,9 +21,10 @@ const Picture = () => {
 };
 
 const Img = styled(motion.img)`
-  height: 100%;
+  height:97%;
   width: 290px;
   object-fit: none;
+  margin:5px;
   filter: grayscale(100%);
   transition: filter 0.3s ease;
   &:hover {
@@ -35,6 +36,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 90vh;
+  height: 89vh;
 `;
 export default Picture;
