@@ -4,11 +4,15 @@
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "^2.0.1",
+    "@nextui-org/button": "^2.0.27",
+    "@nextui-org/react": "^2.2.10",
+    "@nextui-org/system": "^2.0.15",
+    "@nextui-org/theme": "^2.1.18",
     "@react-google-maps/api": "^2.18.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "framer-motion": "^10.12.4",
+    "framer-motion": "^11.0.14",
     "google-map-react": "^2.2.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
@@ -19,6 +23,7 @@
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.9",
+    "tailwindcss": "^3.4.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

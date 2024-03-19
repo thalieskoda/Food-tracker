@@ -73,8 +73,7 @@ const SearchBar = ({ map, setPlaces, selectedRestaurant }) => {
           <div>
             <Input
               placeholder="search..."
-              disabled={selectedRestaurant ? true : false}
-            ></Input>
+              disabled={selectedRestaurant ? true : false}></Input>
             <FiSearch />
           </div>
         </Autocomplete>
@@ -97,15 +96,13 @@ const Input = styled.input`
 const Wrapper = styled.div`
   position: relative;
   top: 20px;
-  left: -530px;
+  left: -450px;
   display: flex;
   align-items: center;
-
   z-index: 9999;
   /* background-color: rgba(255, 255, 255, 0.85); */
-  width: 55%;
+  width: 27vw;
   align-items: center;
-  border-radius: 20px;
   display: flex;
   flex-direction: column;
 `;
