@@ -4,7 +4,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Homefeed from "../home-feed/Homefeed";
 import { FiLoader } from "react-icons/fi";
 import Picture from "../Picture";
-
 //UesrAuthenticator component - page for the user when he's not logged in.
 const UserAuthenticator = () => {
   const { user } = useAuth0();
@@ -17,7 +16,7 @@ const UserAuthenticator = () => {
         <>
           <Container>
             <Welcome>
-              <P>Welcome Foodie!</P>
+              <Title>WELCOME FOODIE !</Title>
               <P>
                 Let us be your go-to pals on a tasty adventure. From local
                 favorites to global gems, we've got the scoop on where to find
@@ -66,7 +65,14 @@ const Welcome = styled.div`
 
 const P = styled.p`
   padding: 20px;
-  width: 500px;  
+  width: 500px;
+  font-family: "quicksand";
+`;
+const Title = styled.p`
+  padding: 20px;
+  width: 500px;
+  font-family: "Delius Unicase", cursive;
+  font-weight: 700;
 `;
 const Wrapper = styled.div`
   display: flex;

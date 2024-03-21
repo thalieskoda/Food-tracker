@@ -66,7 +66,7 @@ const Map = () => {
       map.fitBounds(newBounds);
     }
   }, [isLoaded, map, places, coordinates]); // Everything that one of those changes, this useEffect gets called.
-
+ 
   //If the map isLoaded, return the Google Map
   //If there's a selected restaurant, show the information, if not, show the instructions.
   //Passing the props through TravelSearch

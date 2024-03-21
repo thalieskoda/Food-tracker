@@ -37,6 +37,8 @@ const TravelSearch = ({ name, onClose, address, rating, ratingNumber, id }) => {
       .then((data) => {
         setFavoriteRestaurant(data.data.favorites);
         setIsLoading(false);
+        // console.log('RESTAURANT in TRAVEL', favoriteRestaurant);
+        
       })
       .catch((error) => {
         console.log(error);

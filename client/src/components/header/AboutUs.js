@@ -3,15 +3,15 @@ import styled from "styled-components";
 //About us page
 const AboutUs = () => {
   return (
-    <> 
+    <>
       <Container>
         <Title>About Us</Title>
         <Wrapper>
           <P>
-            Welcome to Food tracker! We are here to make your dining experience on
-            your travels as smooth and enjoyable as possible. Our website allows
-            you to easily search for restaurants in any city that you'll be
-            visiting.
+            Welcome to Food tracker! We are here to make your dining experience
+            on your travels as smooth and enjoyable as possible. Our website
+            allows you to easily search for restaurants in any city that you'll
+            be visiting.
           </P>
           <P>
             With just a few clicks, you can find the perfect place to dine. One
@@ -42,14 +42,14 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding-bottom: 50px;
+  
 `;
 
 const Title = styled.h1`
   font-size: 2.5em;
   margin: 30px;
-  align-items: center;
-
-  padding: 20px 0 10px;
+ 
+  
 `;
 
 const Wrapper = styled.div`
@@ -58,15 +58,13 @@ const Wrapper = styled.div`
   align-items: center;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
   border-radius: 5px;
-  border: 1px solid black;
   padding: 20px;
   max-width: 60%;
   color: black;
 
   &:hover {
-    background: radial-gradient(circle, #3b597b, #030e1b) no-repeat;
+    background: radial-gradient(circle, #dfcabb, #c2b1a9) no-repeat;
     color: white;
-    font-weight: 200;
   }
 `;
 

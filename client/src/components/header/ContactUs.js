@@ -46,17 +46,16 @@ const Title = styled.h1`
 `;
 
 const Box = styled.div`
-  border: 1px solid black;
-  border-radius: 2px;
   padding: 24px;
   max-width: 50%;
   color: black;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.75);
 
   &:hover {
-    background: radial-gradient(circle, #3b597b, #030e1b) no-repeat;
+    &:hover {
+    background: radial-gradient(circle, #dfcabb, #c2b1a9) no-repeat;
     color: white;
-    font-weight: 200;
+  }
   }
 `;
 
@@ -76,7 +75,7 @@ const SectionText = styled.p`
 `;
 
 const SectionLink = styled.a`
-  background-color: #3b597b;
+  background-color: #c2b1a9;
   border-radius: 5px;
   color: white;
   cursor: pointer;
@@ -85,7 +84,6 @@ const SectionLink = styled.a`
   padding: 12px 50px;
   transition: all 0.3s ease;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px black solid;
   width: 10%;
 
   &:hover {

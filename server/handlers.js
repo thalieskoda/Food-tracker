@@ -73,7 +73,12 @@ const getComments = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ status: 500, message: "An error occurred, please try again later" });
+    res
+      .status(500)
+      .json({
+        status: 500,
+        message: "An error occurred, please try again later",
+      });
   } finally {
     client.close(); // Move the client.close() call to the finally block to ensure it always gets called
   }
@@ -116,12 +121,11 @@ const updateComments = async (req, res) => {
         data: "Comment does not belong to this restaurant",
       });
     }
-    
+
     // Use updateOne to remove the comment from the comments array
-    const updateResult = await db.collection("users").updateOne(
-      { email: email },
-      { $pull: { comments: { _id: _id } } }
-    );
+    const updateResult = await db
+      .collection("users")
+      .updateOne({ email: email }, { $pull: { comments: { _id: _id } } });
 
     // Check if the update was successful and return the appropriate response
     if (updateResult.modifiedCount === 1) {
@@ -129,15 +133,15 @@ const updateComments = async (req, res) => {
         status: 200,
         data: "Comment removed successfully",
       });
-    } 
+    }
   } catch (err) {
     console.error(err);
     res.status(500).json({
       status: 500,
       message: "Failed to remove comment",
     });
-  } 
-    client.close();
+  }
+  client.close();
 };
 
 //**** ADD A NEW COMMENT TO A SPECIFIC RESTAURANT */
@@ -148,7 +152,7 @@ const handleComments = async (req, res) => {
     await client.connect();
     const db = client.db("trvl-up");
 
-    const { email, comments, createdAt, rating} = req.body;
+    const { email, comments, createdAt, rating } = req.body;
 
     const userCommentsObject = {
       place_id,
@@ -170,12 +174,10 @@ const handleComments = async (req, res) => {
       (comment) => comment.place_id === place_id
     );
     if (existingComment) {
-      return res
-        .status(400)
-        .json({
-          status: 400,
-          message: "user has already left a comment for this place",
-        });
+      return res.status(400).json({
+        status: 400,
+        message: "user has already left a comment for this place",
+      });
     }
 
     existingUser.comments.push(userCommentsObject);
@@ -194,6 +196,7 @@ const handleComments = async (req, res) => {
 //***GET ALL THE USER'S FAVORITES */
 const favorites = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
+  console.log("CLIENT", client);
 
   try {
     // accessing the body
@@ -296,21 +299,21 @@ const updateFavorite = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
 
   try {
-    const { email, place_id} = req.body;
+    const { email, place_id } = req.body;
     await client.connect();
     const db = client.db("trvl-up");
-    
+
     const user = await db.collection("users").findOne({ email: email });
-    
+
     if (!user) {
       return res
-      .status(400)
-      .json({ status: 400, data: "This user doesn't exist" });
+        .status(400)
+        .json({ status: 400, data: "This user doesn't exist" });
     }
-    
+
     const existingFavorite = user.favorites.find(
       (favorite) => favorite.place_id === place_id
-      );
+    );
 
     if (!existingFavorite) {
       return res.status(400).json({
@@ -319,37 +322,35 @@ const updateFavorite = async (req, res) => {
       });
     }
 
-      // Remove the restaurant from the favorites array
-      const removeResult = await db.collection("users").updateOne(
-        { email: email },
-        { 
-          $pull: { 
-            favorites: { place_id: place_id },
-            comments: { place_id: place_id } 
-          } 
-        }
-      );
-      
-      if (removeResult.modifiedCount === 1) {
-        return res.json({
-          status: 200,
-          data: "Favorite restaurant updated successfully",
-          "successful update": removeResult.modifiedCount,
-        });
-      } else {
-        return res
-          .status(500)
-          .json({ status: 500, data: "Failed to update favorite restaurant" });
-      } 
-    
-  }catch (err) {
+    // Remove the restaurant from the favorites array
+    const removeResult = await db.collection("users").updateOne(
+      { email: email },
+      {
+        $pull: {
+          favorites: { place_id: place_id },
+          comments: { place_id: place_id },
+        },
+      }
+    );
+
+    if (removeResult.modifiedCount === 1) {
+      return res.json({
+        status: 200,
+        data: "Favorite restaurant updated successfully",
+        "successful update": removeResult.modifiedCount,
+      });
+    } else {
+      return res
+        .status(500)
+        .json({ status: 500, data: "Failed to update favorite restaurant" });
+    }
+  } catch (err) {
     console.error(err);
     res
       .status(500)
       .json({ status: 500, message: "Failed to update favorite restaurant" });
-  } 
-    client.close();
-  
+  }
+  client.close();
 };
 
 module.exports = {
@@ -360,5 +361,5 @@ module.exports = {
   getSingleUser,
   handleComments,
   getComments,
-  updateComments
+  updateComments,
 };
